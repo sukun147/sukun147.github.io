@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Games on Sukun&#39;s blog</title>
-    <link>https://14772.github.io/games/</link>
+    <link>https://sukun.xyz/games/</link>
     <description>Recent content in Games on Sukun&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <managingEditor>1477264431@qq.com (Sukun)</managingEditor>
     <webMaster>1477264431@qq.com (Sukun)</webMaster>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Tue, 04 Jan 2022 22:52:42 +0800</lastBuildDate><atom:link href="https://14772.github.io/games/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 04 Jan 2022 22:52:42 +0800</lastBuildDate><atom:link href="https://sukun.xyz/games/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Catch the Cat</title>
-      <link>https://14772.github.io/games/catch-the-cat/</link>
+      <link>https://sukun.xyz/games/catch-the-cat/</link>
       <pubDate>Tue, 04 Jan 2022 22:52:42 +0800</pubDate>
       <author>1477264431@qq.com (Sukun)</author>
-      <guid>https://14772.github.io/games/catch-the-cat/</guid>
+      <guid>https://sukun.xyz/games/catch-the-cat/</guid>
       <description>一起来抓猫 点击圆点围住猫咪，别让它到达地图边缘！ window.game = new CatchTheCatGame({ w: 11, h: 11, r: 20, backgroundColor: 0xeeeeee, parent: &#39;catch-the-cat&#39;, statusBarAlign: &#39;center&#39;, credit: &#39;一起来抓猫！&#39; });</description>
     </item>
     
