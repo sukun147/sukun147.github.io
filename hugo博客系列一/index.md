@@ -322,17 +322,14 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2.4.13
         with:
-          hugo-version: latest
+          hugo-version: 0.91.2
           extended: true
       - name: Build
         run: hugo -D
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        env:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           EXTERNAL_REPOSITORY: 14772/14772.github.io # 注意要修改本处地址
           PUBLISH_BRANCH: master
           PUBLISH_DIR: ./public
