@@ -1,0 +1,66 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Sukun&#39;s blog</title>
+        <link>https://14772.github.io/</link>
+        <description>Sukun的博客，记录学习历程！</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1477264431@qq.com (Sukun)</managingEditor>
+            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 05 Jan 2022 22:32:50 &#43;0800</lastBuildDate>
+            <atom:link href="https://14772.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>军理复习</title>
+    <link>https://14772.github.io/%E5%86%9B%E7%90%86%E5%A4%8D%E4%B9%A0/</link>
+    <pubDate>Wed, 05 Jan 2022 22:32:50 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://14772.github.io/%E5%86%9B%E7%90%86%E5%A4%8D%E4%B9%A0/</guid>
+    <description><![CDATA[军理复习 前半部分 1、 人民军队政治工作的三大原则是： 1 军民一致，官兵一致，瓦解敌军 2、 习近平在党的十九大报告中指出，必须全面贯彻新时代党的强军]]></description>
+</item><item>
+    <title>友链墙</title>
+    <link>https://14772.github.io/friends/</link>
+    <pubDate>Wed, 05 Jan 2022 17:20:38 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://14772.github.io/friends/</guid>
+    <description><![CDATA[主题作者 本网站采用 Hugo-LoveIt 主题，下方是主题作者的 GitHub 链接。 Dillon "LoveIt主题作者" 大佬们 JAVA 雨临Lewis的博客 "不想当写手的码农不是好咸鱼_(xз]]></description>
+</item><item>
+    <title>C语言系列(一)</title>
+    <link>https://14772.github.io/c%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E4%B8%80/</link>
+    <pubDate>Wed, 05 Jan 2022 15:56:02 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://14772.github.io/c%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E4%B8%80/</guid>
+    <description><![CDATA[C语言系列（一） 前言 本系列文章旨在记录学习过程中遇到的C语言难题以及充当错题集的作用。]]></description>
+</item><item>
+    <title>站点日志</title>
+    <link>https://14772.github.io/%E7%AB%99%E7%82%B9%E6%97%A5%E5%BF%97/</link>
+    <pubDate>Wed, 05 Jan 2022 13:54:01 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://14772.github.io/%E7%AB%99%E7%82%B9%E6%97%A5%E5%BF%97/</guid>
+    <description><![CDATA[站点日志 站点日志 不断更新中 2021年 2021年10月 大一参加学校工作室招新，购买了云服务器，顺便利用 WordPress 开通了我的第一个私人博客。（顺便提一嘴]]></description>
+</item><item>
+    <title>Hugo博客系列(一)</title>
+    <link>https://14772.github.io/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/</link>
+    <pubDate>Tue, 04 Jan 2022 18:40:38 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://14772.github.io/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/</guid>
+    <description><![CDATA[本系列教程第一章讲解了几种常见的博客框架选择，最终以 Hugo 框架为基础，教授了如何在 GitHub pages 上部署个人博客，还使用 GitHub actions 以及一个简单的 bat 脚本实现自动化发布。]]></description>
+</item><item>
+    <title>浅析翻墙</title>
+    <link>https://14772.github.io/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99/</link>
+    <pubDate>Sun, 02 Jan 2022 18:43:10 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://14772.github.io/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99/</guid>
+    <description><![CDATA[近些年来国民"翻墙"需求日益剧增，具备"翻墙"能力的人也越来越多，本文分析了"翻墙"的原因与违法性，并从技术层面分析了 GFW 的封锁措施与几种常见的"翻墙"方法。]]></description>
+</item><item>
+    <title>TCP通信Python实现</title>
+    <link>https://14772.github.io/tcp%E9%80%9A%E4%BF%A1python%E5%AE%9E%E7%8E%B0/</link>
+    <pubDate>Sun, 02 Jan 2022 13:55:37 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://14772.github.io/tcp%E9%80%9A%E4%BF%A1python%E5%AE%9E%E7%8E%B0/</guid>
+    <description><![CDATA[本文讲解了如何使用 python 实现 socket 网络编程，并以此为基础，搭建了一个简单的 TCP 通信网络聊天室。]]></description>
+</item><item>
+    <title>简易建站</title>
+    <link>https://14772.github.io/%E7%AE%80%E6%98%93%E5%BB%BA%E7%AB%99/</link>
+    <pubDate>Sun, 02 Jan 2022 13:22:37 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://14772.github.io/%E7%AE%80%E6%98%93%E5%BB%BA%E7%AB%99/</guid>
+    <description><![CDATA[本文利用 Nginx 和 docker 进行网站部署，实现一个简单的公网 HTTPS 访问，并添加了基于 docker 容器集群的负载均衡功能。]]></description>
+</item></channel>
+</rss>

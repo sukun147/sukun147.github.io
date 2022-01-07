@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>浅析翻墙 - Sukun&#39;s blog</title><meta name="keywords" content="sukun,hugo,博客">
+
+<meta name="Description" content="近些年来国民&#34;翻墙&#34;需求日益剧增，具备&#34;翻墙&#34;能力的人也越来越多，本文分析了&#34;翻墙&#34;的原因与违法性，并从技术层面分析了 GFW 的封锁措施与几种常见的&#34;翻墙&#34;方法。"><meta property="og:title" content="浅析翻墙" />
+<meta property="og:description" content="近些年来国民&#34;翻墙&#34;需求日益剧增，具备&#34;翻墙&#34;能力的人也越来越多，本文分析了&#34;翻墙&#34;的原因与违法性，并从技术层面分析了 GFW 的封锁措施与几种常见的&#34;翻墙&#34;方法。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://14772.github.io/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99/" /><meta property="og:image" content="https://14772.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-02T18:43:10+08:00" />
+<meta property="article:modified_time" content="2022-01-02T18:43:10+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://14772.github.io/logo.png"/>
+
+<meta name="twitter:title" content="浅析翻墙"/>
+<meta name="twitter:description" content="近些年来国民&#34;翻墙&#34;需求日益剧增，具备&#34;翻墙&#34;能力的人也越来越多，本文分析了&#34;翻墙&#34;的原因与违法性，并从技术层面分析了 GFW 的封锁措施与几种常见的&#34;翻墙&#34;方法。"/>
+<meta name="application-name" content="Sukun&#39;">
+<meta name="apple-mobile-web-app-title" content="Sukun&#39;"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://14772.github.io/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99/" /><link rel="prev" href="https://14772.github.io/tcp%E9%80%9A%E4%BF%A1python%E5%AE%9E%E7%8E%B0/" /><link rel="next" href="https://14772.github.io/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><meta name="baidu-site-verification" content="code-dZp5nC6KFb" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "浅析翻墙",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/14772.github.io\/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99\/"
+        },"image": ["https:\/\/14772.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "翻墙","wordcount":  5702 ,
+        "url": "https:\/\/14772.github.io\/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99\/","datePublished": "2022-01-02T18:43:10+08:00","dateModified": "2022-01-02T18:43:10+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "sukun","logo": "https:\/\/14772.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Sukun"
+            },"description": "近些年来国民\"翻墙\"需求日益剧增，具备\"翻墙\"能力的人也越来越多，本文分析了\"翻墙\"的原因与违法性，并从技术层面分析了 GFW 的封锁措施与几种常见的\"翻墙\"方法。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <a href="https://github.com/14772" class="github-corner" target="_blank" title="Follow me on GitHub"
+            aria-label="Follow me on GitHub"><svg width="3.5rem" height="3.5rem" viewBox="0 0 250 250"
+                style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);"
+                aria-hidden="true">
+                <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+                <path
+                    d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+                    fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+                <path
+                    d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+                    fill="currentColor" class="octo-body"></path>
+            </svg></a>
+        <div class="header-title">
+            <a href="/" title="Sukun&#39;s blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>Sukun</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner">
+                <div class="dropdown">
+                    <a href="/posts/"  class="menu-item menu-more dropbtn"
+                        title="归档" ><i class='fas fa-fw fa-archive'></i> 归档 
+                    </a>
+                    <div class="menu-more-content dropdown-content"><a href="/categories/" title="类别" >	<i class='fa fa-list'></i> 类别 </a><a href="/tags/" title="标签" ><i class='fa fa-tags'></i> 标签 </a><a href="/posts/" title="所有文章" >	<i class='fa fa-folder-open'></i> 所有文章 </a></div>
+                </div>
+                
+                <div class="dropdown">
+                    <a href="/"  class="menu-item menu-more dropbtn"
+                        title="回到首页" ><i class='fas fa-fw fa-atom'></i> 站点 
+                    </a>
+                    <div class="menu-more-content dropdown-content"><a href="/bbs/%E5%85%AC%E5%91%8A%E7%95%99%E8%A8%80/" title="公告板&amp;留言板" ><i class='fa fa-comments'></i> 公告留言 </a><a href="/%E7%AB%99%E7%82%B9%E6%97%A5%E5%BF%97/" title="站点日志" ><i class='fas fa-fw fa-cog fa-spin'></i> 站点日志 </a><a href="/about/" title="关于" >	<i class='fa fa-info-circle'></i> 关于 </a></div>
+                </div>
+                
+                <div class="dropdown">
+                    <a href="javascript:void(0);"  class="menu-item menu-more dropbtn"
+                        title="文档" ><i class='fas fa-fw fa-book'></i> 文档 
+                    </a>
+                    <div class="menu-more-content dropdown-content"><a href="https://hugoloveit.com/zh-cn/" title="LoveIt主题文档" > LoveIt主题文档 </a><a href="https://gohugo.io/getting-started/" title="Hugo官方文档" > Hugo官方文档 </a></div>
+                </div>
+                <a class="menu-item"
+                    href="/friends/"  title="欢迎大家来加友链呀" ><i class='fa fa-link fa-fw'></i> 友链墙 
+                </a>
+                <div class="dropdown">
+                    <a href="javascript:void(0);"  class="menu-item menu-more dropbtn"
+                        title="" ><i class='fas fa-fw fa-fan fa-spin'></i> 小游戏 
+                    </a>
+                    <div class="menu-more-content dropdown-content"><a href="/games/mikutap/" title="来和初音打碟！" ><i class='fa fa-headphones'></i> mikutap </a><a href="/games/catch-the-cat/" title="一起来抓猫！" ><i class='fas fa-fw fa-cat'></i> catch the cat </a></div>
+                </div>
+                <a class="menu-item"
+                    href="/search/"  title="搜索请耐心等待几秒钟" ><i class='fas fa-fw fa-search'></i> 搜索 
+                </a><a class="menu-item"
+                    href="https://github.com/14772"  title="GitHub"  rel="noopener noreffer"
+                    target="_blank" ><i class='fab fa-fw fa-github'></i>  
+                </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Sukun&#39;s blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>Sukun</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile">
+        <div class="dropdown">
+            <a href="/posts/"  class="menu-item menu-more dropbtn"
+                title="归档" ><i class='fas fa-fw fa-archive'></i> 归档 
+            </a>
+            <div class="menu-more-content dropdown-content"><a href="/categories/" title="类别" >	<i class='fa fa-list'></i> 类别 </a><a href="/tags/" title="标签" ><i class='fa fa-tags'></i> 标签 </a><a href="/posts/" title="所有文章" >	<i class='fa fa-folder-open'></i> 所有文章 </a></div>
+        </div>
+        
+        <div class="dropdown">
+            <a href="/"  class="menu-item menu-more dropbtn"
+                title="回到首页" ><i class='fas fa-fw fa-atom'></i> 站点 
+            </a>
+            <div class="menu-more-content dropdown-content"><a href="/bbs/%E5%85%AC%E5%91%8A%E7%95%99%E8%A8%80/" title="公告板&amp;留言板" ><i class='fa fa-comments'></i> 公告留言 </a><a href="/%E7%AB%99%E7%82%B9%E6%97%A5%E5%BF%97/" title="站点日志" ><i class='fas fa-fw fa-cog fa-spin'></i> 站点日志 </a><a href="/about/" title="关于" >	<i class='fa fa-info-circle'></i> 关于 </a></div>
+        </div>
+        
+        <div class="dropdown">
+            <a href="javascript:void(0);"  class="menu-item menu-more dropbtn"
+                title="文档" ><i class='fas fa-fw fa-book'></i> 文档 
+            </a>
+            <div class="menu-more-content dropdown-content"><a href="https://hugoloveit.com/zh-cn/" title="LoveIt主题文档" > LoveIt主题文档 </a><a href="https://gohugo.io/getting-started/" title="Hugo官方文档" > Hugo官方文档 </a></div>
+        </div>
+        <a class="menu-item"
+            href="/friends/"  title="欢迎大家来加友链呀" ><i class='fa fa-link fa-fw'></i> 友链墙 
+        </a>
+        <div class="dropdown">
+            <a href="javascript:void(0);"  class="menu-item menu-more dropbtn"
+                title="" ><i class='fas fa-fw fa-fan fa-spin'></i> 小游戏 
+            </a>
+            <div class="menu-more-content dropdown-content"><a href="/games/mikutap/" title="来和初音打碟！" ><i class='fa fa-headphones'></i> mikutap </a><a href="/games/catch-the-cat/" title="一起来抓猫！" ><i class='fas fa-fw fa-cat'></i> catch the cat </a></div>
+        </div>
+        <a class="menu-item"
+            href="/search/"  title="搜索请耐心等待几秒钟" ><i class='fas fa-fw fa-search'></i> 搜索 
+        </a><a class="menu-item"
+            href="https://github.com/14772"  title="GitHub"  rel="noopener noreffer"
+            target="_blank" ><i class='fab fa-fw fa-github'></i>  
+        </a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container">
+                    <div class="toc" id="toc-auto">
+    <h2 class="toc-title">目录</h2>
+    <div class="toc-content" id="toc-content-auto"></div>
+</div><article class="page single"><h1 class="single-title animated flipInX">浅析翻墙</h1><div class="post-meta">
+        <div class="post-meta-line"><span class="post-author"><a href="https://sukun.xyz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Sukun</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%BD%91%E5%AE%89/"><i class="far fa-folder fa-fw"></i>网安</a></span></div>
+        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-01-02">2022-01-02</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-01-02">2022-01-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5702 字
+            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 12 分钟&nbsp;<span id="/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99/" class="leancloud_visitors" data-flag-title="浅析翻墙">
+                <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+            </span>&nbsp;
+            <a href="#comments" id="post-meta-vcount" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>&nbsp;<span id="/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99/"
+                    class="waline-comment-count"></span>&nbsp;条评论
+            </a></div>
+
+    </div><div class="details toc" id="toc-static" kept="">
+        <div class="details-summary toc-title">
+            <span>目录</span>
+            <span><i class="details-icon fas fa-angle-right"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是翻墙">什么是“翻墙”？</a></li>
+    <li><a href="#为什么要翻墙">为什么要“翻墙”</a></li>
+    <li><a href="#翻墙犯法吗">”翻墙“犯法吗？</a></li>
+    <li><a href="#翻墙原理解析">“翻墙”原理解析</a>
+      <ul>
+        <li><a href="#gfw的封锁">GFW的封锁</a>
+          <ul>
+            <li><a href="#关键字过滤">关键字过滤</a></li>
+            <li><a href="#ip封锁">IP封锁</a></li>
+            <li><a href="#dns污染劫持">DNS污染、劫持</a></li>
+            <li><a href="#特定端口封锁">特定端口封锁</a></li>
+            <li><a href="#加密连接干扰">加密连接干扰</a></li>
+            <li><a href="#主动嗅探">主动嗅探</a></li>
+          </ul>
+        </li>
+        <li><a href="#对抗gfw的技术">对抗GFW的技术</a>
+          <ul>
+            <li><a href="#直接访问ip">直接访问IP</a></li>
+            <li><a href="#vpn隧道">VPN隧道</a></li>
+            <li><a href="#代理服务器">代理服务器</a>
+              <ul>
+                <li><a href="#socks5-协议与-http-协议">Socks5 协议与 HTTP 协议</a></li>
+                <li><a href="#v2ray协议">v2ray协议</a>
+                  <ul>
+                    <li><a href="#vmess协议">VMess协议</a></li>
+                    <li><a href="#vless协议">VLESS协议</a></li>
+                    <li><a href="#xtls协议">XTLS协议</a></li>
+                  </ul>
+                </li>
+                <li><a href="#trojan协议">Trojan协议</a></li>
+              </ul>
+            </li>
+            <li><a href="#找-gfw-的-bug">找 GFW 的 BUG</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+    </div><div class="content" id="content"><h1 id="浅析翻墙">浅析“翻墙”</h1>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>声明</strong></div>
+        </div>
+    </div>
+<p>撰写本文是出于学习计算机网络知识，解析技术以及简单普法的目的。<strong>不传播、售卖</strong>“翻墙”工具，<strong>不教授</strong>“翻墙”方法，本文也<strong>不出现</strong>“翻墙”教程。本人对网民浏览本文后做出的不理智行为<strong>概不负责</strong>！</p>
+<h2 id="什么是翻墙">什么是“翻墙”？</h2>
+<p>首先，我们要知道翻墙翻的是什么？答案是 <strong>GFW</strong>(Great Fire Wall)也就是<strong>长城防火墙</strong>。这里借用<a href="https://zh.wikipedia.org/wiki/%E9%98%B2%E7%81%AB%E9%95%BF%E5%9F%8E" target="_blank" rel="noopener noreffer">维基百科</a>来解释：防火长城（英语：Great Firewall，常用简称：GFW），中文也称中国国家防火墙，俗称墙、网络长城、防火墙等等，中国国家互联网信息办公室称为数据跨境安全网关 ，是中华人民共和国政府监控和过滤互联网国际出口内容的软硬件系统集合。随着使用的拓广，“墙”有时也被用作动词，中国网友所说的“被墙”即指网站内容被防火长城所屏蔽或者指服务器的通讯被封阻，“翻墙”也被引申为突破网络审查浏览中国大陆境外被屏蔽的网站或使用服务的行为。</p>
+<h2 id="为什么要翻墙">为什么要“翻墙”</h2>
+<p>一方面，普通人翻墙原因如下：</p>
+<ol>
+<li>使用国外的 app 和服务，例如看 YouTube，使用海外版腾讯视频（海外版往往比国内版体验感好，无广告简洁）。</li>
+<li>好奇，想见识一下墙外的世界。（这点原因是主要因素，大多数人都是出于这一点）</li>
+<li>满足在国内无法实现的欲望，比如逛 P 站（懂的都懂）</li>
+<li>与外国人聊天，增长外语水平</li>
+<li>做外贸，面外海外经商却不想支付昂贵的官方信道费用</li>
+<li>&hellip;&hellip;</li>
+</ol>
+<p>另一方面，作为一名程序员，其翻墙原因如下：</p>
+<ol>
+<li>使用 <strong>GitHub</strong>，对于一名程序员来说，GitHub 算得上是必需品，根本离不开</li>
+<li>逛 <strong>StackOverflow</strong> 社区，寻找 bug 解决方案</li>
+<li>下载、使用专业工具，因为有些工具是海外的，国内没有替代品</li>
+<li>查阅文档、学习技术</li>
+<li>阅读科研论文、查询数据、与海外团队交流</li>
+<li>&hellip;&hellip;</li>
+</ol>
+<h2 id="翻墙犯法吗">”翻墙“犯法吗？</h2>
+<p>需要明确的是，在这一问题上，国内暂无一个统一见解。但我个人观点是只要<strong>不传播、不扩散、不进行</strong>违法违规活动，<strong>不发表、不转发、不支持</strong>反动言论，只是简单地浏览，同时也没有人举报你翻墙了，那么警察也不会闲得来抓你。</p>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw"></i>引用<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>《<a href="https://baike.baidu.com/item/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%9B%BD%E9%99%85%E4%BA%92%E8%81%94%E7%BD%91%E5%AE%89%E5%85%A8%E4%BF%9D%E6%8A%A4%E7%AE%A1%E7%90%86%E5%8A%9E%E6%B3%95" target="_blank" rel="noopener noreffer">计算机信息网络国际互联网安全保护管理办法</a>》（以下简称其为“办法”）第5条规定，任何单位和个人不得利用国际互联网制作、复制、查阅和传播下列信息：</p>
+<p>（一）煽动抗拒、破坏宪法和法律、行政法规实施的；</p>
+<p>（二）煽动颠覆国家政权，推翻社会主义制度的；</p>
+<p>（三）煽动分裂国家、破坏国家统一的；</p>
+<p>（四）煽动民族仇恨、民族歧视，破坏民族团结的；</p>
+<p>（五）捏造或者歪曲事实，散布谣言，扰乱社会秩序的；</p>
+<p>（六）宣扬封建迷信、淫秽、色情、赌博、暴力、凶杀、恐怖、教唆犯罪的；</p>
+<p>（七）公然侮辱他人或者捏造事实诽谤他人的；</p>
+<p>（八）损害国家机关信誉的；</p>
+<p>（九）其他违反宪法和法律、行政法规的。</p>
+</div>
+        </div>
+    </div>
+<p>如果按照上述规定，那么在翻墙过程中将难免会遇到不良内容，容易触犯该办法。而这也警示我们：<strong>不传播、不扩散、不进行</strong>有违法律法规的网络活动！</p>
+<p>另一方面，国内翻墙用户众多，所谓法不责众，如果按照翻墙即违法来处办的话，这对于警力要求过高。按照下图显示的份额来看，谷歌 2020 年在中国就有着 3.49% 的市场份额，而 2020 年中国网民共计 <a href="https://baike.baidu.com/item/%E4%B8%AD%E5%9B%BD%E4%BA%92%E8%81%94%E7%BD%91%E7%BB%9C%E5%8F%91%E5%B1%95%E7%8A%B6%E5%86%B5%E7%BB%9F%E8%AE%A1%E6%8A%A5%E5%91%8A/8278359" target="_blank" rel="noopener noreffer">9.40亿</a>，不难得出中国有3200万谷歌用户的数据，如果我们保守估计，以其中有一半的人都有着正规渠道访问谷歌（比如各高校、科研实验室、跨国公司、银行等有资质购买专线的），那么具有翻墙能力的人也有 1600 万之巨，这已经是一个庞大的数字，这也是国内对翻墙不再如从前那么敏感的原因之一。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/01/02/oyRG56acvAQrxni.png"
+        data-srcset="https://s2.loli.net/2022/01/02/oyRG56acvAQrxni.png, https://s2.loli.net/2022/01/02/oyRG56acvAQrxni.png 1.5x, https://s2.loli.net/2022/01/02/oyRG56acvAQrxni.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/01/02/oyRG56acvAQrxni.png"
+        title="https://s2.loli.net/2022/01/02/oyRG56acvAQrxni.png" /></p>
+<p>同时，近些年来国民的民族自豪感、国家认同感大幅提升，这一现象在年轻人身上表现尤为明显，恰如年轻一辈的口号“请党放心，强国有我”。这使得 GFW 封锁国民访问外网的一大原因——防止国外媒体恶意抹黑中国的言论对国民的思想造成影响——不怎么适用，因为国民不再容易被误导了，”国外的空气也不怎么香甜“。并且有能力进行翻墙的人大多数都是接受了高等教育的人，思想较为深刻，有稳固而正确的三观，放他们出去逛一逛问题也不是很大。</p>
+<p>当然了，如果你不是一个普通的翻墙用户，而是以此牟利，那你肯定触犯了法律，必将接受法律的制裁。一方面，你使得国家将面对更多的不可确定因素，因为受传播者不一定遵纪守法，你需要为此负责！</p>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw"></i>引用<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>除了办法中的条例以外，对提供“翻墙”服务的卖家而言，《<a href="https://baike.baidu.com/item/%e4%ba%92%e8%81%94%e7%bd%91%e4%bf%a1%e6%81%af%e6%9c%8d%e5%8a%a1%e7%ae%a1%e7%90%86%e5%8a%9e%e6%b3%95" target="_blank" rel="noopener noreffer">互联网信息服务管理办法</a>》 规定的惩罚措施更重。</p>
+<p>第 4 条规定：“国家对经营性互联网信息服务实行许可制度；对非经营性互联网信息服务实行备案制度。未取得许可或者未履行备案手续的，不得从事互联网信息服务。”</p>
+<p>第 19 条规定：“违反本办法的规定，未取得经营许可证，擅自从事经营性互联网信息服务，或者超出许可的项目提供服务的，由省、自治区、直辖市电信管理机构责令限期改正，有违法所得的，没收违法所得，处违法所得 3 倍以上 5 倍以下的罚款；没有违法所得或者违法所得不足 5 万元的，处 10 万元以上 100 万元以下的罚款；情节严重的，责令关闭网站。”</p>
+</div>
+        </div>
+    </div>
+<p><strong>总结</strong>：作为一名普通翻墙用户，只要老老实实地，不犯法。而如果你进行了违法乱纪的活动，或者是翻墙服务提供商或者教授、传播翻墙方法，那就犯法了！</p>
+<h2 id="翻墙原理解析">“翻墙”原理解析</h2>
+<p>要知道翻墙的原理，我们就得先知道GFW是如何把这堵墙树立起来，如何阻断不正常通信的。</p>
+<h3 id="gfw的封锁">GFW的封锁</h3>
+<h4 id="关键字过滤">关键字过滤</h4>
+<p>由于 Http 协议数据包头部是明文的，所以 GFW 一旦发现连接有敏感词，马上就会伪装成连接两方，向真正的对方发送 RST 数据包（重置连接、复位连接），真正的双方一看，出现异常了，TCP连接就会中断掉。表现为有的页面正在打开，然后过了一会又没了，显示无法连接。</p>
+<h4 id="ip封锁">IP封锁</h4>
+<p>GFW 可以在出境的网关上加一条伪造的路由规则，这样对于一些被过滤了的 IP 的数据包就无法正确地被送达，所以也就无法访问了。GFW 封路由是直接封独立 IP ，这样可能因为某个敏感站点，导致跟他同一台主机的其他站点也无法访问，理解起来就像旁注（从旁注入）。而且 GFW 封 IP 有的时候是直接封 IP 段的，国外几大 VPS 服务商（比如 Bandwagon 搬瓦工）更是重点监测，有时就因为其中一个 IP 不对，GFW 能给你把这整个机房里的服务器的 IP 全封了，当然这样一来难免会有无辜之人中枪。</p>
+<h4 id="dns污染劫持">DNS污染、劫持</h4>
+<p>​	DNS 也就是域名解析服务，GFW 会对所有经过骨干出口路由的在 UDP 的 53 端口上的域名查询进行检测，一旦发现有黑名单里的域名，它就会伪装成目标域名的解析服务器给查询者返回虚假结果。由于 UDP 是一种无连接不可靠的协议，查询者只能接受最先返回的结果，故而你将看到明明地址栏中的 URL 是对的，但是浏览器渲染的却是不是目标网页或者干脆访问不了。</p>
+<h4 id="特定端口封锁">特定端口封锁</h4>
+<p>对于一些特点的 IP ，GFW 会丢弃特定端口上的数据包，使得某些功能无法使用，比如 443 端口 SSL，22 端口的 SSH。</p>
+<p>GWF 曾经干过一件事，针对 Google 的一些 IP 上的 443 端口，实施间歇性封锁，不明所以的用户就会觉得这是 Google 抽风了，久而久之自然不能忍受 “老是出问题” 的产品。同样的还有 GitHub 的 443 端口、前段时间的 steam 的 443 端口也都被间歇性封锁了。</p>
+<p>值得一提的是这个一般是人为干预的，理由就是常发生在白天。<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/a1/2018new_doge02_org.png"
+        data-srcset="https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/a1/2018new_doge02_org.png, https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/a1/2018new_doge02_org.png 1.5x, https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/a1/2018new_doge02_org.png 2x"
+        data-sizes="auto"
+        alt="https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/a1/2018new_doge02_org.png"
+        title="doge" /></p>
+<h4 id="加密连接干扰">加密连接干扰</h4>
+<p>加密连接不总是加密的，公钥还是明文的，所以 GFW 就能识别出特定服务的证书。然后在遇到 “黑名单” 加密连接时，它会发送RST数据包，干扰双方正常的 TCP 连接，进而切断加密连接的握手。</p>
+<h4 id="主动嗅探">主动嗅探</h4>
+<p>现在我们假设你能伪装你的流量，当它和其他流量混杂在一起时从外观上看没有什么区别，你以为这就可以高枕无忧了？错！事实上，GFW 是被动监测+主动嗅探来实现封锁的，即使一个流量没有任何翻墙特征，但是这股流量太大了，或者时间太长了，GFW 也将主动地发一个连接请求过去，由于这根本就是个假流量，连接返回的内容也不正常，GFW 一看就知道不对劲了，然后再来个人工检测，你不就暴露了么。另一方面，每逢政治敏感时期（比如每年两会、国庆、建党节）或者每年 6 月的大扫除时期，这个时期人工检测大大增多， GFW 敏感系数提升，更容易发现不正常流量，并且从前稳妥起见，只是怀疑还怕误杀的流量，放在这个时期就大概率给你封了。</p>
+<h3 id="对抗gfw的技术">对抗GFW的技术</h3>
+<h4 id="直接访问ip">直接访问IP</h4>
+<p>GFW 不是对域名进行各种干扰吗，现在我直接绕过域名解析，对那些还进入监控名单的 IP 直接访问就能躲开 GFW 的干扰。但是很可惜 GFW 对付这种方法的策略也很简单粗暴但有效，那就是见一个封一个。比如早些年谷歌在国内还能正常访问靠的就是大量的镜像 IP，但随着这些年来 GFW 的不懈努力，谷歌服务的 IP 已经被杀绝了。这种办法的失效也就是个时间问题，因为人家封锁只需要找到 IP 然后加入黑名单就行，而被封锁的一方的要付出的努力就大得多了。</p>
+<h4 id="vpn隧道">VPN隧道</h4>
+<p>首先我们明确，虚拟专用网络（VPN）是一门网络技术，而非一个软件，它为我们提供了一种通过公用网络(如最大的公用因特网)安全地对企业内部专用网络进行远程访问的连接方式。在 VPN 隧道中通信能确保通信通道的专用性，并且传输的数据是经过压缩、加密的，所以VPN通信同样具有专用网络的通信安全性。VPN 原本用意是为了让人不在公司也能访问公司内网，但其优越的安全性也让他也有了对抗 GFW 的功能，这里不展开讲解。但是值得注意的是，那些名叫某某加速器、某某 VPN 的翻墙工具往往都不咋地，而且还有跑路的风险，甚至有的还是“家庭小作坊”，而那些大的服务商提供的虽然稳定速度快，但是又是重点监测，譬如某海外服务商的 VPN 长期坚挺，一直加 IP 来对抗 GFW ，但代价就是价格高昂。就像这张图讲的道理：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/01/04/9GNlBTuQjoPinID.png"
+        data-srcset="https://s2.loli.net/2022/01/04/9GNlBTuQjoPinID.png, https://s2.loli.net/2022/01/04/9GNlBTuQjoPinID.png 1.5x, https://s2.loli.net/2022/01/04/9GNlBTuQjoPinID.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/01/04/9GNlBTuQjoPinID.png"
+        title="1_nnO5LX0bwnENczEqiT1GCg.png" /></p>
+<h4 id="代理服务器">代理服务器</h4>
+<p>这里故意把 VPN 和代理分开，事实上 VPN 也是代理的一种，但其在网络七层协议中跑在数据链路层/第二层，而socks5、Trojan、v2ray之类的则是在OSI七层模型中的第五层/会话层的，（ HTTP 在第七层/应用层， Ping 指令使用 ICMP 协议，工作于第三层/网络层）。而更低层可以代理更高层，更高层代理不了更底层。表现出来的则是你挂了梯子（非 VPN 类）发现依然没法加速 LOL 等游戏（游戏跑网络层），这也是你再挂了梯子之后依然可以用 Ping 来看主机与服务器直接的延迟的原因。但如果开了 VPN ，那他可以加速游戏，可以代理 ICMP 指令。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tse1-mm.cn.bing.net/th/id/OIP-C.76QMTWMnpfCHjXkqAuapDAHaEZ?pid=ImgDet&amp;rs=1"
+        data-srcset="https://tse1-mm.cn.bing.net/th/id/OIP-C.76QMTWMnpfCHjXkqAuapDAHaEZ?pid=ImgDet&amp;rs=1, https://tse1-mm.cn.bing.net/th/id/OIP-C.76QMTWMnpfCHjXkqAuapDAHaEZ?pid=ImgDet&amp;rs=1 1.5x, https://tse1-mm.cn.bing.net/th/id/OIP-C.76QMTWMnpfCHjXkqAuapDAHaEZ?pid=ImgDet&amp;rs=1 2x"
+        data-sizes="auto"
+        alt="https://tse1-mm.cn.bing.net/th/id/OIP-C.76QMTWMnpfCHjXkqAuapDAHaEZ?pid=ImgDet&amp;rs=1"
+        title="OSI与TCP/IP" /></p>
+<p>说完了 VPN 与这里说的代理的区别，现在再来说常见的几种“翻墙”代理协议。</p>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">世界上没有永远安全的协议，所谓道高一尺，魔高一丈，这是一场长期的军备竞赛，双方都在不断推陈出新！</div>
+        </div>
+    </div>
+<h5 id="socks5-协议与-http-协议">Socks5 协议与 HTTP 协议</h5>
+<p>Socks5 把你的网络数据由代理服务器转发到目的地，这个过程中你是没有一条专用通道的，只是数据包的发出，然后被代理服务器收到，然后代理服务器再进行转发，整个过程并没有额外的处理。</p>
+<p>但是在连接建立时、传输流量过程中有着极为明显的流量特征。因此网上也不乏唱衰 Socks5 协议的声音，甚至有流言称 Socks5 协议已被 GFW 攻破，能被其拿捏，但目前暂无明确证据，同时 Socks5协议依然是用的最多的代理协议，因此我对这种观点持保留观点。</p>
+<p>对抗措施：流量加密、反检测、免杀</p>
+<ul>
+<li>Socks5 + HTTP 代理并不会让本来明文传输的浏览加密，但是可以改变请求的 IP，服务器看到访问者的 IP 就是你的代理代理服务器的IP。</li>
+<li>如果流量本身没有加密，实战中流控设备很容易识别到客户端连接成功的流量规则。</li>
+<li>如果想要加密 Socks5 的流量，则需要安装魔改版 Socks 服务端和客户端，比如著名的 SS/SSR 就是用 Socks5 来实现的，Cobalt Strike 也有相关插件对流量进行加密。</li>
+</ul>
+<h5 id="v2ray协议">v2ray协议</h5>
+<h6 id="vmess协议">VMess协议</h6>
+<p>VMess 协议是由 V2Ray 原创并使用于 V2Ray 的加密传输协议，如同 Shadow socks 一样为了对抗墙的深度包检测而研发的。在 V2Ray 上客户端与服务器的通信主要是通过 VMess 协议通信。</p>
+<h6 id="vless协议">VLESS协议</h6>
+<p>VLESS 是一种无状态的轻量级数据传输协议，被定义为下一代 V2ray 数据传输协议。作者对该协议的愿景是“可扩展性空前，适合随意组合、全场景广泛使用，符合很多人的设想、几乎所有人的需求，足以成为  v2ray 的下一代主要协议，乃至整个 XX 界的终极协议。”，由此可见 VLESS 协议的强大。</p>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">VLESS 命名源自“less is more”，写法与 VMess 近似</div>
+        </div>
+    </div>
+<p>VLESS和VMESS区别如下：</p>
+<ol>
+<li>VLESS协议不依赖于系统时间，不使用 alterId 。一些人的 V2ray 用不了，最后找出原因是电脑时间和服务器只相差两分钟，简直要让人抓狂；VLESS 协议去掉了时间要求，双手举赞；</li>
+<li>VLESS 协议不带加密，用于科学上网时要配合TLS等加密手段；</li>
+<li>VLESS 协议支持分流和回落，比 Nginx 分流转发更简洁、高效和安全；</li>
+<li>使用TLS的情况下，VLESS 协议比 VMESS 速度更快，性能更好，因为 VLESS 不会对数据进行加解密；</li>
+<li>V2ray 官方对 VLESS 的期望更高，约束也更严格。例如要求客户端统一使用 VLESS 标识，而不是 Vless 、vless 等名称；VLESS 分享链接标准将由官方统一制定（尚未出炉）；</li>
+<li>VLESS 协议的加密更灵活，不像 VMESS 一样高度耦合（仅对开发者有用）</li>
+</ol>
+<p>对于普通用户来说，VLESS 协议的主要优势是：1. 不需要客户端和服务器时间一致； 2. VLESS 协议不自带加密，使用 TLS 的情况下性能比 VMESS 更好。</p>
+<h6 id="xtls协议">XTLS协议</h6>
+<p>XTLS官方库 的介绍仅有一句话：THE FUTURE。V2fly 官网（V2fly 社区是 V2ray 技术的主要推动力量） 称 XTLS为黑科技，VLESS协议作者的形容是：划时代的革命性概念和技术。</p>
+<p>XTLS 的原理是：使用 TLS 代理时，https 数据其实经过了两层 TLS：外层是代理的 TLS，内层是 https 的 TLS。XTLS 无缝拼接了内外两条货真价实的 TLS，使得代理几乎无需再对 https 流量进行数据加解密，只起到流量中转的作用，极大的提高了性能。</p>
+<p>VLESS + XTLS 的组合可以理解为是增强版 ECH，即多支持身份认证、代理转发、明文加密、UDP over TCP 等。但从其原理可知，VLESS + XTLS对http流量是没有多大优势的。好消息是，目前超过 90% 的流量都是 https 的，因此 VLESS + XTLS 能极大的提升性能，无愧于上面的评价。</p>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">需要说明的是，XTLS 是科学上网的 future ，不是 TLS 发展的 future。</div>
+        </div>
+    </div>
+<h5 id="trojan协议">Trojan协议</h5>
+<p>Trojan 协议简单来说是通过 TLS 协议（安全传输层协议）伪装成访问 HTTPS（超文本传输协议）的正常流量。由于 TLS 是一个完整的加密协议通过目前的任何技术手段都无法得到其加密内容，所以 Trojan 的安全性可见一斑。但目前 Trojan 还属于是一个新兴的技术，在各方面都存在问题，但其有着最值得期待的未来，我们需要做的是给予其时间，让其成长。</p>
+<p>在安全性方面，GFW 的主动嗅探主要是其接入目标服务器进行数据检测，而 Trojan 和其他协议不同，当 GFW 接入时不会主动断开介入服务，而是会将接入点连接到一个常规的 web 服务器。这个时候 GWF 就会以为这个服务器是一个常规服务器，从而做出错误的判断。当然，如果是人工来检测，进行了精密的流量分析的话 Trojan 也无能为力。</p>
+<h4 id="找-gfw-的-bug">找 GFW 的 BUG</h4>
+<p>这个比较少，就是寻找 GFW 的漏洞，然后依次为突破点来翻墙，这里我也没怎么了解，不做展开。</p>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">最后，如果你有任何想法，欢迎来评论区告诉我！</div>
+        </div>
+    </div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-02</span>
+            </div>
+            <div class="post-info-license"><span><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" one-link-mark="yes" class="link-instanted">CC BY-NC 4.0</a></span></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://14772.github.io/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99/" data-title="浅析翻墙" data-via="sukun67717973" data-hashtags="翻墙"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://14772.github.io/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99/" data-hashtag="翻墙"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://14772.github.io/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99/" data-title="浅析翻墙"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://14772.github.io/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99/" data-title="浅析翻墙"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/baidu.svg"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%BF%BB%E5%A2%99/">翻墙</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/tcp%E9%80%9A%E4%BF%A1python%E5%AE%9E%E7%8E%B0/" class="prev" rel="prev" title="TCP通信Python实现"><i class="fas fa-angle-left fa-fw"></i>TCP通信Python实现</a>
+            <a href="/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/" class="next" rel="next" title="Hugo博客系列(一)">Hugo博客系列(一)<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="waline"></div>
+    <script src='https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
+
+    <script>
+        new Waline({
+            el: '#waline',
+            meta: ["nick","mail","link"],
+            requiredMeta: ["nick","mail"],
+            login: "force",
+            placeholder: "为防恶意灌水攻击，评论前需注册并登录，望见谅~",
+            serverURL: "https://blog-api-jade.vercel.app",
+            avatarCDN: "https://sdn.geekzu.org/avatar/",
+            pageSize:  20 ,
+            avatar: "retro",
+            lang: "zh-CN",
+            visitor:  true ,
+            highlight:  true ,
+            uploadImage:  false ,
+            emoji: [
+            'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq',
+            'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili',
+            'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/tieba',
+        ],
+                		    	});
+    </script></div></article></div>
+            </main>
+            <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-line">
+            <span id="run-time"></span>
+        </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="https://sukun.xyz" target="_blank">Sukun</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" one-link-mark="yes" class="link-instanted">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+    window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date());
+    gtag('config', 'UA-207270792-1', { 'anonymize_ip': true });
+</script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=UA-207270792-1" async></script><script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?36906624de93fc40ef084568363cdc35";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script></body>
+</html>

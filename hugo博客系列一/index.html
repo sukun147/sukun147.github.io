@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Hugo博客系列(一) - Sukun&#39;s blog</title><meta name="keywords" content="sukun,hugo,博客">
+
+<meta name="Description" content="本系列教程第一章讲解了几种常见的博客框架选择，最终以 Hugo 框架为基础，教授了如何在 GitHub pages 上部署个人博客，还使用 GitHub actions 以及一个简单的 bat 脚本实现自动化发布。"><meta property="og:title" content="Hugo博客系列(一)" />
+<meta property="og:description" content="本系列教程第一章讲解了几种常见的博客框架选择，最终以 Hugo 框架为基础，教授了如何在 GitHub pages 上部署个人博客，还使用 GitHub actions 以及一个简单的 bat 脚本实现自动化发布。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://14772.github.io/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/" /><meta property="og:image" content="https://14772.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-04T18:40:38+08:00" />
+<meta property="article:modified_time" content="2022-01-04T18:40:38+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://14772.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Hugo博客系列(一)"/>
+<meta name="twitter:description" content="本系列教程第一章讲解了几种常见的博客框架选择，最终以 Hugo 框架为基础，教授了如何在 GitHub pages 上部署个人博客，还使用 GitHub actions 以及一个简单的 bat 脚本实现自动化发布。"/>
+<meta name="application-name" content="Sukun&#39;">
+<meta name="apple-mobile-web-app-title" content="Sukun&#39;"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://14772.github.io/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/" /><link rel="prev" href="https://14772.github.io/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99/" /><link rel="next" href="https://14772.github.io/%E7%AB%99%E7%82%B9%E6%97%A5%E5%BF%97/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><meta name="baidu-site-verification" content="code-dZp5nC6KFb" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Hugo博客系列(一)",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/14772.github.io\/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80\/"
+        },"image": ["https:\/\/14772.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Hugo","wordcount":  5020 ,
+        "url": "https:\/\/14772.github.io\/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80\/","datePublished": "2022-01-04T18:40:38+08:00","dateModified": "2022-01-04T18:40:38+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "sukun","logo": "https:\/\/14772.github.io\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Sukun"
+            },"description": "本系列教程第一章讲解了几种常见的博客框架选择，最终以 Hugo 框架为基础，教授了如何在 GitHub pages 上部署个人博客，还使用 GitHub actions 以及一个简单的 bat 脚本实现自动化发布。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <a href="https://github.com/14772" class="github-corner" target="_blank" title="Follow me on GitHub"
+            aria-label="Follow me on GitHub"><svg width="3.5rem" height="3.5rem" viewBox="0 0 250 250"
+                style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);"
+                aria-hidden="true">
+                <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+                <path
+                    d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+                    fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+                <path
+                    d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+                    fill="currentColor" class="octo-body"></path>
+            </svg></a>
+        <div class="header-title">
+            <a href="/" title="Sukun&#39;s blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>Sukun</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner">
+                <div class="dropdown">
+                    <a href="/posts/"  class="menu-item menu-more dropbtn"
+                        title="归档" ><i class='fas fa-fw fa-archive'></i> 归档 
+                    </a>
+                    <div class="menu-more-content dropdown-content"><a href="/categories/" title="类别" >	<i class='fa fa-list'></i> 类别 </a><a href="/tags/" title="标签" ><i class='fa fa-tags'></i> 标签 </a><a href="/posts/" title="所有文章" >	<i class='fa fa-folder-open'></i> 所有文章 </a></div>
+                </div>
+                
+                <div class="dropdown">
+                    <a href="/"  class="menu-item menu-more dropbtn"
+                        title="回到首页" ><i class='fas fa-fw fa-atom'></i> 站点 
+                    </a>
+                    <div class="menu-more-content dropdown-content"><a href="/bbs/%E5%85%AC%E5%91%8A%E7%95%99%E8%A8%80/" title="公告板&amp;留言板" ><i class='fa fa-comments'></i> 公告留言 </a><a href="/%E7%AB%99%E7%82%B9%E6%97%A5%E5%BF%97/" title="站点日志" ><i class='fas fa-fw fa-cog fa-spin'></i> 站点日志 </a><a href="/about/" title="关于" >	<i class='fa fa-info-circle'></i> 关于 </a></div>
+                </div>
+                
+                <div class="dropdown">
+                    <a href="javascript:void(0);"  class="menu-item menu-more dropbtn"
+                        title="文档" ><i class='fas fa-fw fa-book'></i> 文档 
+                    </a>
+                    <div class="menu-more-content dropdown-content"><a href="https://hugoloveit.com/zh-cn/" title="LoveIt主题文档" > LoveIt主题文档 </a><a href="https://gohugo.io/getting-started/" title="Hugo官方文档" > Hugo官方文档 </a></div>
+                </div>
+                <a class="menu-item"
+                    href="/friends/"  title="欢迎大家来加友链呀" ><i class='fa fa-link fa-fw'></i> 友链墙 
+                </a>
+                <div class="dropdown">
+                    <a href="javascript:void(0);"  class="menu-item menu-more dropbtn"
+                        title="" ><i class='fas fa-fw fa-fan fa-spin'></i> 小游戏 
+                    </a>
+                    <div class="menu-more-content dropdown-content"><a href="/games/mikutap/" title="来和初音打碟！" ><i class='fa fa-headphones'></i> mikutap </a><a href="/games/catch-the-cat/" title="一起来抓猫！" ><i class='fas fa-fw fa-cat'></i> catch the cat </a></div>
+                </div>
+                <a class="menu-item"
+                    href="/search/"  title="搜索请耐心等待几秒钟" ><i class='fas fa-fw fa-search'></i> 搜索 
+                </a><a class="menu-item"
+                    href="https://github.com/14772"  title="GitHub"  rel="noopener noreffer"
+                    target="_blank" ><i class='fab fa-fw fa-github'></i>  
+                </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Sukun&#39;s blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>Sukun</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile">
+        <div class="dropdown">
+            <a href="/posts/"  class="menu-item menu-more dropbtn"
+                title="归档" ><i class='fas fa-fw fa-archive'></i> 归档 
+            </a>
+            <div class="menu-more-content dropdown-content"><a href="/categories/" title="类别" >	<i class='fa fa-list'></i> 类别 </a><a href="/tags/" title="标签" ><i class='fa fa-tags'></i> 标签 </a><a href="/posts/" title="所有文章" >	<i class='fa fa-folder-open'></i> 所有文章 </a></div>
+        </div>
+        
+        <div class="dropdown">
+            <a href="/"  class="menu-item menu-more dropbtn"
+                title="回到首页" ><i class='fas fa-fw fa-atom'></i> 站点 
+            </a>
+            <div class="menu-more-content dropdown-content"><a href="/bbs/%E5%85%AC%E5%91%8A%E7%95%99%E8%A8%80/" title="公告板&amp;留言板" ><i class='fa fa-comments'></i> 公告留言 </a><a href="/%E7%AB%99%E7%82%B9%E6%97%A5%E5%BF%97/" title="站点日志" ><i class='fas fa-fw fa-cog fa-spin'></i> 站点日志 </a><a href="/about/" title="关于" >	<i class='fa fa-info-circle'></i> 关于 </a></div>
+        </div>
+        
+        <div class="dropdown">
+            <a href="javascript:void(0);"  class="menu-item menu-more dropbtn"
+                title="文档" ><i class='fas fa-fw fa-book'></i> 文档 
+            </a>
+            <div class="menu-more-content dropdown-content"><a href="https://hugoloveit.com/zh-cn/" title="LoveIt主题文档" > LoveIt主题文档 </a><a href="https://gohugo.io/getting-started/" title="Hugo官方文档" > Hugo官方文档 </a></div>
+        </div>
+        <a class="menu-item"
+            href="/friends/"  title="欢迎大家来加友链呀" ><i class='fa fa-link fa-fw'></i> 友链墙 
+        </a>
+        <div class="dropdown">
+            <a href="javascript:void(0);"  class="menu-item menu-more dropbtn"
+                title="" ><i class='fas fa-fw fa-fan fa-spin'></i> 小游戏 
+            </a>
+            <div class="menu-more-content dropdown-content"><a href="/games/mikutap/" title="来和初音打碟！" ><i class='fa fa-headphones'></i> mikutap </a><a href="/games/catch-the-cat/" title="一起来抓猫！" ><i class='fas fa-fw fa-cat'></i> catch the cat </a></div>
+        </div>
+        <a class="menu-item"
+            href="/search/"  title="搜索请耐心等待几秒钟" ><i class='fas fa-fw fa-search'></i> 搜索 
+        </a><a class="menu-item"
+            href="https://github.com/14772"  title="GitHub"  rel="noopener noreffer"
+            target="_blank" ><i class='fab fa-fw fa-github'></i>  
+        </a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container">
+                    <div class="toc" id="toc-auto">
+    <h2 class="toc-title">目录</h2>
+    <div class="toc-content" id="toc-content-auto"></div>
+</div><article class="page single"><h1 class="single-title animated flipInX">Hugo博客系列(一)</h1><div class="post-meta">
+        <div class="post-meta-line"><span class="post-author"><a href="https://sukun.xyz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Sukun</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/web/"><i class="far fa-folder fa-fw"></i>web</a></span></div>
+        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-01-04">2022-01-04</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-01-04">2022-01-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5020 字
+            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;<span id="/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/" class="leancloud_visitors" data-flag-title="Hugo博客系列(一)">
+                <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+            </span>&nbsp;
+            <a href="#comments" id="post-meta-vcount" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>&nbsp;<span id="/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/"
+                    class="waline-comment-count"></span>&nbsp;条评论
+            </a></div>
+
+    </div><div class="details toc" id="toc-static" kept="">
+        <div class="details-summary toc-title">
+            <span>目录</span>
+            <span><i class="details-icon fas fa-angle-right"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a>
+      <ul>
+        <li><a href="#为什么要有自己的博客">为什么要有自己的博客？</a></li>
+        <li><a href="#常见博客框架的选择">常见博客框架的选择</a>
+          <ul>
+            <li><a href="#hexo">hexo</a></li>
+            <li><a href="#hugo">Hugo</a></li>
+            <li><a href="#typecho">Typecho</a></li>
+            <li><a href="#wordpress">WordPress</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#hugo快速上手教程">Hugo快速上手教程</a>
+      <ul>
+        <li><a href="#hugo安装">Hugo安装</a></li>
+        <li><a href="#hugo主题选择安装与快速上手">Hugo主题选择、安装与快速上手</a></li>
+        <li><a href="#github-pages部署">GitHub pages部署</a></li>
+        <li><a href="#github-actions实现自动部署cicd">GitHub actions实现自动部署(CI/CD)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+    </div><div class="content" id="content"><h1 id="hugo博客系列一">Hugo博客系列（一）</h1>
+<h2 id="前言">前言</h2>
+<h3 id="为什么要有自己的博客">为什么要有自己的博客？</h3>
+<p>写博文能很好地分享自己的想法，能记录生活，还能充当一个电子笔记的作用，有效防止今后某一天面对一个以前遇到过的问题但现在不会解决的情况出现。一篇好的博文能为你带来大量的流量，你可以在搜索引擎中搜索到自己，我相信这是一件足够令人雀跃的事情。并且你还能利用他做一篇网页简历，当你找工作时你可以有着更加花里胡哨的简历！除此以外，你还能通过交换友链建立一个优质的社交圈，因为大家都写了很多高质量的文章，你能与他们进行深入交流，这不像同学圈一样脆弱，它能稳定存在很久！</p>
+<p>在其他博客平台写作你讲或多或少地受到限制，想自己 DIY 页面还得向官方申请，甚至不会审批通过。而且你无法使用多种多样的第三方插件，还得面对审查，写的文章有可能被删除、撤回。有广告干扰，任谁也不喜欢看着一篇文章然后突然蹦出来一个广告吧？当然，你也可以自己接点广告在网站上。</p>
+<h3 id="常见博客框架的选择">常见博客框架的选择</h3>
+<h4 id="hexo">hexo</h4>
+<p>hexo 以前影响力还不错，但这几年已经不如从前人们预判的那么发展的好了，GitHub 上 hexo 项目有着 34k 个 star 看出，其中最为出名的主题便是 Next，有着 15.7k 个 star，这也是因为 Next 目前是 hexo 主题中功能最齐全最好用的一个。而如此之多的人使用也就意味着 hexo 这个框架的作者用收到非常多的反馈，因此 hexo 更新优化做的很好，作者也很有动力继续做下去。</p>
+<p>但是这样的一个框架缺点也是有的：</p>
+<ol>
+<li>
+<p>环境配置麻烦</p>
+<p>因为要使用 hexo 你得在本地安装 Node.js、Git，会熟练使用 GitHub，而且由于 GitHub 的特殊性，你还得学会翻墙，不然还用不了，这就对一点基础都没有的小白不是很友好了。</p>
+</li>
+<li>
+<p>无后端</p>
+<p>这意味着你没有一个后台还方便地对网站进行操作，只能通过先写好 Markdown 文件然后 Git 推送到云端。并且原生的 hexo 是没有评论系统的，想加评论还得找第三方评论系统。除此以外，一旦本地文件被你不小心删除掉了，那当你下次 push 的时候你之前的博文也就跟着丢失了。</p>
+</li>
+<li>
+<p>渲染时间久</p>
+<p>200 篇左右的博文用 Hexo 需要 10 分钟去生成静态网页，当你写博客写的时间久了之后文章多了起来，相信我，你会无法忍受这种折磨。</p>
+</li>
+</ol>
+<p>总结：hexo 适合有一定基础的人，然后写博客时间不长或者只是随便写来玩的人。当然尤其其广泛的传播性，当你遇到问题的时候拿到网上去搜一般都是有解决方案的，这也可以为你省下一点力气。</p>
+<p>最后，如果你想用 hexo，我建议主题用 Next。</p>
+<h4 id="hugo">Hugo</h4>
+<p>Hugo 几年前的影响力是不如 hexo 的，但现在越来越多的人从 hexo 迁移到了 Hugo，Hugo使用人数也多了起来，GitHub 上 Hugo 项目有 56.2k 个 star，已远远超过了 hexo，因此你也不用太担心 Hugo 会不会太小众化的问题，但是 Hugo 上的主题选择会更少一些，其中最受欢迎的是 wowchemy，但也仅有 6.1k 个star，而本站采用的是 LoveIt 主题，它的 star 就更少了，才 1.6k 个。当然，如果你是搞前端开发的，或者乐意自己写主题，那这些就不重要了。</p>
+<p>Hugo优点：</p>
+<ol>
+<li>
+<p>速度快</p>
+<p>Hugo 采用 Go 语言编写，它的速度用作者的话来形容就是世界上最快的构建网站工具。并且 Hugo 是即时渲染的，这意味着你可以边写边改样式，直到你满意为止。即使是你写了几百篇文章，它也能在几秒之内全部渲染完成。</p>
+<blockquote>
+<p>The world’s fastest framework for building websites</p>
+</blockquote>
+</li>
+<li>
+<p>配置更为简单</p>
+<p>你需要安装只是 Hugo，不像 hexo 还得安装 Node.js。并且Hugo 中是不区分站点和主题的配置文件的，Hugo 中只有一个位于站点根目录下的 config.toml 配置文件，你只用在这里面进行修改就可以了。</p>
+</li>
+<li>
+<p>方便自定义</p>
+<p>你可以在不修改主题文件的前提下方便地定制主题。在 Hugo 中，如果你想要定制主题，你只需在站点目录下新建相应的文件即可。这是非常利于主题的维护的，你只需使用 Git 的 submodule 的方式安装 Hugo 的主题，然后更新时只需直接在站点根目录下敲一条命令回车即可，非常方便！</p>
+</li>
+</ol>
+<p>缺点：</p>
+<p>主题比较少，很可能大家都是用的同一个主题，并且主题作者更新会更少一点。</p>
+<p>总结：如果你喜欢 DIY，我建议使用 Hugo。如果你是个专业博主，写了很多文章需要渲染，我建议使用 Hugo！</p>
+<h4 id="typecho">Typecho</h4>
+<p>这是一个非常轻量级的博客框架，但是需要你拥有一个服务器。并且它对服务器要求极低，即使只有 512M 内存或是更低，它也能跑起来。它可以满足你对博客的基本需求，而且 Typecho 是带后端的，意味着只要你能上网，你就可以自由地写你的文章，不会被设备所拘束。当然，你将免除配置环境的苦恼。</p>
+<p>缺点：</p>
+<ol>
+<li>
+<p>更新慢</p>
+<p>奇慢无比，作者已经 9 年没有进行更新了，一些插件也已经不能用了。</p>
+</li>
+<li>
+<p>自由度低</p>
+<p>你不能随心所欲地进行 DIY，当然，如果你只是用来写博客的话问题不是很大。</p>
+</li>
+</ol>
+<h4 id="wordpress">WordPress</h4>
+<p>世界上最受欢迎的建站工具！具体有多受欢迎？每三个网站就有一个是 WordPress 搭建，并且美国白宫自2017年起，其官网 Whitehouse.gov 网站的內容管理系統（Content management system，CMS）从 Drupal 换成 WordPress！</p>
+<blockquote>
+<p>WordPress 是一个以 PHP 和 MySQL 为平台的自由开源的博客软件和内容管理系统。WordPress 具有插件架构和模板系统。截至2018年4月，排名前1000万的网站中超过30.6%使用WordPress 。WordPress是最受欢迎的网站内容管理系统。全球有大约30%的网站(7亿5000个)都是使用WordPress架设网站的。WordPress 是目前因特网上最流行的博客系统。</p>
+</blockquote>
+<p>并且 WordPress 并不只是可以用来写博客，它能用来打造一切你想要的网站，哪怕是用来建个电商网站也没有问题！</p>
+<p>优点：</p>
+<ol>
+<li>
+<p>超广泛传播性</p>
+<p>你在使用 WordPress 遇到的任何问题，你都可以在网上找到对应的解决方案，它的使用人数之多以至于每一个坑都有人替你趟过了！</p>
+</li>
+<li>
+<p>DIY 自由度高，难度低</p>
+<p>你可以随心所欲地添加插件，WordPress 提供了大量的优质插件，甚至有大量的人就以制作 WordPress 上的插件谋生！</p>
+</li>
+<li>
+<p>安装简单</p>
+<p>网上有非常多的 WordPress 一键安装脚本，你可以根据自己的需求进行选择，无需面对安装过程中的问题！并且其安装时间非常短，只需要5分钟就能搞定！</p>
+</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>
+<p>需要有一定性能的服务器</p>
+<p>PHP，MySQL这些对服务器有一定的要求，会占用比较多的内存，它不像 Typecho 一样轻便。</p>
+</li>
+<li>
+<p>太过臃肿，不简洁</p>
+<p>太多的功能与选择造成了页面的繁琐，并且你会对着页面一直修改，这不利于你专心地撰写博文。</p>
+</li>
+</ol>
+<p>总结：适合有服务器，懒得折腾环境配置，喜欢开箱即用的人。</p>
+<h2 id="hugo快速上手教程">Hugo快速上手教程</h2>
+<h3 id="hugo安装">Hugo安装</h3>
+<p>首先，请前往 GitHub 上下载最新版的 Hugo 压缩包，<a href="https://github.com/gohugoio/hugo/releases" target="_blank" rel="noopener noreffer">Releases · gohugoio/hugo (github.com)</a>，建议选择 extended 版本，这将更有利于后续的 DIY 操作！</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/01/07/zHNxB3PCmiMhdgR.png"
+        data-srcset="https://s2.loli.net/2022/01/07/zHNxB3PCmiMhdgR.png, https://s2.loli.net/2022/01/07/zHNxB3PCmiMhdgR.png 1.5x, https://s2.loli.net/2022/01/07/zHNxB3PCmiMhdgR.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/01/07/zHNxB3PCmiMhdgR.png"
+        title="image-20220107180905839" /></p>
+<p>下载完成后解压到一个你认为合适的位置，然后把 <code>hugo.exe</code> 所在的文件夹添加至环境变量中的 <code>Path</code> 中即可。</p>
+<p>当然，你也可以采用源码编译的方式进行安装，这里就采用最简单的方法了。</p>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>如果你的 <code>Path</code> 变量字符数达到上限了，你可以新建一个变量，然后在这个变量下添加你要添加的 <code>Path</code>，然后再在 <code>Path</code> 中添加一个变量值为 <code>%name%</code> 即可。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/01/07/BjuasOCpk2HUDzr.png"
+        data-srcset="https://s2.loli.net/2022/01/07/BjuasOCpk2HUDzr.png, https://s2.loli.net/2022/01/07/BjuasOCpk2HUDzr.png 1.5x, https://s2.loli.net/2022/01/07/BjuasOCpk2HUDzr.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/01/07/BjuasOCpk2HUDzr.png"
+        title="image-20220107181734504" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/01/07/2EJYS7FLlqy8j3a.png"
+        data-srcset="https://s2.loli.net/2022/01/07/2EJYS7FLlqy8j3a.png, https://s2.loli.net/2022/01/07/2EJYS7FLlqy8j3a.png 1.5x, https://s2.loli.net/2022/01/07/2EJYS7FLlqy8j3a.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/01/07/2EJYS7FLlqy8j3a.png"
+        title="image-20220107181857756" /></p>
+</div>
+        </div>
+    </div>
+<p>检查一下上一步操作是否正确</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">hugo version
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/01/07/FmoDJsKtEC2H5yM.png"
+        data-srcset="https://s2.loli.net/2022/01/07/FmoDJsKtEC2H5yM.png, https://s2.loli.net/2022/01/07/FmoDJsKtEC2H5yM.png 1.5x, https://s2.loli.net/2022/01/07/FmoDJsKtEC2H5yM.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/01/07/FmoDJsKtEC2H5yM.png"
+        title="image-20220107181019244" /></p>
+<p>然后找一个合适的文件夹，在该目录下输入以下指令新建一个 Hugo 项目</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">hugo new site my_website
+<span class="nb">cd</span> my_website
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="hugo主题选择安装与快速上手">Hugo主题选择、安装与快速上手</h3>
+<p>我这里采用 LoveIt 主题进行演示，事实上还有很多主题也很棒，比如 even、meme、wowchemy。</p>
+<p><strong>LoveIt</strong> 主题的仓库是: <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer">https://github.com/dillonzq/LoveIt</a>.</p>
+<p>你可以下载主题的 <a href="https://github.com/dillonzq/LoveIt/releases" target="_blank" rel="noopener noreffer">最新版本 .zip 文件</a> 并且解压放到 <code>themes</code>目录.</p>
+<p>另外, 也可以直接把这个主题克隆到 <code>themes</code> 目录:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/dillonzq/LoveIt.git themes/LoveIt
+</code></pre></td></tr></table>
+</div>
+</div><p>或者, 初始化你的项目目录为 git 仓库, 并且把主题仓库作为你的网站目录的子模块:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">git init
+git submodule add https://github.com/dillonzq/LoveIt.git themes/LoveIt
+</code></pre></td></tr></table>
+</div>
+</div><p>那么如何更新主题呢？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">git submodule update --rebase --remote
+</code></pre></td></tr></table>
+</div>
+</div><p>把 <code>\themes\LoveIt\exampleSite</code>目录下的<code>config.toml</code>复制下来，替换掉站点根目录下的同名文件。</p>
+<p>然后对这个文件进行一些自定义修改。</p>
+<p>然后进入根目录下的<code>archetypes</code>文件夹中，修改<code>default.md</code>文件为下面的内容（这个文件是模板文件，通过指令创建的文章将以模板为基础内容）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">---
+title: &#34;{{ replace .Name &#34;-&#34; &#34; &#34; | title }}&#34;
+date: {{ .Date }}
+tags: [&#34;&#34;]
+categories: [&#34;&#34;]
+toc:
+  enable: true
+description: 
+draft: true
+
+---
+
+<span class="c">&lt;!--more--&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>现在开始撰写文章</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">hugo new posts/first_post.md
+</code></pre></td></tr></table>
+</div>
+</div><p>注意，后缀为md，建议使用 Typora 进行编辑。</p>
+<p>首先修改 frontmatter，其中<code>title</code>表示文章标题，<code>date</code>为生成文章当时的时间，<code>tags</code>为标签，<code>categories</code>为目录，<code>toc enable</code>为启用文章目录（需要自己在文章中生成），<code>description</code>为文章摘要，<code>draft</code>表示是否为草稿（写完了文章把这里改为 false 即可），<code>&lt;!--more--&gt;</code>为 LoveIt 主题的摘要标识符，该标识符上方的内容为文章摘要，如果上方为空，则采用 frontmatter 中设置的<code>descriptions</code>为文章摘要。</p>
+<p>例如本文的 frontmatter 为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Hugo博客系列(一)&#34;</span><span class="w">
+</span><span class="w"></span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="ld">2022-01-04T18:40:38</span><span class="m">+08</span><span class="p">:</span><span class="m">00</span><span class="w">
+</span><span class="w"></span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;Hugo&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w"></span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;web&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w"></span><span class="nt">toc</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">enable</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w"></span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">本系列教程第一章讲解了几种常见的博客框架选择，最终以 Hugo 框架为基础，教授了如何在 GitHub pages 上部署个人博客，还使用 GitHub actions 以及一个简单的 bat 脚本实现自动化发布。</span><span class="w">
+</span><span class="w"></span><span class="nt">draft</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>写完了文章进行网页的构建</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">hugo serve -D -e production
+</code></pre></td></tr></table>
+</div>
+</div><p><code>-D</code>表示草稿也要渲染，<code>-serve</code>表示启动一个本地服务器，即时渲染，方便修改。</p>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><code>hugo serve</code> 的默认运行环境是 <code>development</code>, 而 <code>hugo</code> 的默认运行环境是 <code>production</code>。</p>
+<p>由于本地 <code>development</code> 环境的限制, 评论系统**, **CDN 和 fingerprint 不会在 <code>development</code> 环境下启用。</p>
+<p>你可以使用 <code>hugo serve -e production</code> 命令来开启这些特性。</p>
+</div>
+        </div>
+    </div>
+<p>值得一提的是不论输入的是<code>server</code>还是<code>serve</code>都是一样的。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/01/07/wPcCxbrhV5TKtWB.png"
+        data-srcset="https://s2.loli.net/2022/01/07/wPcCxbrhV5TKtWB.png, https://s2.loli.net/2022/01/07/wPcCxbrhV5TKtWB.png 1.5x, https://s2.loli.net/2022/01/07/wPcCxbrhV5TKtWB.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/01/07/wPcCxbrhV5TKtWB.png"
+        title="image-20220107191749776" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/01/07/sGRqPztyM3L1OjQ.png"
+        data-srcset="https://s2.loli.net/2022/01/07/sGRqPztyM3L1OjQ.png, https://s2.loli.net/2022/01/07/sGRqPztyM3L1OjQ.png 1.5x, https://s2.loli.net/2022/01/07/sGRqPztyM3L1OjQ.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/01/07/sGRqPztyM3L1OjQ.png"
+        title="image-20220107191842429" /></p>
+<p>在浏览器中前往它给出的 <a href="http://localhost:1313" target="_blank" rel="noopener noreffer">http://localhost:1313</a> 就能看到你刚生成的博客了。</p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>技巧<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">当你运行 <code>hugo serve</code> 时, 当文件内容更改时, 页面会随着更改自动刷新.</div>
+        </div>
+    </div>
+<p>现在再输入指令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">hugo -D
+</code></pre></td></tr></table>
+</div>
+</div><p>这会生成一个 <code>public</code> 目录, 其中包含你网站的所有静态内容和资源. 现在可以将其部署在任何 Web 服务器上。</p>
+<p>确认无误后就要把它发到公网上了，这里采用 GitHub pages 进行部署（当然，也有很多种方法也能达成这一目的）</p>
+<h3 id="github-pages部署">GitHub pages部署</h3>
+<p>如果你是第一次使用 GitHub，请自行搜索如何配置，这里不做讲解！</p>
+<p>首先确保你有一个 GitHub 账号，然后新建一个仓库，名为<code>yourname.github.io</code>，注意，你应该保证这里的 your name 为你的 GitHub 账号名称！然后再进行以下步骤：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> public
+git init
+git remote add origin https://github.com/yourname/yourname.github.io.git
+<span class="c1">#此URL可在你的repo中找到</span>
+git add .
+git commit -m <span class="s2">&#34;update %date%,%time%&#34;</span>
+git push origin master
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/01/07/XCuPaW2mTYlnDNv.png"
+        data-srcset="https://s2.loli.net/2022/01/07/XCuPaW2mTYlnDNv.png, https://s2.loli.net/2022/01/07/XCuPaW2mTYlnDNv.png 1.5x, https://s2.loli.net/2022/01/07/XCuPaW2mTYlnDNv.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/01/07/XCuPaW2mTYlnDNv.png"
+        title="image-20220107193538729" /></p>
+<p>如果一切顺利的话打开你的 GitHub repo，你就能看到相应的文件了，接着在 settings 页面中下滑，找到 GitHub pages，选择分支<code>master</code>，<code>root</code>路径，然后保存即可。如果你有自己的域名，还可以在下方的<code>custom domain</code>中输入你的域名，等待一段时间就可以用这个域名访问了。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/01/07/nDyJkuH16poXW54.png"
+        data-srcset="https://s2.loli.net/2022/01/07/nDyJkuH16poXW54.png, https://s2.loli.net/2022/01/07/nDyJkuH16poXW54.png 1.5x, https://s2.loli.net/2022/01/07/nDyJkuH16poXW54.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/01/07/nDyJkuH16poXW54.png"
+        title="image-20220107193043431" /></p>
+<p>当然，在此之前你还需要再次修改<code>config.toml</code>文件中的<code>baseURL</code>为<code>https://yourname.github.io</code>，否则发布到网上也无法访问！</p>
+<h3 id="github-actions实现自动部署cicd">GitHub actions实现自动部署(CI/CD)</h3>
+<p>是否觉得这个发布太过于繁琐了？别担心，这里提供两种解决方案！分别是本地 bat 脚本和GitHub actions。</p>
+<p>首先是本地 bat 脚本，这将免除每次发布都要敲至少 5 行指令的痛苦。只需要每次要发布的时候双击运行一下程序即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">hugo -D
+<span class="nb">cd</span> public
+git add .
+git commit -m <span class="s2">&#34;update %date%,%time%&#34;</span>
+git push origin master
+pause
+</code></pre></td></tr></table>
+</div>
+</div><p>另一种方法是前往 GitHub，新建一个仓库。</p>
+<p>点击<code>Actions</code>选择<code>simple workflow</code>，内容如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">CI</span><span class="w"> </span><span class="c">#自动化的名称</span><span class="w">
+</span><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w"> </span><span class="c"># push的时候触发</span><span class="w">
+</span><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="c"># 那些分支需要触发</span><span class="w">
+</span><span class="w">      </span>- <span class="l">master</span><span class="w">
+</span><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">build</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w"> </span><span class="c"># 镜像市场</span><span class="w">
+</span><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">checkout</span><span class="w"> </span><span class="c"># 步骤的名称</span><span class="w">
+</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2.3.4</span><span class="w"> </span><span class="c">#软件市场的名称</span><span class="w">
+</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w"> </span><span class="c"># 参数</span><span class="w">
+</span><span class="w">          </span><span class="nt">submodules</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup Hugo</span><span class="w">
+</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-hugo@v2.4.13</span><span class="w">
+</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">hugo-version</span><span class="p">:</span><span class="w"> </span><span class="l">latest</span><span class="w">
+</span><span class="w">          </span><span class="nt">extended</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build</span><span class="w">
+</span><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">hugo -D</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy</span><span class="w">
+</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-gh-pages@v3</span><span class="w">
+</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">deploy_key</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.ACTIONS_DEPLOY_KEY }}</span><span class="w">
+</span><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">github_token</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GITHUB_TOKEN }}</span><span class="w">
+</span><span class="w">          </span><span class="nt">ACTIONS_DEPLOY_KEY</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.ACTIONS_DEPLOY_KEY }}</span><span class="w">
+</span><span class="w">          </span><span class="nt">EXTERNAL_REPOSITORY</span><span class="p">:</span><span class="w"> </span><span class="m">14772</span><span class="l">/14772.github.io</span><span class="w"> </span><span class="c"># 注意要修改本处地址</span><span class="w">
+</span><span class="w">          </span><span class="nt">PUBLISH_BRANCH</span><span class="p">:</span><span class="w"> </span><span class="l">master</span><span class="w">
+</span><span class="w">          </span><span class="nt">PUBLISH_DIR</span><span class="p">:</span><span class="w"> </span><span class="l">./public</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>然后在本地输入以下命令在当前目录下生成密钥对</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ssh-keygen -t rsa -b 4096 -C &#34;$(git config user.email)&#34; -f gh-pages -N &#34;&#34;
+# You will get 2 files:
+#   gh-pages.pub (public key)
+#   gh-pages     (private key)
+</code></pre></td></tr></table>
+</div>
+</div><p><code>-t rsa</code>表示 rsa 加密，<code>-b 4096</code>则表示长度为 4096bit，<code>-C</code>后面的是备注，<code>-f</code>后面的是文件名，<code>-N</code>是新密语</p>
+<p>现在前往<code>yourname.github.io</code>仓库，选择Settings &gt; Deploy keys &gt; Add deploy key，勾选 Allow write access，内容为公钥(有<code>pub</code>字样的文件)</p>
+<p>再前往之前存放了<code>master.yml</code>文件的仓库，选择Settings &gt; Secrets &gt; New secret，名称填<code>ACTIONS_DEPLOY_KEY</code>，内容为私钥</p>
+<p>然后在站点根目录下执行以下命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">git remote add origin https://github.com/yourname/yourrepo.
+<span class="c1">#此repo为你放了master.yml文件的仓库</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>现在再来写一个 bat 脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">git add .
+git commit -m <span class="s2">&#34;update %date%,%time%&#34;</span>
+git push origin master
+</code></pre></td></tr></table>
+</div>
+</div><p>之后直接双击运行它就行了</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-04</span>
+            </div>
+            <div class="post-info-license"><span><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" one-link-mark="yes" class="link-instanted">CC BY-NC 4.0</a></span></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://14772.github.io/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/" data-title="Hugo博客系列(一)" data-via="sukun67717973" data-hashtags="Hugo"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://14772.github.io/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/" data-hashtag="Hugo"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://14772.github.io/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/" data-title="Hugo博客系列(一)"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://14772.github.io/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/" data-title="Hugo博客系列(一)"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/baidu.svg"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/hugo/">Hugo</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E6%B5%85%E6%9E%90%E7%BF%BB%E5%A2%99/" class="prev" rel="prev" title="浅析翻墙"><i class="fas fa-angle-left fa-fw"></i>浅析翻墙</a>
+            <a href="/%E7%AB%99%E7%82%B9%E6%97%A5%E5%BF%97/" class="next" rel="next" title="站点日志">站点日志<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="waline"></div>
+    <script src='https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
+
+    <script>
+        new Waline({
+            el: '#waline',
+            meta: ["nick","mail","link"],
+            requiredMeta: ["nick","mail"],
+            login: "force",
+            placeholder: "为防恶意灌水攻击，评论前需注册并登录，望见谅~",
+            serverURL: "https://blog-api-jade.vercel.app",
+            avatarCDN: "https://sdn.geekzu.org/avatar/",
+            pageSize:  20 ,
+            avatar: "retro",
+            lang: "zh-CN",
+            visitor:  true ,
+            highlight:  true ,
+            uploadImage:  false ,
+            emoji: [
+            'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq',
+            'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili',
+            'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/tieba',
+        ],
+                		    	});
+    </script></div></article></div>
+            </main>
+            <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-line">
+            <span id="run-time"></span>
+        </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="https://sukun.xyz" target="_blank">Sukun</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" one-link-mark="yes" class="link-instanted">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+    window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date());
+    gtag('config', 'UA-207270792-1', { 'anonymize_ip': true });
+</script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=UA-207270792-1" async></script><script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?36906624de93fc40ef084568363cdc35";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script></body>
+</html>

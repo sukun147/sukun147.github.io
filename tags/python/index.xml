@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>python - 标签 - Sukun&#39;s blog</title>
+        <link>https://14772.github.io/tags/python/</link>
+        <description>python - 标签 - Sukun&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1477264431@qq.com (Sukun)</managingEditor>
+            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 02 Jan 2022 13:55:37 &#43;0800</lastBuildDate><atom:link href="https://14772.github.io/tags/python/" rel="self" type="application/rss+xml" /><item>
+    <title>TCP通信Python实现</title>
+    <link>https://14772.github.io/tcp%E9%80%9A%E4%BF%A1python%E5%AE%9E%E7%8E%B0/</link>
+    <pubDate>Sun, 02 Jan 2022 13:55:37 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://14772.github.io/tcp%E9%80%9A%E4%BF%A1python%E5%AE%9E%E7%8E%B0/</guid>
+    <description><![CDATA[本文讲解了如何使用 python 实现 socket 网络编程，并以此为基础，搭建了一个简单的 TCP 通信网络聊天室。]]></description>
+</item></channel>
+</rss>
