@@ -36,10 +36,10 @@
     <description><![CDATA[站点日志 站点日志 不断更新中 2021年 2021年10月 大一参加学校工作室招新，购买了云服务器，顺便利用 WordPress 开通了我的第一个私人博客。（顺便提一嘴]]></description>
 </item><item>
     <title>Hugo博客系列(一)</title>
-    <link>https://14772.github.io/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/</link>
+    <link>https://14772.github.io/hugo-1/</link>
     <pubDate>Tue, 04 Jan 2022 18:40:38 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://14772.github.io/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%B8%80/</guid>
+    <guid>https://14772.github.io/hugo-1/</guid>
     <description><![CDATA[本系列教程第一章讲解了几种常见的博客框架选择，最终以 Hugo 框架为基础，教授了如何在 GitHub pages 上部署个人博客，还使用 GitHub actions 以及一个简单的 bat 脚本实现自动化发布。]]></description>
 </item><item>
     <title>浅析翻墙</title>
