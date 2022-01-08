@@ -33,8 +33,8 @@ word="不想当写手的码农不是好咸鱼_(xз」∠)_" >}}
 
 ```html
 name="Sukun的博客"
-url="https://sukun.xyz"
-logo="https://sukun.xyz/images/德丽莎观星.png"
+url="https://www.sukun.xyz"
+logo="https://www.sukun.xyz/images/avatar.png"
 word="Sukun的博客，记录学习历程！"
 ```
 
