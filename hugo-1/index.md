@@ -369,5 +369,9 @@ git push origin master
 
 之后直接双击运行它就行了
 
-第二种做法总的来说就是两个仓库，一个存源码，一个放网页文件，这样一来你只需要 public 放网页文件的仓库就行，另外一个可以 private，这样一来隐私保护会更好！但是要麻烦一点。 
+{{< admonition >}}
+
+如果你自定义了域名，那么你需要在站点根目录`static`文件夹下新建一个`CNAME`文件，内容为你的自定义域名！否则每次 deploy 后域名都会变成 yourname.github.io，达不到自定义的目的！
+
+{{< /admonition >}}
 
