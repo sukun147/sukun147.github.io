@@ -4,7 +4,14 @@
         <link>https://sukun.xyz/categories/web/</link>
         <description>web - 分类 - Sukun&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1477264431@qq.com (Sukun)</managingEditor>
-            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 04 Jan 2022 18:40:38 &#43;0800</lastBuildDate><atom:link href="https://sukun.xyz/categories/web/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 08 Jan 2022 10:52:02 &#43;0800</lastBuildDate><atom:link href="https://sukun.xyz/categories/web/" rel="self" type="application/rss+xml" /><item>
+    <title>Hugo博客系列(二)</title>
+    <link>https://sukun.xyz/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%BA%8C/</link>
+    <pubDate>Sat, 08 Jan 2022 10:52:02 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://sukun.xyz/hugo%E5%8D%9A%E5%AE%A2%E7%B3%BB%E5%88%97%E4%BA%8C/</guid>
+    <description><![CDATA[本系列教程第二章讲述了如何从GitHub pages迁移至Vercel，并提供了一些简单的博客美化教程。]]></description>
+</item><item>
     <title>Hugo博客系列(一)</title>
     <link>https://sukun.xyz/hugo-1/</link>
     <pubDate>Tue, 04 Jan 2022 18:40:38 &#43;0800</pubDate>
