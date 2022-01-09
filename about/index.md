@@ -17,7 +17,7 @@
 
 - email :[1477264431@qq.com](mailto:1477264431@qq.com)
 - csdn :[https://blog.csdn.net/sk14772](https://blog.csdn.net/sk14772)
-- GitHub :[https://github.io/14772](https://github.io/14772)
+- GitHub :[https://github.com/14772](https://github.com/14772)
 
 ### 创建博客目的
 
