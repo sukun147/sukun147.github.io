@@ -137,7 +137,7 @@ GFW 不是对域名进行各种干扰吗，现在我直接绕过域名解析，�
 
 这里故意把 VPN 和代理分开，事实上 VPN 也是代理的一种，但其在网络七层协议中跑在数据链路层/第二层，而socks5、Trojan、v2ray之类的则是在OSI七层模型中的第五层/会话层的，（ HTTP 在第七层/应用层， Ping 指令使用 ICMP 协议，工作于第三层/网络层）。而更低层可以代理更高层，更高层代理不了更底层。表现出来的则是你挂了梯子（非 VPN 类）发现依然没法加速 LOL 等游戏（游戏跑网络层），这也是你再挂了梯子之后依然可以用 Ping 来看主机与服务器直接的延迟的原因。但如果开了 VPN ，那他可以加速游戏，可以代理 ICMP 指令。
 
-![OSI与TCP/IP](https://tse1-mm.cn.bing.net/th/id/OIP-C.76QMTWMnpfCHjXkqAuapDAHaEZ?pid=ImgDet&rs=1)
+![OSI与TCP/IP](https://s2.loli.net/2022/01/12/DoTLUd6Zef7W5hY.png)
 
 说完了 VPN 与这里说的代理的区别，现在再来说常见的几种“翻墙”代理协议。
 
