@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Nginx - 标签 - Sukun&#39;s blog</title>
-        <link>https://sukun.xyz/tags/nginx/</link>
+        <link>https://www.sukun.xyz/tags/nginx/</link>
         <description>Nginx - 标签 - Sukun&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1477264431@qq.com (Sukun)</managingEditor>
-            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 02 Jan 2022 13:22:37 &#43;0800</lastBuildDate><atom:link href="https://sukun.xyz/tags/nginx/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 02 Jan 2022 13:22:37 &#43;0800</lastBuildDate><atom:link href="https://www.sukun.xyz/tags/nginx/" rel="self" type="application/rss+xml" /><item>
     <title>简易建站</title>
-    <link>https://sukun.xyz/%E7%AE%80%E6%98%93%E5%BB%BA%E7%AB%99/</link>
+    <link>https://www.sukun.xyz/%E7%AE%80%E6%98%93%E5%BB%BA%E7%AB%99/</link>
     <pubDate>Sun, 02 Jan 2022 13:22:37 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://sukun.xyz/%E7%AE%80%E6%98%93%E5%BB%BA%E7%AB%99/</guid>
+    <guid>https://www.sukun.xyz/%E7%AE%80%E6%98%93%E5%BB%BA%E7%AB%99/</guid>
     <description><![CDATA[本文利用 Nginx 和 docker 进行网站部署，实现一个简单的公网 HTTPS 访问，并添加了基于 docker 容器集群的负载均衡功能。]]></description>
 </item></channel>
 </rss>

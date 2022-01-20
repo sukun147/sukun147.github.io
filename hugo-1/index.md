@@ -302,6 +302,8 @@ git push origin master
 pause
 ```
 
+------
+
 另一种方法是前往 GitHub，新建一个仓库。
 
 点击`Actions`选择`simple workflow`，内容如下
@@ -375,4 +377,6 @@ git push origin master
 如果你自定义了域名，那么你需要在站点根目录`static`文件夹下新建一个`CNAME`文件，内容为你的自定义域名！否则每次 deploy 后域名都会变成 yourname.github.io，达不到自定义的目的！
 
 {{< /admonition >}}
+
+**总结：第二种更复杂，但也更好，因为它将源文件也上传到了云端，便于多地更新博客，不至于丢失文章。并且，其在本地占用的内存更小（毕竟网页源代码全在云端），对于文章很多的朋友来说也更友好。**
 

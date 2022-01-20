@@ -61,3 +61,9 @@
 
 将站点从 GitHub pages 迁移至了 Vercel。
 
+#### 2022年1月20日
+
+期末考完差不多1周了，寒假开卷！数据结构！大雾！微积分！
+
+这里分享一下我的数据结构学习资料：[（西北大学）数据结构](https://www.bilibili.com/video/BV1y7411R7ob)网课，LeetCode 刷题
+

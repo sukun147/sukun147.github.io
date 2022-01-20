@@ -61,4 +61,4 @@ Disallow: /
 User-agent: ZoominfoBot
 Disallow: /
 
-Sitemap: https://sukun.xyz/sitemap.xml
+Sitemap: https://www.sukun.xyz/sitemap.xml
