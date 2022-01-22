@@ -7,8 +7,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>数据结构学习(二) - Sukun&#39;s blog</title><meta name="keywords" content="sukun,hugo,博客">
 
-<meta name="Description" content="数据结构——用C语言描述。本节讲述线性表。"><meta property="og:title" content="数据结构学习(二)" />
-<meta property="og:description" content="数据结构——用C语言描述。本节讲述线性表。" />
+<meta name="Description" content="数据结构——用C语言描述。本节讲述线性结构中的线性表。"><meta property="og:title" content="数据结构学习(二)" />
+<meta property="og:description" content="数据结构——用C语言描述。本节讲述线性结构中的线性表。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.sukun.xyz/data_structure-2/" /><meta property="og:image" content="https://www.sukun.xyz/images/avatar.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-01-20T20:23:14+08:00" />
@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="https://www.sukun.xyz/images/avatar.png"/>
 
 <meta name="twitter:title" content="数据结构学习(二)"/>
-<meta name="twitter:description" content="数据结构——用C语言描述。本节讲述线性表。"/>
+<meta name="twitter:description" content="数据结构——用C语言描述。本节讲述线性结构中的线性表。"/>
 <meta name="application-name" content="Sukun&#39;">
 <meta name="apple-mobile-web-app-title" content="Sukun&#39;"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -31,13 +31,13 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.sukun.xyz\/data_structure-2\/"
-        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "数据结构, 学习","wordcount":  50 ,
+        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "数据结构, 学习","wordcount":  1440 ,
         "url": "https:\/\/www.sukun.xyz\/data_structure-2\/","datePublished": "2022-01-20T20:23:14+08:00","dateModified": "2022-01-20T20:23:14+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "sukun","logo": "https:\/\/www.sukun.xyz\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "Sukun"
-            },"description": "数据结构——用C语言描述。本节讲述线性表。"
+            },"description": "数据结构——用C语言描述。本节讲述线性结构中的线性表。"
     }
     </script></head>
     <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -164,8 +164,8 @@
     <div class="toc-content" id="toc-content-auto"></div>
 </div><article class="page single"><h1 class="single-title animated flipInX">数据结构学习(二)</h1><div class="post-meta">
         <div class="post-meta-line"><span class="post-author"><a href="https://www.sukun.xyz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Sukun</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><i class="far fa-folder fa-fw"></i>数据结构</a></span></div>
-        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-01-20">2022-01-20</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-01-20">2022-01-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 50 字
-            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;<span id="/data_structure-2/" class="leancloud_visitors" data-flag-title="数据结构学习(二)">
+        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-01-20">2022-01-20</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-01-20">2022-01-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1440 字
+            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/data_structure-2/" class="leancloud_visitors" data-flag-title="数据结构学习(二)">
                 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
             </span>&nbsp;
             <a href="#comments" id="post-meta-vcount" title="查看评论">
@@ -178,13 +178,534 @@
             <span>目录</span>
             <span><i class="details-icon fas fa-angle-right"></i></span>
         </div>
-        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
-    </div><div class="content" id="content"><h1 id="本系列学习笔记链接">本系列学习笔记链接</h1>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#线性结构">线性结构</a>
+      <ul>
+        <li><a href="#线性表">线性表</a>
+          <ul>
+            <li><a href="#线性表定义">线性表定义</a></li>
+            <li><a href="#线性表的顺序存储">线性表的顺序存储</a>
+              <ul>
+                <li><a href="#查找操作">查找操作</a></li>
+                <li><a href="#插入操作">插入操作</a></li>
+                <li><a href="#删除操作">删除操作</a></li>
+                <li><a href="#顺序表合并算法">顺序表合并算法</a></li>
+                <li><a href="#顺序表优缺点总结">顺序表优缺点总结</a></li>
+              </ul>
+            </li>
+            <li><a href="#线性表的链式存储">线性表的链式存储</a>
+              <ul>
+                <li><a href="#单链表">单链表</a>
+                  <ul>
+                    <li><a href="#求长度">求长度</a></li>
+                    <li><a href="#建立空表">建立空表</a></li>
+                    <li><a href="#头插法建表">头插法建表</a></li>
+                    <li><a href="#尾插法建表">尾插法建表</a></li>
+                    <li><a href="#查找">查找</a></li>
+                  </ul>
+                </li>
+                <li><a href="#循环链表">循环链表</a></li>
+                <li><a href="#双向链表">双向链表</a></li>
+                <li><a href="#静态链表">静态链表</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+    </div><div class="content" id="content"><p>[TOC]</p>
+<h1 id="本系列学习笔记链接">本系列学习笔记链接</h1>
 <ul>
 <li>第一章：<a href="/data_structure-1" rel="">数据结构学习(一)</a></li>
 <li>第二章：<a href="/data_structure-2" rel="">数据结构学习(二)</a></li>
 </ul>
-<h1 id="数据结构用c语言描述二">数据结构——用C语言描述(二)</h1></div><div class="post-footer" id="post-footer">
+<h1 id="数据结构用c语言描述二">数据结构——用C语言描述(二)</h1>
+<h2 id="线性结构">线性结构</h2>
+<h3 id="线性表">线性表</h3>
+<h4 id="线性表定义">线性表定义</h4>
+<p>线性表（LinearList）：由 n 个类型相同数据元素的有限序列，记作
+$$
+(a_1,a_2,···,a_i,a_{i+1},···,a_n)
+$$
+称 n 为线性表长度，特别的，当 n = 0 时，称为空表。</p>
+<p>每个数据元素只有一个直接前驱和一个直接后继（首尾元素除外），即为一对一的线性关系。</p>
+<p>线性表特点：</p>
+<ul>
+<li>同一性</li>
+<li>有穷性</li>
+<li>有序性</li>
+</ul>
+<p>对于线性表 ADT，有 9 种基本操作运算：</p>
+<ol>
+<li>初始化 InitList(L)</li>
+<li>销毁 DestroyList(L)</li>
+<li>置空 ClearList(L)</li>
+<li>判空 EmptyList(L)</li>
+<li>求长度 ListLength(L)</li>
+<li>查找 Locate(L, e)</li>
+<li>存取 GetData(L, i)</li>
+<li>插入 InsList(L, i, e)</li>
+<li>删除 DelList(L, i, &amp;e)</li>
+</ol>
+<h4 id="线性表的顺序存储">线性表的顺序存储</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define MAXSIZE 100
+</span><span class="cp"></span><span class="c1">//线性表数据类型定义
+</span><span class="c1"></span><span class="k">typedef</span> <span class="k">struct</span>
+<span class="p">{</span>
+    <span class="n">ElemType</span> <span class="n">elem</span><span class="p">[</span><span class="n">MAXSIZE</span><span class="p">];</span> <span class="c1">//线性表占用的数组空间
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">last</span><span class="p">;</span>               <span class="c1">//线性表中最后一个元素在数组中的位置下标
+</span><span class="c1"></span><span class="p">}</span> <span class="n">SeqList</span><span class="p">;</span>
+<span class="cm">/*
+</span><span class="cm">两种变量定义方式
+</span><span class="cm">SeqList L1 使用L1.elem[i-1]访问
+</span><span class="cm">SeqList *L2 使用L2-&gt;elem[i-1]访问
+</span><span class="cm">*/</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="查找操作">查找操作</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="c1">//按内容查找
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">Locate</span><span class="p">(</span><span class="n">SeqList</span> <span class="n">L</span><span class="p">,</span> <span class="n">ElemType</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">((</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">L</span><span class="p">.</span><span class="n">last</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">L</span><span class="p">.</span><span class="n">elem</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">L</span><span class="p">.</span><span class="n">last</span><span class="p">)</span>
+        <span class="n">retrun</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//若找到值为e的元素，则返回其序号
+</span><span class="c1"></span>    <span class="k">else</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="c1">//若没找到，返回空序号
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">//按序号查找
+</span><span class="c1"></span><span class="n">ElemType</span> <span class="nf">GetData</span><span class="p">(</span><span class="n">SeqList</span> <span class="n">L</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">L</span><span class="p">.</span><span class="n">last</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">L</span><span class="p">.</span><span class="n">elem</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;序号超过上限&#34;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="插入操作">插入操作</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="c1">//在表的第i个位置之前插入一个新元素e
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">InsList</span><span class="p">(</span><span class="n">SeqList</span> <span class="o">*</span><span class="n">L</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">ElemType</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">k</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">L</span><span class="o">-&gt;</span><span class="n">last</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;插入位置i值不合法&#34;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">L</span><span class="o">-&gt;</span><span class="n">last</span> <span class="o">&gt;=</span> <span class="n">MAXSIZE</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;表已满无法插入&#34;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">k</span> <span class="o">=</span> <span class="n">L</span><span class="o">-&gt;</span><span class="n">last</span><span class="p">;</span> <span class="n">k</span> <span class="o">&gt;=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">k</span><span class="o">--</span><span class="p">)</span>
+        <span class="n">L</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+    <span class="n">L</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">e</span><span class="p">;</span>
+    <span class="n">L</span><span class="o">-&gt;</span><span class="n">last</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="删除操作">删除操作</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="c1">//将表的第i个元素删去
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">DelList</span><span class="p">(</span><span class="n">SeqList</span> <span class="o">*</span><span class="n">L</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">ElemType</span> <span class="o">*</span><span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">k</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">L</span><span class="o">-&gt;</span><span class="n">last</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;删除位置不合法！&#34;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="o">*</span><span class="n">e</span> <span class="o">=</span> <span class="n">L</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="n">L</span><span class="o">-&gt;</span><span class="n">last</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">L</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+    <span class="n">L</span><span class="o">-&gt;</span><span class="n">last</span><span class="o">--</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="顺序表合并算法">顺序表合并算法</h5>
+<p>有两个顺序表 LA 和 LB，其元素均为递增有序排列，编写算法，将两个有序表合并成一个递增有序的顺序表 LC。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">merg</span><span class="p">(</span><span class="n">SeqList</span> <span class="o">*</span><span class="n">LA</span><span class="p">,</span> <span class="n">SeqList</span> <span class="o">*</span><span class="n">LB</span><span class="p">,</span> <span class="n">SeqList</span> <span class="o">*</span><span class="n">LC</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">LA</span><span class="o">-&gt;</span><span class="n">last</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">LB</span><span class="o">-&gt;</span><span class="n">last</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">LA</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">LB</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+        <span class="p">{</span>
+            <span class="n">LC</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">LA</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">k</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">LC</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">LB</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+            <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">k</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">LA</span><span class="o">-&gt;</span><span class="n">last</span><span class="p">)</span> <span class="c1">//表A长于表B
+</span><span class="c1"></span>    <span class="p">{</span>
+        <span class="n">LC</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">LA</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">k</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">LB</span><span class="o">-&gt;</span><span class="n">last</span><span class="p">)</span> <span class="c1">//表B长于表A
+</span><span class="c1"></span>    <span class="p">{</span>
+        <span class="n">LC</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">LB</span><span class="o">-&gt;</span><span class="n">elem</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+        <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">k</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">LC</span><span class="o">-&gt;</span><span class="n">last</span> <span class="o">=</span> <span class="n">LA</span><span class="o">-&gt;</span><span class="n">last</span> <span class="o">+</span> <span class="n">LB</span><span class="o">-&gt;</span><span class="n">last</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>比较循环的时间复杂度为
+$$
+O(LA-&gt;last+LB-&gt;last)
+$$
+复制循环时间复杂度为
+$$
+O(max(LA-&gt;last,LB-&gt;last))
+$$</p>
+<h5 id="顺序表优缺点总结">顺序表优缺点总结</h5>
+<ul>
+<li>优点
+<ol>
+<li>无需为表示结点间的逻辑关系而增加额外的存储空间</li>
+<li>可方便地随机存取查找表中的任一元素</li>
+</ol>
+</li>
+<li>缺点
+<ol>
+<li>大量插入删除时效率低，除表尾位置外，在其它位置插入删除都必须移动大量元素（平均移动次数为表长度一半）</li>
+<li>由于顺序表要求占用连续的存储空间,存储分配只能预先进行静态分配。因此当表长变化较大时，难以确定合适的存储规模。</li>
+</ol>
+</li>
+</ul>
+<p>总结：便于随机存取，不适合动态变化</p>
+<h4 id="线性表的链式存储">线性表的链式存储</h4>
+<h5 id="单链表">单链表</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/01/22/Bnj81JZgApR237O.png"
+        data-srcset="https://s2.loli.net/2022/01/22/Bnj81JZgApR237O.png, https://s2.loli.net/2022/01/22/Bnj81JZgApR237O.png 1.5x, https://s2.loli.net/2022/01/22/Bnj81JZgApR237O.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/01/22/Bnj81JZgApR237O.png"
+        title="image-20220122153019138" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">typedef</span> <span class="k">struct</span>
+<span class="p">{</span>
+    <span class="n">ElemType</span> <span class="n">data</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">Node</span><span class="p">,</span> <span class="o">*</span><span class="n">LinkList</span><span class="p">;</span>
+<span class="n">LinkList</span> <span class="n">L</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="求长度">求长度</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">int</span> <span class="nf">ListLength</span><span class="p">(</span><span class="n">LinkList</span> <span class="n">L</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">L</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">p</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">j</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="建立空表">建立空表</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">InitList</span><span class="p">(</span><span class="n">LinkList</span> <span class="o">*</span><span class="n">L</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="p">(</span><span class="n">LinkList</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Node</span><span class="p">));</span>
+    <span class="n">L</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="头插法建表">头插法建表</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">LinkList</span> <span class="nf">CreateFromHead</span><span class="p">(</span><span class="n">LinkList</span> <span class="n">L</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">s</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">c</span><span class="o">!=</span><span class="sc">&#39;$&#39;</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">LinkList</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Node</span><span class="p">));</span>
+            <span class="n">s</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+            <span class="n">s</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">L</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">L</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="尾插法建表">尾插法建表</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">LinkList</span> <span class="nf">CreateFromTail</span><span class="p">(</span><span class="n">LinkList</span> <span class="n">L</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">LinkList</span> <span class="n">L</span><span class="p">;</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">r</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">s</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">L</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">!=</span> <span class="sc">&#39;$&#39;</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">LinkList</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Node</span><span class="p">));</span>
+            <span class="n">s</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+            <span class="n">r</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">r</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="查找">查找</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="循环链表">循环链表</h5>
+<h5 id="双向链表">双向链表</h5>
+<h5 id="静态链表">静态链表</h5></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
