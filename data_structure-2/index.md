@@ -7,6 +7,7 @@
 
 - 第一章：[数据结构学习(一)](/data_structure-1)
 - 第二章：[数据结构学习(二)](/data_structure-2)
+- 第三章：[数据结构学习(三)](/data_structure-3)
 
 # 数据结构——用C语言描述(二)
 
@@ -30,17 +31,27 @@ $$
 - 有穷性
 - 有序性
 
-对于线性表 ADT，有 9 种基本操作运算：
+对于线性表 ADT：
 
-1. 初始化 InitList(L)
-2. 销毁 DestroyList(L)
-3. 置空 ClearList(L)
-4. 判空 EmptyList(L)
-5. 求长度 ListLength(L)
-6. 查找 Locate(L, e)
-7. 存取 GetData(L, i)
-8. 插入 InsList(L, i, e)
-9. 删除 DelList(L, i, &e)
+数据元素：同类型数据元素的集合
+$$
+D=\{ a_i|\ a_i\in D0,\ i=1,2,…,n\ n≥0 ，D0为某一数据对象\}
+$$
+关系：有序对偶
+$$
+s=\{<a_i, a_{i+1}>|\ a_i, a_{i+1}\in D0,\ i=1,2,…, n-1\}
+$$
+有 9 种基本操作运算：
+
+1. 初始化`InitList(L)`
+2. 销毁`DestroyList(L)`
+3. 置空`ClearList(L)`
+4. 判空`EmptyList(L)`
+5. 求长度`ListLength(L)`
+6. 查找`Locate(L, e)`
+7. 存取`GetData(L, i)`
+8. 插入`InsList(L, i, e)`
+9. 删除`DelList(L, i, &e)`
 
 #### 线性表的顺序存储
 
@@ -641,9 +652,9 @@ void Difference(LinkList LA, LinkList LB)
 
 - 访问单链表 L 中某结点第 i 结点或值为 e 结点时，必须从头开始。
 
-- 表尾控制条件：当前结点 p->next == NULL
+- 表尾控制条件：当前结点`p->next == NULL`
 
-- 在处理过程中始终需要维持当前指针 p 与前驱指针 pre 的关系。
+- 在处理过程中始终需要维持当前指针`p`与前驱指针`pre`的关系。
 
 
 ##### 循环链表
@@ -735,8 +746,8 @@ LinkList merge_2(LinkList RA, LinkList RB)
 ###### 循环单链表总结
 
 - 特点：首尾相接，可从当前结点遍历所有结点
-- 空表判断条件：L->next == L
-- 表尾控制条件：当前结点 p->next == L
+- 空表判断条件：`L->next == L`
+- 表尾控制条件：当前结点`p->next == L`
 
 ##### 双向链表
 
@@ -1197,7 +1208,7 @@ AdjustSeqlist(SeqList *L)
 
 ##### 二进制数加一运算
 
-建立了一个带头结点的线性链表，用以存放输入的二进制数，链表中每个结点的data域存放一个二进制位。并在此链表上实现对二进制数加1的运算。
+建立了一个带头结点的线性链表，用以存放输入的二进制数，链表中每个结点的 data 域存放一个二进制位。并在此链表上实现对二进制数加1的运算。
 
 ```c
 typedef struct

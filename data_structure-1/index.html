@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.sukun.xyz\/data_structure-1\/"
-        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "数据结构, 学习","wordcount":  1118 ,
+        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "数据结构, 学习","wordcount":  1148 ,
         "url": "https:\/\/www.sukun.xyz\/data_structure-1\/","datePublished": "2022-01-20T14:46:28+08:00","dateModified": "2022-01-20T14:46:28+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "sukun","logo": "https:\/\/www.sukun.xyz\/images\/avatar.png"},"author": {
@@ -164,7 +164,7 @@
     <div class="toc-content" id="toc-content-auto"></div>
 </div><article class="page single"><h1 class="single-title animated flipInX">数据结构学习(一)</h1><div class="post-meta">
         <div class="post-meta-line"><span class="post-author"><a href="https://www.sukun.xyz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Sukun</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><i class="far fa-folder fa-fw"></i>数据结构</a></span></div>
-        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-01-20">2022-01-20</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-01-20">2022-01-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1118 字
+        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-01-20">2022-01-20</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-01-20">2022-01-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1148 字
             <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/data_structure-1/" class="leancloud_visitors" data-flag-title="数据结构学习(一)">
                 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
             </span>&nbsp;
@@ -194,17 +194,36 @@
 <ul>
 <li>第一章：<a href="/data_structure-1" rel="">数据结构学习(一)</a></li>
 <li>第二章：<a href="/data_structure-2" rel="">数据结构学习(二)</a></li>
+<li>第三章：<a href="/data_structure-3" rel="">数据结构学习(三)</a></li>
 </ul>
 <h1 id="数据结构用c语言描述一">数据结构——用C语言描述(一)</h1>
 <h2 id="数据结构绪论">数据结构绪论</h2>
 <h3 id="数据结构基础概念">数据结构基础概念</h3>
 <ul>
-<li><strong>数据</strong>（Data）：描述客观事物的数值、字符，能被机器输入且处理的的各种符号的集合。</li>
-<li><strong>数据元素</strong>（Data Element）：组成数据的基本单位，是数据集合的个体。一条记录就是一个数据元素。</li>
-<li><strong>数据对象</strong>（Data Object）：性质相同的数据元素的集合，是数据的一个子集。</li>
-<li><strong>数据结构</strong>（Data Structure）：指相互之间存在一种或多种特定关系的数据元素集合。即数据元素之间的相互关系，即数据的组织形式。一句话总结：<strong>带有结构的数据元素的集合</strong>。</li>
-<li><strong>数据类型</strong>（Data Type）：一组性质相同的值集合以及定义在这个值集合上的一组操作的总称。即值域、定义域及运算集合。</li>
-<li><strong>抽象数据类型</strong>（Abstract Data Type）：定义了一个数据对象，数据对象中各元素之间的结构关系，以及一组处理数据的操作。包括定义和实现两方面，其中定义是独立于实现的。</li>
+<li>
+<p><strong>数据</strong>（Data）：描述客观事物的数值、字符，能被机器输入且处理的的各种符号的集合。</p>
+</li>
+<li>
+<p><strong>数据元素</strong>（Data Element）：组成数据的基本单位，是数据集合的个体。一条记录就是一个数据元素。</p>
+</li>
+<li>
+<p><strong>数据对象</strong>（Data Object）：性质相同的数据元素的集合，是数据的一个子集。</p>
+</li>
+<li>
+<p><strong>数据结构</strong>（Data Structure）：指相互之间存在一种或多种特定关系的数据元素集合。即数据元素之间的相互关系，即数据的组织形式。一句话总结：<strong>带有结构的数据元素的集合</strong>。</p>
+</li>
+<li>
+<p><strong>数据类型</strong>（Data Type）：一组性质相同的值集合以及定义在这个值集合上的一组操作的总称。即值域、定义域及运算集合。</p>
+</li>
+<li>
+<p><strong>抽象数据类型</strong>（Abstract Data Type）：定义了一个数据对象，数据对象中各元素之间的结构关系，以及一组处理数据的操作。包括定义和实现两方面，其中定义是独立于实现的。</p>
+<p>ADT 三要素：</p>
+<ul>
+<li>数据元素</li>
+<li>数据关系</li>
+<li>数据操作</li>
+</ul>
+</li>
 </ul>
 <h3 id="数据结构内容">数据结构内容</h3>
 <ul>
