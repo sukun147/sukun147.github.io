@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.sukun.xyz\/data_structure-2\/"
-        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "数据结构, 学习","wordcount":  6323 ,
+        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "数据结构, 学习","wordcount":  6545 ,
         "url": "https:\/\/www.sukun.xyz\/data_structure-2\/","datePublished": "2022-01-20T20:23:14+08:00","dateModified": "2022-01-20T20:23:14+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "sukun","logo": "https:\/\/www.sukun.xyz\/images\/avatar.png"},"author": {
@@ -164,8 +164,8 @@
     <div class="toc-content" id="toc-content-auto"></div>
 </div><article class="page single"><h1 class="single-title animated flipInX">数据结构学习(二)</h1><div class="post-meta">
         <div class="post-meta-line"><span class="post-author"><a href="https://www.sukun.xyz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Sukun</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><i class="far fa-folder fa-fw"></i>数据结构</a></span></div>
-        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-01-20">2022-01-20</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-01-20">2022-01-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6323 字
-            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;<span id="/data_structure-2/" class="leancloud_visitors" data-flag-title="数据结构学习(二)">
+        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-01-20">2022-01-20</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-01-20">2022-01-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6545 字
+            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 14 分钟&nbsp;<span id="/data_structure-2/" class="leancloud_visitors" data-flag-title="数据结构学习(二)">
                 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
             </span>&nbsp;
             <a href="#comments" id="post-meta-vcount" title="查看评论">
@@ -264,12 +264,7 @@
     </li>
   </ul>
 </nav></div>
-    </div><div class="content" id="content"><h1 id="本系列学习笔记链接">本系列学习笔记链接</h1>
-<ul>
-<li>第一章：<a href="/data_structure-1" rel="">数据结构学习(一)</a></li>
-<li>第二章：<a href="/data_structure-2" rel="">数据结构学习(二)</a></li>
-<li>第三章：<a href="/data_structure-3" rel="">数据结构学习(三)</a></li>
-</ul>
+    </div><div class="content" id="content"><p><a href="/categories/%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84/" rel="">本系列学习笔记链接</a></p>
 <h1 id="数据结构用c语言描述二">数据结构——用C语言描述(二)</h1>
 <h2 id="线性结构">线性结构</h2>
 <h3 id="线性表">线性表</h3>
@@ -2351,14 +2346,42 @@ $$</p>
 <h5 id="基于语言的考虑">基于语言的考虑</h5>
 <p>有些语言提供指针类型，因此可以用链表形式。有些语言<strong>不提供指针类型</strong>，只能用<strong>静态链表</strong>来模拟，静态链表在存储分配上有所不足，但也能像动态链表一样灵活插入和删除。</p>
 <h5 id="存储方式比较">存储方式比较</h5>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://s2.loli.net/2022/01/24/gUAenr7zIkqEpJx.png"
-        data-srcset="https://s2.loli.net/2022/01/24/gUAenr7zIkqEpJx.png, https://s2.loli.net/2022/01/24/gUAenr7zIkqEpJx.png 1.5x, https://s2.loli.net/2022/01/24/gUAenr7zIkqEpJx.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2022/01/24/gUAenr7zIkqEpJx.png"
-        title="image-20220124161044353" /></p>
+<table>
+<thead>
+<tr>
+<th>操作名称/链表名称</th>
+<th>找首元素结点</th>
+<th>找表尾结点</th>
+<th>找Р结点前驱结点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>带头结点单链表 L</td>
+<td>L-&gt;next，时间耗费 O(1)</td>
+<td>―重循环，时间耗费 O(n)</td>
+<td>顺 Р 结点的 next 域无法找到 P 结点的前驱</td>
+</tr>
+<tr>
+<td>带头结点循环单链表（头指针）L</td>
+<td>L-&gt;next，时间耗费 O(1)</td>
+<td>―重循环，时间耗费 O(n)</td>
+<td>顺 Р 结点的 next 域可以找到 P 结点的前驱，时间耗费 O(n)</td>
+</tr>
+<tr>
+<td>带尾指针的循环单链表 R</td>
+<td>R-&gt;next，时间耗费 O(1)</td>
+<td>R，时间耗费 O(1)</td>
+<td>顺 Р 结点的 next 域可以找到 P 结点的前驱，时间耗费 O(n)</td>
+</tr>
+<tr>
+<td>带头结点双向循环链表 L</td>
+<td>L-&gt;next，时间耗费 O(1)</td>
+<td>L-&gt;prior，时间耗费 O(1)</td>
+<td>P-&gt;prior，时间耗费 O(1)</td>
+</tr>
+</tbody>
+</table>
 <h4 id="线性表例题">线性表例题</h4>
 <h5 id="顺序表分奇偶">顺序表分奇偶</h5>
 <p>已知顺序表 L 中的数据元素类型为 int。设计算法将其调整为左右两部分，左边的元素（即排在前面的）均为奇数，右边所有元素（即排在后面的）均为偶数，并要求算法的时间复杂度为 O(n)，空间复杂度为 O(1)</p>
