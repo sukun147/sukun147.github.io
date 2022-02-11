@@ -4,7 +4,14 @@
         <link>https://www.sukun.xyz/posts/</link>
         <description>所有文章 | Sukun&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1477264431@qq.com (Sukun)</managingEditor>
-            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 29 Jan 2022 11:05:37 &#43;0800</lastBuildDate><atom:link href="https://www.sukun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 02 Feb 2022 19:57:17 &#43;0800</lastBuildDate><atom:link href="https://www.sukun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>数据结构学习(六)</title>
+    <link>https://www.sukun.xyz/data_structure-6/</link>
+    <pubDate>Wed, 02 Feb 2022 19:57:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.sukun.xyz/data_structure-6/</guid>
+    <description><![CDATA[数据结构——用C语言描述。本节讲述非线性结构中的树]]></description>
+</item><item>
     <title>数据结构学习(五)</title>
     <link>https://www.sukun.xyz/data_structure-5/</link>
     <pubDate>Sat, 29 Jan 2022 11:05:37 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>https://www.sukun.xyz/hugo-2/</guid>
     <description><![CDATA[本系列教程第二章讲述了如何从GitHub pages迁移至Vercel，并提供了一些简单的博客美化教程。]]></description>
-</item><item>
-    <title>友链墙</title>
-    <link>https://www.sukun.xyz/friends/</link>
-    <pubDate>Wed, 05 Jan 2022 17:20:38 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.sukun.xyz/friends/</guid>
-    <description><![CDATA[主题作者 本网站采用 Hugo-LoveIt 主题，下方是主题作者的 GitHub 链接。 Dillon "LoveIt主题作者" 大佬们 JAVA 雨临Lewis的博客 "不想当写手的码农不是好咸鱼_(xз]]></description>
 </item></channel>
 </rss>
