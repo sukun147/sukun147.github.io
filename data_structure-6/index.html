@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.sukun.xyz\/data_structure-6\/"
-        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "数据结构, 学习","wordcount":  6935 ,
+        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "数据结构, 学习","wordcount":  7237 ,
         "url": "https:\/\/www.sukun.xyz\/data_structure-6\/","datePublished": "2022-02-02T19:57:17+08:00","dateModified": "2022-02-02T19:57:17+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "sukun","logo": "https:\/\/www.sukun.xyz\/images\/avatar.png"},"author": {
@@ -164,8 +164,8 @@
     <div class="toc-content" id="toc-content-auto"></div>
 </div><article class="page single"><h1 class="single-title animated flipInX">数据结构学习(六)</h1><div class="post-meta">
         <div class="post-meta-line"><span class="post-author"><a href="https://www.sukun.xyz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Sukun</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><i class="far fa-folder fa-fw"></i>数据结构</a></span></div>
-        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-02-02">2022-02-02</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-02-02">2022-02-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6935 字
-            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 14 分钟&nbsp;<span id="/data_structure-6/" class="leancloud_visitors" data-flag-title="数据结构学习(六)">
+        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-02-02">2022-02-02</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-02-02">2022-02-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7237 字
+            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 15 分钟&nbsp;<span id="/data_structure-6/" class="leancloud_visitors" data-flag-title="数据结构学习(六)">
                 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
             </span>&nbsp;
             <a href="#comments" id="post-meta-vcount" title="查看评论">
@@ -287,6 +287,12 @@
                     <li><a href="#哈夫曼编码算法实现">哈夫曼编码算法实现</a></li>
                   </ul>
                 </li>
+              </ul>
+            </li>
+            <li><a href="#例题">例题</a>
+              <ul>
+                <li><a href="#二叉树相似性判断">二叉树相似性判断</a></li>
+                <li><a href="#层次遍历二叉树">层次遍历二叉树</a></li>
               </ul>
             </li>
           </ul>
@@ -1739,6 +1745,89 @@ $$
 </span><span class="c1"></span>        <span class="n">strcpy</span><span class="p">(</span><span class="n">hc</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">cd</span><span class="p">[</span><span class="n">start</span><span class="p">]);</span>
     <span class="p">}</span>
     <span class="n">free</span><span class="p">(</span><span class="n">cd</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="例题">例题</h4>
+<h5 id="二叉树相似性判断">二叉树相似性判断</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">like</span><span class="p">(</span><span class="n">BiTree</span> <span class="n">b1</span><span class="p">,</span> <span class="n">BiTree</span> <span class="n">b2</span><span class="p">)</span> <span class="c1">//结构相同，值可以不同
+</span><span class="c1"></span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">like1</span><span class="p">,</span> <span class="n">like2</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">b1</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">b2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//都为空树，相似
+</span><span class="c1"></span>    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">b1</span> <span class="o">||</span> <span class="o">!</span><span class="n">b2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//一空一非空，不相似
+</span><span class="c1"></span>    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">like1</span> <span class="o">=</span> <span class="n">like</span><span class="p">(</span><span class="n">b1</span><span class="o">-&gt;</span><span class="n">LChild</span><span class="p">,</span> <span class="n">b2</span><span class="o">-&gt;</span><span class="n">LChild</span><span class="p">);</span> <span class="c1">//判断b1和b2的左子树是否相似
+</span><span class="c1"></span>        <span class="n">like2</span> <span class="o">=</span> <span class="n">like</span><span class="p">(</span><span class="n">b1</span><span class="o">-&gt;</span><span class="n">RChild</span><span class="p">,</span> <span class="n">b2</span><span class="o">-&gt;</span><span class="n">RChild</span><span class="p">);</span> <span class="c1">//判断b1和b2的右子树是否相似
+</span><span class="c1"></span>        <span class="k">return</span> <span class="p">(</span><span class="n">like1</span> <span class="o">&amp;&amp;</span> <span class="n">like2</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="层次遍历二叉树">层次遍历二叉树</h5>
+<p>之前我们学习了前序遍历、中序遍历、后序遍历，与其不同的还有层次遍历。</p>
+<p>层次遍历是指从二叉树的第一层（根结点）开始逐层遍历，同一层中，按照从左到右对结点访问直到二叉树中所有结点均被访问且仅访问一次。要实现层次遍历，需用到<a href="/data_structure-3/#%e9%98%9f%e5%88%97%e7%9a%84%e9%a1%ba%e5%ba%8f%e5%ad%98%e5%82%a8%e5%be%aa%e7%8e%af%e9%98%9f%e5%88%97" rel="">队列技术</a>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">bool</span> <span class="nf">LayerOrder</span><span class="p">(</span><span class="n">BiTree</span> <span class="n">bt</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">SeqQueue</span> <span class="o">*</span><span class="n">Q</span><span class="p">;</span>
+    <span class="n">BiTree</span> <span class="n">p</span><span class="p">;</span>
+    <span class="n">InitQueue</span><span class="p">(</span><span class="n">Q</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">bt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="n">EnterQueue</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">bt</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">Q</span><span class="o">-&gt;</span><span class="n">front</span> <span class="o">!=</span> <span class="n">Q</span><span class="o">-&gt;</span><span class="n">rear</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">DeleteQueue</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">);</span>
+        <span class="n">visit</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">LChild</span><span class="p">)</span>
+            <span class="n">EnterQueue</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">LChild</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">RChild</span><span class="p">)</span>
+            <span class="n">EnterQueue</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">RChild</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>

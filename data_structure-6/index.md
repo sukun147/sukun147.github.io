@@ -984,4 +984,53 @@ $$
 }
 ```
 
+#### 例题
+
+##### 二叉树相似性判断
+
+```c
+int like(BiTree b1, BiTree b2) //结构相同，值可以不同
+{
+    int like1, like2;
+    if (!b1 && !b2)
+        return 1; //都为空树，相似
+    else if (!b1 || !b2)
+        return 0; //一空一非空，不相似
+    else
+    {
+        like1 = like(b1->LChild, b2->LChild); //判断b1和b2的左子树是否相似
+        like2 = like(b1->RChild, b2->RChild); //判断b1和b2的右子树是否相似
+        return (like1 && like2);
+    }
+}
+```
+
+##### 层次遍历二叉树
+
+之前我们学习了前序遍历、中序遍历、后序遍历，与其不同的还有层次遍历。
+
+层次遍历是指从二叉树的第一层（根结点）开始逐层遍历，同一层中，按照从左到右对结点访问直到二叉树中所有结点均被访问且仅访问一次。要实现层次遍历，需用到[队列技术](/data_structure-3/#队列的顺序存储循环队列)。
+
+```c
+bool LayerOrder(BiTree bt)
+{
+    SeqQueue *Q;
+    BiTree p;
+    InitQueue(Q);
+    if (!bt)
+        return false;
+    EnterQueue(Q, bt);
+    while (Q->front != Q->rear)
+    {
+        DeleteQueue(Q, &p);
+        visit(p->data);
+        if (p->LChild)
+            EnterQueue(Q, p->LChild);
+        if (p->RChild)
+            EnterQueue(Q, p->RChild);
+    }
+    return true;
+}
+```
+
 
