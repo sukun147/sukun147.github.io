@@ -7,8 +7,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>数据结构学习(六) - Sukun&#39;s blog</title><meta name="keywords" content="sukun,hugo,博客">
 
-<meta name="Description" content="数据结构——用C语言描述。本节讲述非线性结构中的树"><meta property="og:title" content="数据结构学习(六)" />
-<meta property="og:description" content="数据结构——用C语言描述。本节讲述非线性结构中的树" />
+<meta name="Description" content="数据结构——用C语言描述。本节讲述非线性结构中的树。"><meta property="og:title" content="数据结构学习(六)" />
+<meta property="og:description" content="数据结构——用C语言描述。本节讲述非线性结构中的树。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.sukun.xyz/data_structure-6/" /><meta property="og:image" content="https://www.sukun.xyz/images/avatar.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-02T19:57:17+08:00" />
@@ -18,11 +18,11 @@
 <meta name="twitter:image" content="https://www.sukun.xyz/images/avatar.png"/>
 
 <meta name="twitter:title" content="数据结构学习(六)"/>
-<meta name="twitter:description" content="数据结构——用C语言描述。本节讲述非线性结构中的树"/>
+<meta name="twitter:description" content="数据结构——用C语言描述。本节讲述非线性结构中的树。"/>
 <meta name="application-name" content="Sukun&#39;">
 <meta name="apple-mobile-web-app-title" content="Sukun&#39;"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.sukun.xyz/data_structure-6/" /><link rel="prev" href="https://www.sukun.xyz/data_structure-5/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><meta name="baidu-site-verification" content="code-HclBWphrqW" /><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.sukun.xyz/data_structure-6/" /><link rel="prev" href="https://www.sukun.xyz/data_structure-5/" /><link rel="next" href="https://www.sukun.xyz/data_structure-7/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><meta name="baidu-site-verification" content="code-HclBWphrqW" /><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -31,13 +31,13 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.sukun.xyz\/data_structure-6\/"
-        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "数据结构, 学习","wordcount":  7237 ,
+        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "数据结构, 学习","wordcount":  7308 ,
         "url": "https:\/\/www.sukun.xyz\/data_structure-6\/","datePublished": "2022-02-02T19:57:17+08:00","dateModified": "2022-02-02T19:57:17+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "sukun","logo": "https:\/\/www.sukun.xyz\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "Sukun"
-            },"description": "数据结构——用C语言描述。本节讲述非线性结构中的树"
+            },"description": "数据结构——用C语言描述。本节讲述非线性结构中的树。"
     }
     </script></head>
     <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -164,7 +164,7 @@
     <div class="toc-content" id="toc-content-auto"></div>
 </div><article class="page single"><h1 class="single-title animated flipInX">数据结构学习(六)</h1><div class="post-meta">
         <div class="post-meta-line"><span class="post-author"><a href="https://www.sukun.xyz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Sukun</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><i class="far fa-folder fa-fw"></i>数据结构</a></span></div>
-        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-02-02">2022-02-02</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-02-02">2022-02-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7237 字
+        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-02-02">2022-02-02</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-02-02">2022-02-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7308 字
             <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 15 分钟&nbsp;<span id="/data_structure-6/" class="leancloud_visitors" data-flag-title="数据结构学习(六)">
                 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
             </span>&nbsp;
@@ -388,10 +388,7 @@
 <h5 id="二叉树性质">二叉树性质</h5>
 <ol>
 <li>
-<p>在二叉树的第 i 层的最大结点数：
-$$
-2^{i-1}
-$$</p>
+<p>在二叉树的第 i 层的最大结点数为$2^{i-1}$</p>
 </li>
 <li>
 <p>深度为 k 的二叉树的最大结点数：
@@ -400,7 +397,7 @@ $$
 $$</p>
 </li>
 <li>
-<p>对任意一棵二叉树，若终端结点数为 n0，而其度数为 2 的结点数为 n2，则 n0= n2+1</p>
+<p>对任意一棵二叉树，若终端结点数为$n_0$，而其度数为 2 的结点数为$n_2$，则$n_0=n_2+1$</p>
 </li>
 <li>
 <p>满二叉树：有最大结点数，即每层结点都是满的</p>
@@ -428,22 +425,21 @@ $$</p>
 <ul>
 <li>
 <p>若 i =1，则 i 无双亲结点；</p>
-<p>若 i&gt;1，则 i 的双亲结点为
-$$
-[\frac{i}{2}]
-$$</p>
+<p>若 i&gt;1，则 i 的双亲结点为$[\frac{i}{2}]$</p>
 </li>
 <li>
-<p>若 2*i &gt; n，则 i 无左孩子；</p>
-<p>若 2*i ≤ n，则 i 结点的左孩子结点为 <strong>2*i</strong></p>
-</li>
-<li>
-<p>若 2*i+1 &gt; n，则 i 无右孩子；</p>
-<p>若 2*i+1 ≤ n，则 i 的右孩子结点为 <strong>2*i+1</strong></p>
+<p>若$2×i&gt;n$，则 i 无左孩子;</p>
 </li>
 </ul>
 </li>
 </ol>
+<p>若$2×i≤n$，则 i 结点的左孩子结点为$2×i$</p>
+<ul>
+<li>
+<p>若$2×i+1&gt;n$，则 i 无右孩子;</p>
+<p>若$2×i+1≤n$，则 i 的右孩子结点为$2×i+1$</p>
+</li>
+</ul>
 <h5 id="二叉树存储结构">二叉树存储结构</h5>
 <h6 id="顺序存储">顺序存储</h6>
 <p>以完全二叉树的形式来存储数据元素，但对于一般二叉树，这将造成极大的空间浪费。</p>
@@ -949,15 +945,15 @@ Ltag &amp; LChild &amp; Data &amp; Rtag &amp; RChild\\\hline
 \end{array}
 $$
 Ltag：</p>
-<ol>
+<ul>
 <li>Ltag=0——LChild域指示结点的左孩子</li>
 <li>Ltag=1——LChild域指示结点的遍历前驱</li>
-</ol>
+</ul>
 <p>Rtag：</p>
-<ol>
+<ul>
 <li>Rtag=0——RChild域指示结点的右孩子</li>
 <li>Rtag=1——RChild域指示结点的遍历后继</li>
-</ol>
+</ul>
 <p>相关术语：</p>
 <ul>
 <li>线索：指向前驱和后继结点的指针</li>
@@ -1673,7 +1669,7 @@ $$</p>
 使用频率p_i &amp; 0.40 &amp; 0.30 &amp; 0.15 &amp; 0.05 &amp; 0.04 &amp; 0.03 &amp; 0.03\\\hline
 \end{array}
 $$</p>
-<p>对于上表所示指令频率的模型机，如果我们采用定长编码，我们每条指令都需要 3 位编码（2^3=8）。</p>
+<p>对于上表所示指令频率的模型机，如果我们采用定长编码，我们每条指令都需要 3 位编码（$2^3=8$）。</p>
 <p>为了减少程序的总位数，我们可以采用变长编码，而一个变长编码应该是前缀码，否则容易产生二义性。</p>
 <p>而利用哈夫曼编码，我们可以设计出最优的前缀编码。</p>
 <p>我们以每条指令的使用频率作为权值构造哈夫曼树，又规定左分支记为 1，右分支记为 0。</p>
@@ -1856,7 +1852,8 @@ $$
         </section>
     </div>
 
-    <div class="post-nav"><a href="/data_structure-5/" class="prev" rel="prev" title="数据结构学习(五)"><i class="fas fa-angle-left fa-fw"></i>数据结构学习(五)</a></div>
+    <div class="post-nav"><a href="/data_structure-5/" class="prev" rel="prev" title="数据结构学习(五)"><i class="fas fa-angle-left fa-fw"></i>数据结构学习(五)</a>
+            <a href="/data_structure-7/" class="next" rel="next" title="数据结构学习(七)">数据结构学习(七)<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="waline"></div>
     <script src='https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
