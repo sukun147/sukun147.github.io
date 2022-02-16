@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.sukun.xyz\/data_structure-7\/"
-        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "数据结构, 学习","wordcount":  3102 ,
+        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "数据结构, 学习","wordcount":  8254 ,
         "url": "https:\/\/www.sukun.xyz\/data_structure-7\/","datePublished": "2022-02-11T12:29:03+08:00","dateModified": "2022-02-11T12:29:03+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "sukun","logo": "https:\/\/www.sukun.xyz\/images\/avatar.png"},"author": {
@@ -164,8 +164,8 @@
     <div class="toc-content" id="toc-content-auto"></div>
 </div><article class="page single"><h1 class="single-title animated flipInX">数据结构学习(七)</h1><div class="post-meta">
         <div class="post-meta-line"><span class="post-author"><a href="https://www.sukun.xyz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Sukun</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><i class="far fa-folder fa-fw"></i>数据结构</a></span></div>
-        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-02-11">2022-02-11</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-02-11">2022-02-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3102 字
-            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id="/data_structure-7/" class="leancloud_visitors" data-flag-title="数据结构学习(七)">
+        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-02-11">2022-02-11</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-02-11">2022-02-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 8254 字
+            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 17 分钟&nbsp;<span id="/data_structure-7/" class="leancloud_visitors" data-flag-title="数据结构学习(七)">
                 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
             </span>&nbsp;
             <a href="#comments" id="post-meta-vcount" title="查看评论">
@@ -233,8 +233,63 @@
                 </li>
               </ul>
             </li>
-            <li><a href="#图的遍历">图的遍历</a></li>
-            <li><a href="#图的应用">图的应用</a></li>
+            <li><a href="#图的遍历">图的遍历</a>
+              <ul>
+                <li><a href="#定义-3">定义</a></li>
+                <li><a href="#方法">方法</a>
+                  <ul>
+                    <li><a href="#dfs">DFS</a></li>
+                    <li><a href="#邻接矩阵实现dfs">邻接矩阵实现DFS</a></li>
+                    <li><a href="#邻接表实现dfs">邻接表实现DFS</a></li>
+                    <li><a href="#深度优先生成树">深度优先生成树</a></li>
+                    <li><a href="#bfs">BFS</a></li>
+                    <li><a href="#广度优先生成树">广度优先生成树</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#图的应用">图的应用</a>
+              <ul>
+                <li><a href="#图的连通性问题">图的连通性问题</a>
+                  <ul>
+                    <li><a href="#无向图的连通分量">无向图的连通分量</a></li>
+                    <li><a href="#两顶点之间的简单路径">两顶点之间的简单路径</a></li>
+                    <li><a href="#生成树">生成树</a></li>
+                    <li><a href="#最小生成树">最小生成树</a></li>
+                  </ul>
+                </li>
+                <li><a href="#有向无环图的应用1拓扑排序">有向无环图的应用1—拓扑排序</a>
+                  <ul>
+                    <li><a href="#aov-网">AOV-网</a></li>
+                    <li><a href="#拓扑序列">拓扑序列</a></li>
+                    <li><a href="#拓扑网的特性">拓扑网的特性</a></li>
+                    <li><a href="#拓扑排序的基本思想">拓扑排序的基本思想</a></li>
+                    <li><a href="#拓扑排序算法">拓扑排序算法</a></li>
+                  </ul>
+                </li>
+                <li><a href="#有向无环图的应用2关键路径">有向无环图的应用2—关键路径</a>
+                  <ul>
+                    <li><a href="#aoe-网">AOE-网</a></li>
+                    <li><a href="#在aoe-网中的基本概念">在AOE-网中的基本概念</a></li>
+                    <li><a href="#几个重要的定义">几个重要的定义</a></li>
+                    <li><a href="#求关键路径的基本步骤">求关键路径的基本步骤</a></li>
+                    <li><a href="#修改后的拓扑排序算法">修改后的拓扑排序算法</a></li>
+                    <li><a href="#求关键路径的实现算法">求关键路径的实现算法</a></li>
+                  </ul>
+                </li>
+                <li><a href="#最短路径">最短路径</a>
+                  <ul>
+                    <li><a href="#求某一顶点到其它各顶点的最短路径">求某一顶点到其它各顶点的最短路径</a></li>
+                    <li><a href="#求任意一对顶点间的最短路径">求任意一对顶点间的最短路径</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#例题">例题</a>
+              <ul>
+                <li><a href="#求距离顶点v_0的最短路径长度为k的所有顶点">求距离顶点$v_0$的最短路径长度为k的所有顶点</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
       </ul>
@@ -242,19 +297,17 @@
   </ul>
 </nav></div>
     </div><div class="content" id="content"><p><a href="/categories/%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84/" rel="">本系列学习笔记链接</a></p>
-<h1 id="数据结构用c语言描述四">数据结构——用C语言描述(四)</h1>
+<h1 id="数据结构用c语言描述七">数据结构——用C语言描述(七)</h1>
 <h2 id="非线性结构">非线性结构</h2>
 <h3 id="图">图</h3>
 <h4 id="图的定义与基本术语">图的定义与基本术语</h4>
 <h5 id="图的定义">图的定义</h5>
-<p>图（Graph）是一种网状数据结构，其形式化定义如下：
-$$
-Graph=(V,R)\\
-V={x|\ x∈DataObject}\\
-R={VR}\\
-VR={&lt;x,y&gt;|\ P(x,y)∧(x,y∈V)}
-$$
-其中，</p>
+<p>图（Graph）是一种网状数据结构，其形式化定义如下：</p>
+<p>Graph=(V,R)</p>
+<p>V={x|x∈DataObject}</p>
+<p>R={VR}</p>
+<p>VR={&lt;x,y&gt;|P(x,y)∧(x,y∈V)}</p>
+<p>其中，</p>
 <ul>
 <li>DataObject：具有相同特性的元素的集合</li>
 <li>V：顶点（vertex）集合</li>
@@ -263,12 +316,10 @@ $$
 </ul>
 <h5 id="图的抽象类型定义">图的抽象类型定义</h5>
 <p>数据对象 V：具有相同特性的元素的集合</p>
-<p>结构关系：多对多
-$$
-R={VR}\\
-VR={&lt;x,y&gt;|\ P(x,y)\ (xy∈V)}
-$$
-操作集合：</p>
+<p>结构关系：多对多</p>
+<p>R={VR}</p>
+<p>VR={&lt;x,y&gt;|P(x,y) (xy∈V)}</p>
+<p>操作集合：</p>
 <ol>
 <li>创建<code>GreateGraph(G)</code></li>
 <li>销毁<code>DestoryGraph(G)</code></li>
@@ -411,11 +462,14 @@ $$</p>
 </span><span class="lnt">21
 </span><span class="lnt">22
 </span><span class="lnt">23
+</span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define MAX_VERTEX_NUM 20
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define VRType int
+</span><span class="cp">#define InfoType char
+</span><span class="cp">#define VertexType int
+</span><span class="cp">#define MAX_VERTEX_NUM 20
 </span><span class="cp">#define INFINITY 32678
-</span><span class="cp">#define OtherInfo int
 </span><span class="cp"></span><span class="k">typedef</span> <span class="k">enum</span>
 <span class="p">{</span>
     <span class="n">DG</span><span class="p">,</span>  <span class="c1">//有向
@@ -423,19 +477,18 @@ $$</p>
 </span><span class="c1"></span>    <span class="n">UDG</span><span class="p">,</span> <span class="c1">//无向
 </span><span class="c1"></span>    <span class="n">UDN</span>  <span class="c1">//无向网
 </span><span class="c1"></span><span class="p">}</span> <span class="n">GraphKind</span><span class="p">;</span>
-<span class="k">typedef</span> <span class="kt">char</span> <span class="n">VertexData</span><span class="p">;</span>
-<span class="k">typedef</span> <span class="k">struct</span> <span class="n">ArcNode</span> <span class="c1">//弧的结点类型
-</span><span class="c1"></span><span class="p">{</span>
-    <span class="n">AdjType</span> <span class="n">adj</span><span class="p">;</span>    <span class="c1">//关联信息
-</span><span class="c1"></span>    <span class="n">OtherInfo</span> <span class="n">info</span><span class="p">;</span> <span class="c1">//边权信息
+<span class="k">typedef</span> <span class="k">struct</span>
+<span class="p">{</span>
+    <span class="n">VRType</span> <span class="n">adj</span><span class="p">;</span>     <span class="c1">//对于无权图，用 1 或 0 表示是否相邻；对于带权图，直接为权值
+</span><span class="c1"></span>    <span class="n">InfoType</span> <span class="o">*</span><span class="n">info</span><span class="p">;</span> <span class="c1">//弧或边额外含有的信息指针
 </span><span class="c1"></span><span class="p">}</span> <span class="n">ArcNode</span><span class="p">;</span>
 <span class="k">typedef</span> <span class="k">struct</span>
 <span class="p">{</span>
-    <span class="n">VertexData</span> <span class="n">vexs</span><span class="p">[</span><span class="n">MAX_VERTEX_NUM</span><span class="p">];</span>               <span class="c1">//顶点数组
-</span><span class="c1"></span>    <span class="n">ArcNode</span> <span class="n">arcs</span><span class="p">[</span><span class="n">MAX_VERTEX_NUM</span><span class="p">][</span><span class="n">MAX_VERTEX_NUM</span><span class="p">];</span> <span class="c1">//关联关系数组
-</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">vexnum</span><span class="p">,</span> <span class="n">arcnum</span><span class="p">;</span>                           <span class="c1">//顶点信息，弧的信息
-</span><span class="c1"></span>    <span class="n">GraphKind</span> <span class="n">kind</span><span class="p">;</span>                               <span class="c1">//弧的种类
-</span><span class="c1"></span><span class="p">}</span> <span class="n">AdjMatrix</span><span class="p">;</span>          
+    <span class="n">VertexType</span> <span class="n">vexs</span><span class="p">[</span><span class="n">MAX_VERTEX_NUM</span><span class="p">];</span>              <span class="c1">//顶点
+</span><span class="c1"></span>    <span class="n">ArcNode</span> <span class="n">arcs</span><span class="p">[</span><span class="n">MAX_VERTEX_NUM</span><span class="p">][</span><span class="n">MAX_VERTEX_NUM</span><span class="p">];</span> <span class="c1">//顶点之间的关系
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">vexnum</span><span class="p">,</span> <span class="n">arcnum</span><span class="p">;</span>                           <span class="c1">//顶点数，弧数
+</span><span class="c1"></span>    <span class="n">GraphKind</span> <span class="n">kind</span><span class="p">;</span>                               <span class="c1">//图的种类
+</span><span class="c1"></span><span class="p">}</span> <span class="n">AdjMatrix</span><span class="p">;</span>  
 </code></pre></td></tr></table>
 </div>
 </div><h6 id="特点">特点</h6>
@@ -508,7 +561,7 @@ $$</p>
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">bool</span> <span class="nf">CreateDN</span><span class="p">(</span><span class="n">AdjMatrix</span> <span class="o">*</span><span class="n">G</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">weight</span><span class="p">;</span>
-    <span class="n">VertexData</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">;</span>
+    <span class="n">VertexType</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">;</span>
     <span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%d,%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">G</span><span class="o">-&gt;</span><span class="n">arcnum</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">G</span><span class="o">-&gt;</span><span class="n">vexnum</span><span class="p">);</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">G</span><span class="o">-&gt;</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
         <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">G</span><span class="o">-&gt;</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
@@ -605,8 +658,9 @@ $$</p>
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define MAX_VERTEX_NUM 10
-</span><span class="cp">#define OtherInfo int
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define VertexType int
+</span><span class="cp">#define InfoType int
+</span><span class="cp">#define MAX_VERTEX_NUM 20
 </span><span class="cp"></span><span class="k">typedef</span> <span class="k">enum</span>
 <span class="p">{</span>
     <span class="n">DG</span><span class="p">,</span>
@@ -614,24 +668,23 @@ $$</p>
     <span class="n">UDG</span><span class="p">,</span>
     <span class="n">UDN</span>
 <span class="p">}</span> <span class="n">GraphKind</span><span class="p">;</span>
-<span class="k">typedef</span> <span class="kt">int</span> <span class="n">VertexData</span><span class="p">;</span>
 <span class="k">typedef</span> <span class="k">struct</span> <span class="n">ArcNode</span>
 <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">adjvex</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">ArcNode</span> <span class="o">*</span><span class="n">nextarc</span><span class="p">;</span>
-    <span class="n">OtherInfo</span> <span class="n">info</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">ArcNode</span><span class="p">;</span>
-<span class="k">typedef</span> <span class="k">struct</span> <span class="n">VertexNode</span>
+    <span class="kt">int</span> <span class="n">adjvex</span><span class="p">;</span>              <span class="c1">//邻接点在数组中的位置下标
+</span><span class="c1"></span>    <span class="k">struct</span> <span class="n">ArcNode</span> <span class="o">*</span><span class="n">nextarc</span><span class="p">;</span> <span class="c1">//指向下一个邻接点的指针
+</span><span class="c1"></span>    <span class="n">InfoType</span> <span class="o">*</span><span class="n">info</span><span class="p">;</span>          <span class="c1">//信息域
+</span><span class="c1"></span><span class="p">}</span> <span class="n">ArcNode</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">VNode</span>
 <span class="p">{</span>
-    <span class="n">VertexData</span> <span class="n">data</span><span class="p">;</span>
-    <span class="n">ArcNode</span> <span class="o">*</span><span class="n">firstarc</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">VertexNode</span><span class="p">;</span>
+    <span class="n">VertexType</span> <span class="n">data</span><span class="p">;</span>   <span class="c1">//顶点的数据域
+</span><span class="c1"></span>    <span class="n">ArcNode</span> <span class="o">*</span><span class="n">firstarc</span><span class="p">;</span> <span class="c1">//指向邻接点的指针
+</span><span class="c1"></span><span class="p">}</span> <span class="n">VNode</span><span class="p">;</span>
 <span class="k">typedef</span> <span class="k">struct</span>
 <span class="p">{</span>
-    <span class="n">VertexNode</span> <span class="n">vertex</span><span class="p">[</span><span class="n">MAX_VERTEX_NUM</span><span class="p">];</span>
-    <span class="kt">int</span> <span class="n">vexnum</span><span class="p">,</span> <span class="n">arcnum</span><span class="p">;</span>
-    <span class="n">GraphKind</span> <span class="n">kind</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">AdjList</span><span class="p">;</span>
+    <span class="n">VNode</span> <span class="n">vertex</span><span class="p">[</span><span class="n">MAX_VERTEX_NUM</span><span class="p">];</span> <span class="c1">//存储各链表头结点的数组
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">vexnum</span><span class="p">,</span> <span class="n">arcnum</span><span class="p">;</span>           <span class="c1">//顶点数和边或弧数
+</span><span class="c1"></span>    <span class="n">GraphKind</span> <span class="n">kind</span><span class="p">;</span>               <span class="c1">//图的种类
+</span><span class="c1"></span><span class="p">}</span> <span class="n">AdjList</span><span class="p">;</span>
 </code></pre></td></tr></table>
 </div>
 </div><h6 id="存储空间">存储空间</h6>
@@ -708,19 +761,19 @@ $$</p>
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define OtherInfo int
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define InfoType int
+</span><span class="cp">#define VertexType int
 </span><span class="cp">#define MAX_VERTEX_NUM 20
-</span><span class="cp"></span><span class="k">typedef</span> <span class="n">VertexData</span> <span class="kt">int</span><span class="p">;</span>
-<span class="k">typedef</span> <span class="k">struct</span> <span class="n">ArcBox</span>
+</span><span class="cp"></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">ArcBox</span>
 <span class="p">{</span>
     <span class="kt">int</span> <span class="n">tailvex</span><span class="p">,</span> <span class="n">headvex</span><span class="p">;</span>         <span class="c1">//弧尾、弧头对应顶点在数组中的位置下标
-</span><span class="c1"></span>    <span class="k">struct</span> <span class="n">ArcBox</span> <span class="o">*</span><span class="n">hlink</span><span class="p">,</span> <span class="o">*</span><span class="n">tlink</span><span class="p">;</span> <span class="c1">//指向弧头相同和弧尾相同的下一个弧
-</span><span class="c1"></span>    <span class="n">OtherInfo</span> <span class="n">info</span><span class="p">;</span>
+</span><span class="c1"></span>    <span class="k">struct</span> <span class="n">ArcBox</span> <span class="o">*</span><span class="n">hlink</span><span class="p">,</span> <span class="o">*</span><span class="n">tlink</span><span class="p">;</span> <span class="c1">//分别指向弧头相同和弧尾相同的下一个弧
+</span><span class="c1"></span>    <span class="n">InfoType</span> <span class="o">*</span><span class="n">info</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">ArcBox</span><span class="p">;</span>
 <span class="k">typedef</span> <span class="k">struct</span> <span class="n">VertexNode</span>
 <span class="p">{</span>
-    <span class="n">VertexData</span> <span class="n">data</span><span class="p">;</span>
-    <span class="n">ArcBox</span> <span class="o">*</span><span class="n">firstin</span><span class="p">,</span> <span class="o">*</span><span class="n">firstout</span><span class="p">;</span> <span class="c1">//分别指向以该顶点为弧头和弧尾的链表首个结点
+    <span class="n">VertexType</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">ArcBox</span> <span class="o">*</span><span class="n">firstin</span><span class="p">,</span> <span class="o">*</span><span class="n">firstout</span><span class="p">;</span> <span class="c1">//指向以该顶点为弧头和弧尾的链表首个结点
 </span><span class="c1"></span><span class="p">}</span> <span class="n">VertexNode</span><span class="p">;</span>
 <span class="k">typedef</span> <span class="k">struct</span>
 <span class="p">{</span>
@@ -810,29 +863,1050 @@ $$
 $$
 \begin{array}{|c|c|c|c|c|c|}
 \hline
-mark(标志域) &amp; ivex &amp; ilink &amp; jvex &amp; jlink &amp; info\\\hline
+mark &amp; ivex &amp; ilink &amp; jvex &amp; jlink &amp; info\\\hline
 \end{array}
 $$</p>
 <h6 id="结构类型定义-2">结构类型定义</h6>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define InfoType int
+</span><span class="cp">#define VertexType int
+</span><span class="cp">#define MAX_VERTEX_NUM 20
+</span><span class="cp"></span><span class="k">typedef</span> <span class="k">enum</span>
+<span class="p">{</span>
+    <span class="n">unvisited</span><span class="p">,</span>
+    <span class="n">visited</span>
+<span class="p">}</span> <span class="n">VisitIf</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">EBox</span>
+<span class="p">{</span>
+    <span class="n">VisitIf</span> <span class="n">mark</span><span class="p">;</span>               <span class="c1">//标志域
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">ivex</span><span class="p">,</span> <span class="n">jvex</span><span class="p">;</span>             <span class="c1">//边的两顶点在数组中的位置下标
+</span><span class="c1"></span>    <span class="k">struct</span> <span class="n">EBox</span> <span class="o">*</span><span class="n">ilink</span><span class="p">,</span> <span class="o">*</span><span class="n">jlink</span><span class="p">;</span> <span class="c1">//分别指向与ivex、jvex相关的下一个边
+</span><span class="c1"></span>    <span class="n">InfoType</span> <span class="o">*</span><span class="n">info</span><span class="p">;</span>             <span class="c1">//边包含的其它的信息
+</span><span class="c1"></span><span class="p">}</span> <span class="n">EBox</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">VexBox</span>
+<span class="p">{</span>
+    <span class="n">VertexType</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">EBox</span> <span class="o">*</span><span class="n">firstedge</span><span class="p">;</span> <span class="c1">//顶点相关的第一条边
+</span><span class="c1"></span><span class="p">}</span> <span class="n">VexBox</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="k">struct</span>
+<span class="p">{</span>
+    <span class="n">VexBox</span> <span class="n">adjmulist</span><span class="p">[</span><span class="n">MAX_VERTEX_NUM</span><span class="p">];</span> <span class="c1">//顶点数组
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">vexnum</span><span class="p">,</span> <span class="n">edgenum</span><span class="p">;</span>              <span class="c1">//顶点数和边数
+</span><span class="c1"></span><span class="p">}</span> <span class="n">AMLGraph</span><span class="p">;</span>
 </code></pre></td></tr></table>
 </div>
 </div><h6 id="图例-2">图例</h6>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://s2.loli.net/2022/02/12/7lT2NBfQwkeipHZ.png"
-        data-srcset="https://s2.loli.net/2022/02/12/7lT2NBfQwkeipHZ.png, https://s2.loli.net/2022/02/12/7lT2NBfQwkeipHZ.png 1.5x, https://s2.loli.net/2022/02/12/7lT2NBfQwkeipHZ.png 2x"
+        data-src="https://img-blog.csdnimg.cn/20201108104721155.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1bnNoaW9uX2JveQ==,size_16,color_FFFFFF,t_70#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/20201108104721155.png?x-oss-process=image/watermark%2ctype_ZmFuZ3poZW5naGVpdGk%2cshadow_10%2ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1bnNoaW9uX2JveQ==%2csize_16%2ccolor_FFFFFF%2ct_70#pic_center, https://img-blog.csdnimg.cn/20201108104721155.png?x-oss-process=image/watermark%2ctype_ZmFuZ3poZW5naGVpdGk%2cshadow_10%2ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1bnNoaW9uX2JveQ==%2csize_16%2ccolor_FFFFFF%2ct_70#pic_center 1.5x, https://img-blog.csdnimg.cn/20201108104721155.png?x-oss-process=image/watermark%2ctype_ZmFuZ3poZW5naGVpdGk%2cshadow_10%2ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1bnNoaW9uX2JveQ==%2csize_16%2ccolor_FFFFFF%2ct_70#pic_center 2x"
         data-sizes="auto"
-        alt="https://s2.loli.net/2022/02/12/7lT2NBfQwkeipHZ.png"
-        title="https://s2.loli.net/2022/02/12/7lT2NBfQwkeipHZ.png" /></p>
+        alt="https://img-blog.csdnimg.cn/20201108104721155.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1bnNoaW9uX2JveQ==,size_16,color_FFFFFF,t_70#pic_center"
+        title="邻接多重表" /></p>
 <h4 id="图的遍历">图的遍历</h4>
-<h4 id="图的应用">图的应用</h4></div><div class="post-footer" id="post-footer">
+<h5 id="定义-3">定义</h5>
+<p>从图中的某个顶点出发，按某种方法对图中的所有顶点访问且仅访问一次。</p>
+<p>显然我们需要设置访问标志数组<code>visited[]</code>：</p>
+<ul>
+<li>保证图中的各顶点均被访问</li>
+<li>避免重复访问</li>
+</ul>
+<h5 id="方法">方法</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">visited</span><span class="p">[];</span>
+<span class="kt">void</span> <span class="nf">TraverseGraph</span><span class="p">(</span><span class="n">Graph</span> <span class="n">g</span><span class="p">)</span> <span class="c1">//Graph表示图的一种存储结构，如邻接表
+</span><span class="c1"></span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">vi</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">vi</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">vi</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">vi</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">visited</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">vi</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">vi</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">vi</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">vi</span><span class="p">])</span>
+            <span class="n">search</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">vi</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>此处的<code>search(g, vi)</code>函数分为深度优先搜索（DFS）和广度优先搜索（BFS）两种。</p>
+<h6 id="dfs">DFS</h6>
+<p>深度优先搜索 DFS（Depth_First Search）是指按照深度方向搜索，类似于树的先根遍历：</p>
+<ol>
+<li>从图中某个顶点$v_0$出发，首先访问$v_0$</li>
+<li>找出刚访问过的顶点$v_i$的第一个未被访问的邻接点，然后访问该顶点。重复此步骤，直到当前的顶点没有未被访问的邻接点为止</li>
+<li>返回前一个访问过的顶点，找出该顶点的下一个未被访问的邻接点，访问该顶点。转2</li>
+</ol>
+<p>与树的先根遍历一样，DFS 算法是递归技术实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">DepthFirstSearch</span><span class="p">(</span><span class="n">Graph</span> <span class="n">g</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">w</span><span class="p">;</span>
+    <span class="n">visit</span><span class="p">(</span><span class="n">v0</span><span class="p">);</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">v0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">FirstAdjVertex</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">v0</span><span class="p">);</span> <span class="c1">//找v0的一个邻接点
+</span><span class="c1"></span>    <span class="k">while</span> <span class="p">(</span><span class="n">w</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>            <span class="c1">//邻接点存在
+</span><span class="c1"></span>    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">w</span><span class="p">])</span>
+            <span class="n">DepthFirstSearch</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">NextAdjVertex</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span> <span class="c1">//找v0的下一个邻接点
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="邻接矩阵实现dfs">邻接矩阵实现DFS</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">DepthFirstSearch</span><span class="p">(</span><span class="n">AdjMatrix</span> <span class="n">g</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">vj</span><span class="p">;</span>
+    <span class="n">visit</span><span class="p">(</span><span class="n">v0</span><span class="p">);</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">v0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">vj</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">vj</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">vj</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">vj</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">g</span><span class="p">.</span><span class="n">arcs</span><span class="p">[</span><span class="n">v0</span><span class="p">][</span><span class="n">vj</span><span class="p">].</span><span class="n">adj</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">DepthFirstSearch</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">vj</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="邻接表实现dfs">邻接表实现DFS</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">DepthFirstSearch</span><span class="p">(</span><span class="n">AdjList</span> <span class="n">g</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">visit</span><span class="p">(</span><span class="n">v0</span><span class="p">);</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">v0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">ArcNode</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">g</span><span class="p">.</span><span class="n">vertex</span><span class="p">[</span><span class="n">v0</span><span class="p">].</span><span class="n">firstarc</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">adjvex</span><span class="p">])</span>
+            <span class="n">DepthFirstSearch</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">adjvex</span><span class="p">);</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">nextarc</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="深度优先生成树">深度优先生成树</h6>
+<p>显然，DFS 算法将生成一个覆盖 n 个点，有 n-1 条边的访问序列，也就是树，我们可以进一步修改 DFS 算法使其输出深度优先生成树：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">DepthFirstSearch</span><span class="p">(</span><span class="n">Graph</span> <span class="n">g</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">w</span><span class="p">;</span>
+    <span class="n">visit</span><span class="p">(</span><span class="n">v0</span><span class="p">);</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">v0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">FirstAdjVertex</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">v0</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">w</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">w</span><span class="p">])</span>
+        <span class="p">{</span>
+            <span class="n">Printf</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span> <span class="c1">//修改内容
+</span><span class="c1"></span>            <span class="n">DepthFirstSearch</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">NextAdjVertex</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="bfs">BFS</h6>
+<p>广度优先搜索 BFS（Breadth_First Search）是指按照广度方向搜索，类似于树的层次遍历：</p>
+<ol>
+<li>从图中某个顶点$v_0$出发，首先访问$v_0$</li>
+<li>依次访问$v_0$的各个未被访问的邻接点</li>
+<li>分别从这些邻接点（端结点）出发，依次访问它们的各个未被访问的邻接点（新的端结点）</li>
+</ol>
+<p>与树的层次遍历一样，BFS 算法是队列技术实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">BreadthFirstSearch</span><span class="p">(</span><span class="n">Graph</span> <span class="n">g</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">;</span>
+    <span class="n">visit</span><span class="p">(</span><span class="n">v0</span><span class="p">);</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">v0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">InitQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Q</span><span class="p">);</span>
+    <span class="n">EnterQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span> <span class="n">v0</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">IsEmpty</span><span class="p">(</span><span class="n">Q</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">DeleteQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">);</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">FirstAdjVertex</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">w</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">w</span><span class="p">])</span>
+            <span class="p">{</span>
+                <span class="n">visit</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
+                <span class="n">visited</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">EnterQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">NextAdjVertex</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="广度优先生成树">广度优先生成树</h6>
+<p>类似于深度优先生成树，我们也可以进一步修改 BFS 算法使其输出广度优先生成树：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">BreadthFirstSearch</span><span class="p">(</span><span class="n">Graph</span> <span class="n">g</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">;</span>
+    <span class="n">visit</span><span class="p">(</span><span class="n">v0</span><span class="p">);</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">v0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">InitQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Q</span><span class="p">);</span>
+    <span class="n">EnterQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span> <span class="n">v0</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">IsEmpty</span><span class="p">(</span><span class="n">Q</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">DeleteQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">);</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">FirstAdjVertex</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">w</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">w</span><span class="p">])</span>
+            <span class="p">{</span>
+                <span class="n">visit</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
+                <span class="n">visited</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">Printf</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span> <span class="c1">//修改内容
+</span><span class="c1"></span>                <span class="n">EnterQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">NextAdjVertex</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="图的应用">图的应用</h4>
+<h5 id="图的连通性问题">图的连通性问题</h5>
+<h6 id="无向图的连通分量">无向图的连通分量</h6>
+<p>调用搜索过程的次数就是该图连通分量的个数。</p>
+<ul>
+<li>连通图仅调用一次搜索过程——连通分量为 1</li>
+<li>非连通图需多次调用搜索过程——连通分量为此处次数</li>
+</ul>
+<p>修改图的遍历算法即可实现统计无向图的连通分量：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">TraverseGraph</span><span class="p">(</span><span class="n">Graph</span> <span class="n">g</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">vi</span><span class="p">,</span> <span class="n">count</span><span class="p">;</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">vi</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">vi</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">vi</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">visited</span><span class="p">[</span><span class="n">vi</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">vi</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">vi</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">vi</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">vi</span><span class="p">])</span>
+        <span class="p">{</span>
+            <span class="n">search</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">vi</span><span class="p">);</span>
+            <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="两顶点之间的简单路径">两顶点之间的简单路径</h6>
+<h6 id="生成树">生成树</h6>
+<h6 id="最小生成树">最小生成树</h6>
+<p>各边的代价之和最小的生成树称为最小（代价）生成树。</p>
+<p>性质：设$N=(V,{E})$是一连通网，U 是顶点集 V 的一个非空子集。若$(u,v)$是一条具有最小权值的边，存在一棵包含边$(u,v)$的最小生成树。</p>
+<p>由此性质，我们有两种算法实现：</p>
+<ol>
+<li>
+<p>普里姆算法（加点法）</p>
+<p>思想：加点不构成回路</p>
+<ol>
+<li>
+<p>假设 N=(V,{E}) 是连通网，TE 为最小生成树中边的集合</p>
+</li>
+<li>
+<p>初始 U={$u_0$}($u_0$∈V),TE=∅</p>
+</li>
+<li>
+<p>在所有$u∈U, v∈V-U$的边中选一条代价最小的边$(u_0, v_0)$并入集合 TE，同时将$v_0$并入 U</p>
+</li>
+<li>
+<p>重复第 2 步，n-1 直到 U=V 为止。</p>
+</li>
+</ol>
+<p>此时，TE 中必含有 n-1 条边，则 T=(V,{TE}) 为N的最小生成树</p>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">普里姆算法时间复杂度为$O(n^2)$</div>
+        </div>
+    </div>
+</li>
+<li>
+<p>克鲁斯卡尔算法（加边法）</p>
+<p>思想：加边不构成回路</p>
+<ol>
+<li>
+<p>假设 N=(V,{E}) 是连通网，将 N 中的边按权值从小到大的顺序排列</p>
+</li>
+<li>
+<p>将 n 个顶点看成 n 个集合</p>
+</li>
+<li>
+<p>按权值由小到大的顺序选择边，选边应满足两个顶点不在同一个集合内，将该边放到生成树边的集合中。同时将该边的两个顶点所在的顶点集合合并</p>
+</li>
+<li>
+<p>重复第 3 步，直到所有的顶点都在同一个顶点集合内</p>
+</li>
+</ol>
+</li>
+</ol>
+<h5 id="有向无环图的应用1拓扑排序">有向无环图的应用1—拓扑排序</h5>
+<h6 id="aov-网">AOV-网</h6>
+<p>顶点表示活动的网：</p>
+<ul>
+<li>顶点表示活动</li>
+<li>弧表示活动间的优先关系</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/02/13/byL37Zok5QEf84a.png"
+        data-srcset="https://s2.loli.net/2022/02/13/byL37Zok5QEf84a.png, https://s2.loli.net/2022/02/13/byL37Zok5QEf84a.png 1.5x, https://s2.loli.net/2022/02/13/byL37Zok5QEf84a.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/02/13/byL37Zok5QEf84a.png"
+        title="image-20220213203039998" /></p>
+<h6 id="拓扑序列">拓扑序列</h6>
+<p>有向图 G=(v,{E}) 中顶点的线性序列</p>
+<p>图中任意两个顶点$v_i$、$v_j$，有一条从$v_i$到$v_j$的路径，则在拓扑序列中$v_i$必排在$v_j$之前。</p>
+<h6 id="拓扑网的特性">拓扑网的特性</h6>
+<ol>
+<li>先行关系具有可传递性</li>
+<li>拓扑序列不唯一</li>
+</ol>
+<h6 id="拓扑排序的基本思想">拓扑排序的基本思想</h6>
+<ol>
+<li>选一个无前驱顶点输出</li>
+<li>删除此点及以它为起点的弧</li>
+<li>重复1、2，直到不存在无前驱顶点</li>
+<li>输出顶点数小于图中顶点数，则有向图中存在回路，否则输出顶点顺序即为拓扑序列</li>
+</ol>
+<h6 id="拓扑排序算法">拓扑排序算法</h6>
+<ul>
+<li>
+<p>基于<strong>邻接矩阵</strong>：</p>
+<p>A 为有向图 G 的邻接矩阵，则有</p>
+<ol>
+<li>找 G 中无前驱的顶点——在 A 中找到值全为 0 的列</li>
+<li>删除以 i 为起点的所有弧——将矩阵中i对应的行置为全 0</li>
+</ol>
+<p>即选<strong>全 0 列，置全 0 行</strong>。</p>
+</li>
+<li>
+<p>基于<strong>邻接表</strong>：</p>
+<p>附设一个存放各顶点入度的数组<code>indegree[]</code></p>
+<ol>
+<li>找 G 中无前驱的顶点——查找<code>indegree[i]</code>为零的顶点$v_i$</li>
+<li>删除以 i 为起点的所有弧——对链在顶点 i 后面的所有邻接顶点 k，将对应的<code>indegree[k]</code>减 1</li>
+</ol>
+<p>为避免重复检测入度为零的顶点，设置一个入度为 0 点的<a href="/data_structure-3/#%e6%a0%88%e7%9a%84%e9%a1%ba%e5%ba%8f%e5%ae%9e%e7%8e%b0" rel="">栈</a>，若某一顶点的入度减为0，则将它入栈。每当输出某一顶点，便将它从栈中删除。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">bool</span> <span class="nf">TopoSort</span><span class="p">(</span><span class="n">AdjList</span> <span class="n">G</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">indegree</span><span class="p">[</span><span class="n">MAX_VERTEX_NUM</span><span class="p">];</span>
+    <span class="n">Stack</span> <span class="n">S</span><span class="p">;</span>
+    <span class="n">ArcNode</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+    <span class="n">FindID</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">indegree</span><span class="p">);</span> <span class="c1">//求各顶点入度
+</span><span class="c1"></span>    <span class="n">InitStack</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">G</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">indegree</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">push</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span> <span class="c1">//将入度0的顶点入栈
+</span><span class="c1"></span>    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">IsEmpty</span><span class="p">(</span><span class="n">S</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">pop</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">i</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="n">G</span><span class="p">.</span><span class="n">vertex</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">data</span><span class="p">);</span>
+        <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">G</span><span class="p">.</span><span class="n">vertex</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">firstarc</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">adjvex</span><span class="p">;</span>
+            <span class="n">indegree</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">--</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">indegree</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+                <span class="n">push</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="p">,</span> <span class="n">k</span><span class="p">);</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">nextarc</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">&lt;</span> <span class="n">G</span><span class="p">.</span><span class="n">vexnum</span><span class="p">)</span> <span class="c1">//有回路
+</span><span class="c1"></span>        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h5 id="有向无环图的应用2关键路径">有向无环图的应用2—关键路径</h5>
+<h6 id="aoe-网">AOE-网</h6>
+<p>边表示活动的网：</p>
+<ul>
+<li>顶点表示事件</li>
+<li>弧表示活动</li>
+<li>弧的权值表示活动所需时间</li>
+</ul>
+<h6 id="在aoe-网中的基本概念">在AOE-网中的基本概念</h6>
+<ul>
+<li>源点：唯一入度为零的顶点</li>
+<li>汇点：唯一出度为零的顶点</li>
+<li>关键路径：从源点到汇点的最长路径</li>
+<li>关键活动：关键路径上的活动</li>
+</ul>
+<h6 id="几个重要的定义">几个重要的定义</h6>
+<ul>
+<li>
+<p>$ve(i)$：事件$v_i$的最早发生时间——从源点到顶点$v_i$的最长路径长度</p>
+</li>
+<li>
+<p>$vl(i)$：事件$v_i$的最晚发生时间（在保证汇点按其最早发生时间发生的前提下）</p>
+<p>在求出$ve(i)$的基础上，可从汇点开始，按逆拓扑顺序向源点递推：</p>
+<p>$vl(n-1)=ve(n-1)$;</p>
+<p>$vl(i)=min${$vl(k)-dut(&lt;i,k&gt;)$}</p>
+</li>
+<li>
+<p>$e(i)$：活动$a_i$的最早开始时间</p>
+<p>活动$a_i$对应的弧为$&lt;j,k&gt;$，$e(i)$等于从源点到顶点 j 的最长路径的长度，即$e(i)=ve(j)$</p>
+</li>
+<li>
+<p>$l(i)$：活动$a_i$的最晚开始时间</p>
+</li>
+</ul>
+<p>活动$a_i$对应的弧为$&lt;j, k&gt;$，其持续时间为$dut(&lt;j, k&gt;)$则$l(i)=vl(k)-dut(&lt;j, k&gt;)$</p>
+<ul>
+<li>
+<p>$a_i$的松弛时间（时间余量）：$a_i$的最晚开始时间与$a_i$的最早开始时间之差——$l(i)-e(i)$</p>
+<p>松弛时间（时间余量）为 0 的活动为关键活动</p>
+</li>
+</ul>
+<h6 id="求关键路径的基本步骤">求关键路径的基本步骤</h6>
+<ol>
+<li>在对图中顶点进行拓扑排序过程中按拓扑序列求出每个事件的最早发生时间$ve(i)$</li>
+<li>按逆拓扑序列求每个事件的最晚发生时间$vl(i)$</li>
+<li>求出每个活动$a_i$的最早开始时间$e(i)$和最晚发生时间$l(i)$</li>
+<li>找出$e(i)=l(i)$的活动$a_i$，即为关键活动</li>
+</ol>
+<h6 id="修改后的拓扑排序算法">修改后的拓扑排序算法</h6>
+<p>通过拓扑顺序求出事件的最早发生时间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">ve</span><span class="p">[</span><span class="n">MAX_VERTEX_NUM</span><span class="p">];</span>             <span class="c1">//每个顶点的最早发生时间
+</span><span class="c1"></span><span class="kt">bool</span> <span class="nf">TopoOrder</span><span class="p">(</span><span class="n">AdjList</span> <span class="n">G</span><span class="p">,</span> <span class="n">Stack</span> <span class="o">*</span><span class="n">T</span><span class="p">)</span> <span class="c1">// T为拓扑序列栈，S为0入度的顶点栈
+</span><span class="c1"></span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">count</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">indegree</span><span class="p">[</span><span class="n">MAX_VERTEX_NUM</span><span class="p">];</span>
+    <span class="n">ArcNode</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+    <span class="n">Stack</span> <span class="n">S</span><span class="p">;</span>
+    <span class="n">InitStack</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+    <span class="n">InitStack</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="p">);</span>
+    <span class="n">FindID</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">indegree</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">G</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">indegree</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">push</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span> <span class="c1">//将入度0的顶点入栈
+</span><span class="c1"></span>    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">G</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">ve</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//初始化最早发生时间
+</span><span class="c1"></span>    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">IsEmpty</span><span class="p">(</span><span class="n">S</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">pop</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">j</span><span class="p">);</span>
+        <span class="n">push</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span>
+        <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">G</span><span class="p">.</span><span class="n">vertex</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">firstarc</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">adjvex</span><span class="p">;</span>
+            <span class="n">indegree</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">--</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">indegree</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+                <span class="n">push</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="p">,</span> <span class="n">k</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">ve</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">info</span> <span class="o">&gt;</span> <span class="n">ve</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="c1">//事件最早发生时间
+</span><span class="c1"></span>                <span class="n">ve</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">ve</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">;</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">nextarc</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">&lt;</span> <span class="n">G</span><span class="p">.</span><span class="n">vexnum</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="求关键路径的实现算法">求关键路径的实现算法</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">bool</span> <span class="nf">CriticalPath</span><span class="p">(</span><span class="n">AdjList</span> <span class="n">G</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">ArcNode</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">dut</span><span class="p">,</span> <span class="n">ei</span><span class="p">,</span> <span class="n">li</span><span class="p">,</span> <span class="n">vl</span><span class="p">[</span><span class="n">MAX_VERTEX_NUM</span><span class="p">];</span>
+    <span class="kt">char</span> <span class="n">tag</span><span class="p">;</span>
+    <span class="n">Stack</span> <span class="n">T</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">TopoOrder</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">T</span><span class="p">))</span> <span class="c1">//拓扑序列求ve
+</span><span class="c1"></span>        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">G</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">vl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ve</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="c1">//初始化
+</span><span class="c1"></span>    <span class="k">while</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">(</span><span class="n">T</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">pop</span><span class="p">(</span><span class="o">&amp;</span><span class="n">T</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">j</span><span class="p">);</span> <span class="c1">//逆拓扑序列求vl
+</span><span class="c1"></span>        <span class="n">p</span> <span class="o">=</span> <span class="n">G</span><span class="p">.</span><span class="n">vertex</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">firstarc</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">adjvex</span><span class="p">;</span>
+            <span class="n">dut</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">vl</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">dut</span> <span class="o">&lt;</span> <span class="n">vl</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                <span class="n">vl</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">dut</span><span class="p">;</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">nextarc</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">G</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="c1">//求ei，li和关键活动
+</span><span class="c1"></span>    <span class="p">{</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">G</span><span class="p">.</span><span class="n">vertex</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">firstarc</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">adjvex</span><span class="p">;</span>
+            <span class="n">dut</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">;</span>
+            <span class="n">ei</span> <span class="o">=</span> <span class="n">ve</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+            <span class="n">li</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">dut</span><span class="p">;</span>
+            <span class="n">tag</span> <span class="o">=</span> <span class="p">(</span><span class="n">ei</span> <span class="o">==</span> <span class="n">li</span><span class="p">)</span> <span class="o">?</span> <span class="sc">&#39;*&#39;</span> <span class="o">:</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%c %c %d %d %d %c</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">G</span><span class="p">.</span><span class="n">vertex</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">data</span><span class="p">,</span> <span class="n">G</span><span class="p">.</span><span class="n">vertex</span><span class="p">[</span><span class="n">k</span><span class="p">].</span><span class="n">data</span><span class="p">,</span> <span class="n">dut</span><span class="p">,</span> <span class="n">ei</span><span class="p">,</span> <span class="n">li</span><span class="p">,</span> <span class="n">tag</span><span class="p">);</span> <span class="c1">//输出关键活动
+</span><span class="c1"></span>            <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">nextarc</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="最短路径">最短路径</h5>
+<h6 id="求某一顶点到其它各顶点的最短路径">求某一顶点到其它各顶点的最短路径</h6>
+<p>迪杰斯特拉（Dijkstra）算法</p>
+<ul>
+<li>
+<p>基本思想：</p>
+<p>下一条最短路径是弧$(v_0,v_x)$或是中间经过 S 的某些顶点到达$v_x$的路径——按路径长度递增顺序产生最短路径</p>
+</li>
+<li>
+<p>算法步骤：</p>
+<ol>
+<li>
+<p>g 为<strong>邻接矩阵</strong>表示的带权图，将$v_0$到其余顶点的路径长度初始化为权值</p>
+</li>
+<li>
+<p>选择$v_k$，使得$v_k$为目前求得的下一条从$v_0$出发最短路径的终点</p>
+</li>
+<li>
+<p>修改从$v_0$出发到集合 V-S 上任一顶点$v_i$的最短路径的长度</p>
+<p>如果$dist [k]+g.arcs[k][i]&lt;dist[i]$则修改$dist[i]=dist[k]+g.arcs[k][i]$</p>
+</li>
+<li>
+<p>重复2、3 n-1 次，即按最短路径长度的递增顺序，逐个求出$v_0$到图中其它每个顶点的最短路径</p>
+</li>
+</ol>
+</li>
+<li>
+<p>算法描述：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">ShortestPath_DJS</span><span class="p">(</span><span class="n">AdjMatrix</span> <span class="n">g</span><span class="p">,</span> <span class="kt">int</span> <span class="n">vo</span><span class="p">,</span> <span class="n">VRType</span> <span class="n">dist</span><span class="p">[</span><span class="n">MAX_VERTEX_NUM</span><span class="p">],</span> <span class="n">VertexType</span> <span class="n">path</span><span class="p">[</span><span class="n">MAX_VERTEX_NUM</span><span class="p">])</span>
+<span class="c1">//存放i的当前最短路径长度，存放i的当前最短路径
+</span><span class="c1"></span><span class="p">{</span>
+    <span class="n">VertexType</span> <span class="n">s</span><span class="p">;</span> <span class="c1">//已找到最短路径的终点集合
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">min</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="c1">//初始化dist[i]、path[i]
+</span><span class="c1"></span>    <span class="p">{</span>
+        <span class="n">InitList</span><span class="p">(</span><span class="o">&amp;</span><span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">g</span><span class="p">.</span><span class="n">arcs</span><span class="p">[</span><span class="n">v0</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">MAX</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">AddTail</span><span class="p">(</span><span class="o">&amp;</span><span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">g</span><span class="p">.</span><span class="n">vexs</span><span class="p">[</span><span class="n">v0</span><span class="p">]);</span>
+            <span class="n">AddTail</span><span class="p">(</span><span class="o">&amp;</span><span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">g</span><span class="p">.</span><span class="n">vexs</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="n">InitList</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="p">);</span>
+            <span class="n">AddTail</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="p">,</span> <span class="n">g</span><span class="p">.</span><span class="n">vexs</span><span class="p">[</span><span class="n">v0</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">.</span><span class="n">vexnum</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">t</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">min</span> <span class="o">=</span> <span class="n">MAX</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">Member</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">vexs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">s</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">min</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+                <span class="n">min</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">min</span> <span class="o">=</span> <span class="n">INFINITY</span><span class="p">)</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="n">AddTail</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="p">,</span> <span class="n">g</span><span class="p">.</span><span class="n">vexs</span><span class="p">[</span><span class="n">k</span><span class="p">]);</span> <span class="c1">//选择最小距离vk
+</span><span class="c1"></span>        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">Member</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">vexs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">s</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">g</span><span class="p">.</span><span class="n">arcs</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="c1">//基于vk修正距离和路径
+</span><span class="c1"></span>            <span class="p">{</span>
+                <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">g</span><span class="p">.</span><span class="n">arcs</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+                <span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+                <span class="n">AddTail</span><span class="p">(</span><span class="o">&amp;</span><span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">g</span><span class="p">.</span><span class="n">vexs</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span> <span class="c1">// path[i]=path[k]∪{vi}
+</span><span class="c1"></span>            <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">此算法时间复杂度为$O(n^2)$</div>
+        </div>
+    </div>
+</li>
+</ul>
+<h6 id="求任意一对顶点间的最短路径">求任意一对顶点间的最短路径</h6>
+<p>佛罗依德算法（Floyd）</p>
+<ul>
+<li>
+<p>基本思想</p>
+<p>生成中间顶点序号不大于 0 … 不大于 n一1 的路径矩阵</p>
+<p>图 g 用<strong>邻接矩阵法</strong>表示，求图 g 中任意一对顶点$v_i$、$v_j$间的最短路径</p>
+<p>将$v_i$到$v_j$的最短的路径长度初始化为$g.arcs[i][j]$，然后进行如下 n 次比较和修正</p>
+<ol>
+<li>
+<p>在$v_i$、$v_j$间加入顶点$v_0$，比较$(v_i,v_0,v_j)$和$(v_i,v_j)$路径的长度，取其中较短路径作为$v_i$到$v_j$的且中间顶点号不大于 0 的最短路径</p>
+</li>
+<li>
+<p>在$v_i$，$v_j$间加入顶点$v_1$，得$(v_i,…,v_1)$和$(v_1,…,v_j)$，其中$(v_i,…,v_1)$是$v_i$到$v_1$的且中间顶点号不大于 0 的最短路径，$(v_1,…,v_j)$是$v_1$到$v_j$且中间顶点号不大于 0 的最短路径，这两条路径在上一步中已求出。将$(v_i,…,v_1,v_j)$与$v_i$到$v_j$中间顶点号不大于 0 的最短路径比较，取较短的路径作为$v_i$到$v_j$的且中间顶点号不大于 1 的最短路径</p>
+</li>
+<li>
+<p>依次类推，经过 n 次比较和修正,在第 n-1 步，将求得$v_i$到$v_j$且中间顶点号不大于 n-1 的最短路径，这必是从$v_i$到$v_j$的最短路径</p>
+</li>
+</ol>
+</li>
+<li>
+<p>算法描述</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">ShortestPath_Floyd</span><span class="p">(</span><span class="n">AdjMatrix</span> <span class="n">g</span><span class="p">,</span> <span class="n">VRType</span> <span class="n">dist</span><span class="p">[</span><span class="n">MAX</span><span class="p">][</span><span class="n">MAX</span><span class="p">],</span> <span class="n">VertexType</span> <span class="n">path</span><span class="p">[</span><span class="n">MAX</span><span class="p">][</span><span class="n">MAX</span><span class="p">])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">InitList</span><span class="p">(</span><span class="o">&amp;</span><span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
+            <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">g</span><span class="p">.</span><span class="n">arcs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span> <span class="c1">//初始化dist[i][j]和path[i][j]
+</span><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">MAX</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">AddTail</span><span class="p">(</span><span class="o">&amp;</span><span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">g</span><span class="p">.</span><span class="n">vexs</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+                <span class="n">AddTail</span><span class="p">(</span><span class="o">&amp;</span><span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">g</span><span class="p">.</span><span class="n">vexs</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">dist</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+                <span class="p">{</span>
+                    <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">dist</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+                    <span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">JoinList</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">],</span> <span class="n">path</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
+                <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h4 id="例题">例题</h4>
+<h5 id="求距离顶点v_0的最短路径长度为k的所有顶点">求距离顶点$v_0$的最短路径长度为k的所有顶点</h5>
+<p>已知无向图 g，设计算法求距离顶点$v_0$的最短路径长度为 k 的所有顶点，要求尽可能节省时间。</p>
+<p>显然，本题应使用广度优先搜索算法（BFS），从顶点$v_0$开始，将一步可达的、两步可达的 … 直至 k 步可达的所有顶点记录下来，同时用一个队列记录每个结点的层号，输出第 k+1 层的所有结点即为所求。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">BFS_layer</span><span class="p">(</span><span class="n">AdjList</span> <span class="n">g</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v0</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Queue</span> <span class="n">Q</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">layer</span><span class="p">;</span>
+    <span class="n">visit</span><span class="p">(</span><span class="n">v0</span><span class="p">);</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">v0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">InitQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Q</span><span class="p">);</span>
+    <span class="n">EnterQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">Q</span><span class="p">.</span><span class="n">front</span> <span class="o">!=</span> <span class="n">Q</span><span class="p">.</span><span class="n">rear</span><span class="p">)</span> <span class="c1">//队列非空
+</span><span class="c1"></span>    <span class="p">{</span>
+        <span class="n">DeleteQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">layer</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">layer</span> <span class="o">==</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">FirstAdjVertex</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">w</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">w</span><span class="p">])</span>
+            <span class="p">{</span>
+                <span class="n">visit</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
+                <span class="n">visited</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">EnterQueue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Q</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">layer</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">NextAdjVertex</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
