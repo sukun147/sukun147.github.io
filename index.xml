@@ -4,9 +4,16 @@
         <link>https://www.sukun.xyz/</link>
         <description>Sukun的博客，记录学习历程！</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1477264431@qq.com (Sukun)</managingEditor>
-            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 11 Feb 2022 12:29:03 &#43;0800</lastBuildDate>
+            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 17 Feb 2022 12:07:19 &#43;0800</lastBuildDate>
             <atom:link href="https://www.sukun.xyz/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>数据结构学习(八)</title>
+    <link>https://www.sukun.xyz/data_structure-8/</link>
+    <pubDate>Thu, 17 Feb 2022 12:07:19 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.sukun.xyz/data_structure-8/</guid>
+    <description><![CDATA[数据结构——用C语言描述。本节讲述数据结构技术中的查找。]]></description>
+</item><item>
     <title>数据结构学习(七)</title>
     <link>https://www.sukun.xyz/data_structure-7/</link>
     <pubDate>Fri, 11 Feb 2022 12:29:03 &#43;0800</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>https://www.sukun.xyz/socket%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E8%AF%A6%E8%A7%A3/</guid>
     <description><![CDATA[本文介绍了socket网络编程，讲解了TCP通信、I/O复用以及非阻塞I/O。]]></description>
-</item><item>
-    <title>环境变量字符数解决方案</title>
-    <link>https://www.sukun.xyz/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AD%97%E7%AC%A6%E6%95%B0%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
-    <pubDate>Sun, 09 Jan 2022 17:17:04 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.sukun.xyz/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AD%97%E7%AC%A6%E6%95%B0%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</guid>
-    <description><![CDATA[本文讲述了环境变量字符数达到上限，无法继续添加的问题，提供了一种一劳永逸的解决方案。]]></description>
 </item></channel>
 </rss>
