@@ -4,7 +4,14 @@
         <link>https://www.sukun.xyz/posts/</link>
         <description>所有文章 | Sukun&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1477264431@qq.com (Sukun)</managingEditor>
-            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 18 Feb 2022 12:36:32 &#43;0800</lastBuildDate><atom:link href="https://www.sukun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 19 Feb 2022 11:06:23 &#43;0800</lastBuildDate><atom:link href="https://www.sukun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>数据结构学习(九)</title>
+    <link>https://www.sukun.xyz/data_structure-9/</link>
+    <pubDate>Sat, 19 Feb 2022 11:06:23 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.sukun.xyz/data_structure-9/</guid>
+    <description><![CDATA[数据结构——用C语言描述。本节讲述数据结构技术中的排序。]]></description>
+</item><item>
     <title>青龙面板教程</title>
     <link>https://www.sukun.xyz/qinglong/</link>
     <pubDate>Fri, 18 Feb 2022 12:36:32 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>https://www.sukun.xyz/data_structure-1/</guid>
     <description><![CDATA[数据结构——用C语言描述。本节讲述数据结构绪论——一些重要术语含义。]]></description>
-</item><item>
-    <title>全双工，半双工与单工</title>
-    <link>https://www.sukun.xyz/%E5%85%A8%E5%8F%8C%E5%B7%A5%E5%8D%8A%E5%8F%8C%E5%B7%A5%E4%B8%8E%E5%8D%95%E5%B7%A5/</link>
-    <pubDate>Wed, 12 Jan 2022 11:16:59 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.sukun.xyz/%E5%85%A8%E5%8F%8C%E5%B7%A5%E5%8D%8A%E5%8F%8C%E5%B7%A5%E4%B8%8E%E5%8D%95%E5%B7%A5/</guid>
-    <description><![CDATA[本文讲述了什么是全双工，介绍了全双工、半双工、单工的区别。]]></description>
 </item></channel>
 </rss>

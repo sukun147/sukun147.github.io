@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.sukun.xyz\/data_structure-8\/"
-        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "数据结构, 学习","wordcount":  3139 ,
+        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "数据结构, 学习","wordcount":  4358 ,
         "url": "https:\/\/www.sukun.xyz\/data_structure-8\/","datePublished": "2022-02-17T12:07:19+08:00","dateModified": "2022-02-17T12:07:19+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "sukun","logo": "https:\/\/www.sukun.xyz\/images\/avatar.png"},"author": {
@@ -164,8 +164,8 @@
     <div class="toc-content" id="toc-content-auto"></div>
 </div><article class="page single"><h1 class="single-title animated flipInX">数据结构学习(八)</h1><div class="post-meta">
         <div class="post-meta-line"><span class="post-author"><a href="https://www.sukun.xyz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Sukun</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><i class="far fa-folder fa-fw"></i>数据结构</a></span></div>
-        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-02-17">2022-02-17</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-02-17">2022-02-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3139 字
-            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id="/data_structure-8/" class="leancloud_visitors" data-flag-title="数据结构学习(八)">
+        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-02-17">2022-02-17</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-02-17">2022-02-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4358 字
+            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;<span id="/data_structure-8/" class="leancloud_visitors" data-flag-title="数据结构学习(八)">
                 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
             </span>&nbsp;
             <a href="#comments" id="post-meta-vcount" title="查看评论">
@@ -248,8 +248,7 @@
     </li>
   </ul>
 </nav></div>
-    </div><div class="content" id="content"><p><a href="/categories/%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84/" rel="">本系列学习笔记链接</a></p>
-<h1 id="数据结构用c语言描述八">数据结构——用C语言描述(八)</h1>
+    </div><div class="content" id="content"><h1 id="数据结构用c语言描述八">数据结构——用C语言描述(八)</h1>
 <h2 id="技术">技术</h2>
 <h3 id="查找">查找</h3>
 <h4 id="查找的基本概念">查找的基本概念</h4>
@@ -800,8 +799,171 @@ $$</p>
 </li>
 </ol>
 <h6 id="处理冲突的方法">处理冲突的方法</h6>
+<ol>
+<li>
+<p><strong>开放定址法</strong></p>
+<p>当关键字 key 的哈希地址$p=H (key)$出现冲突时，以 p 为基础，产生另一个哈希地址$p_1$，如果$p_1$仍然冲突，再以 p 为基础，产生另一个哈希地址$p_2$，…，直到找出一个不冲突的哈希地址$p_i$ ，将相应元素存入其中。通用的再散列函数形式：$H_i=(H(key)+d_i)\%m$</p>
+<p>形成$d_i$的方法：</p>
+<ol>
+<li>
+<p>线性探测再散列</p>
+<p>$d_i=1,2,3,…,m-1$</p>
+<p>冲突发生时，顺序查看表中下一单元，直到找出一个空单元或查遍全表</p>
+</li>
+<li>
+<p>二次探测再散列</p>
+<p>$d_i=1^2,-1^2,2^2,-2^2,…,k^2,-k^2$</p>
+<p>特点:冲突发生时，在表的左右进行跳跃式探测，比较灵活</p>
+</li>
+<li>
+<p>伪随机探测再散列</p>
+<p>$d_i=伪随机数序列$</p>
+</li>
+</ol>
+</li>
+<li>
+<p>再哈希法</p>
+<p>同时构造多个不同的哈希函数：$H_i=RH_1(key)\ i=1,2,…,k$</p>
+<p>当哈希地址$H_i=RH_1(key)$发生冲突时，再计算$H_i=RH_2(key)$……直到冲突不再产生。</p>
+<p>这种方法不易产生聚集，但增加了计算时间。</p>
+</li>
+<li>
+<p><strong>链地址法</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/02/18/WIV1uPTQ9kUgD5j.png"
+        data-srcset="https://s2.loli.net/2022/02/18/WIV1uPTQ9kUgD5j.png, https://s2.loli.net/2022/02/18/WIV1uPTQ9kUgD5j.png 1.5x, https://s2.loli.net/2022/02/18/WIV1uPTQ9kUgD5j.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/02/18/WIV1uPTQ9kUgD5j.png"
+        title="链地址法" /></p>
+</li>
+<li>
+<p>建立公共溢出区</p>
+<p>将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表</p>
+</li>
+</ol>
 <h6 id="哈希表的查找过程">哈希表的查找过程</h6>
-<h6 id="哈希法性能分析">哈希法性能分析</h6></div><div class="post-footer" id="post-footer">
+<p>哈希表的查找过程与哈希表的创建过程规则一致</p>
+<p>注意：查到空单元时表示找不到</p>
+<p>查找过程：</p>
+<ol>
+<li>
+<p>计算$p_0=hash(K)$</p>
+</li>
+<li>
+<p>如果单元$p_0$为空，则所查元素不存在</p>
+</li>
+<li>
+<p>如果单元$p_0$中元素的关键字为K，则找到所查元素</p>
+</li>
+<li>
+<p>否则重复下述解决冲突的过程：</p>
+<p>按解决冲突的方法，找出下一个哈希地址$p_i$</p>
+<ol>
+<li>如果单元$p_i$为空，则所查元素不存在</li>
+<li>如果单元$p_i$中元素的关键字为K，则找到所查元素</li>
+</ol>
+</li>
+</ol>
+<p>查找算法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">HashSearch</span><span class="p">(</span><span class="n">HashTable</span> <span class="n">ht</span><span class="p">,</span> <span class="n">KeyType</span> <span class="n">K</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">pi</span><span class="p">;</span>
+    <span class="n">p0</span> <span class="o">=</span> <span class="n">hash</span><span class="p">(</span><span class="n">K</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ht</span><span class="p">[</span><span class="n">p0</span><span class="p">].</span><span class="n">key</span> <span class="o">==</span> <span class="n">NULLKEY</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">ht</span><span class="p">[</span><span class="n">p0</span><span class="p">].</span><span class="n">key</span> <span class="o">==</span> <span class="n">K</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">else</span> <span class="c1">//线性探测再散列
+</span><span class="c1"></span>    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">pi</span> <span class="o">=</span> <span class="p">(</span><span class="n">p0</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">%</span> <span class="n">m</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">ht</span><span class="p">[</span><span class="n">pi</span><span class="p">].</span><span class="n">key</span> <span class="o">==</span> <span class="n">NULLKEY</span><span class="p">)</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">ht</span><span class="p">[</span><span class="n">pi</span><span class="p">].</span><span class="n">key</span> <span class="o">==</span> <span class="n">K</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">pi</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="哈希法性能分析">哈希法性能分析</h6>
+<p>影响比较次数的因素：</p>
+<ol>
+<li>
+<p>哈希函数</p>
+</li>
+<li>
+<p>处理冲突的方法</p>
+</li>
+<li>
+<p>装填因子</p>
+</li>
+</ol>
+<p>哈希表的装填因子 α 的定义：
+$$
+α=\frac{哈希表中元素个数}{哈希表的长度}
+$$
+α 可描述哈希表的装满程度。显然，α 越小，发生冲突的可能性越小；而 α 越大，发生冲突的可能性也越大。</p>
+<p>等概率情况下查找成功的平均查找长度：
+$$
+ASL_{succ}=\frac{1}{表中置入元素个数n}\sum_{i=1}^nC_i
+$$
+等概率情况下查找不成功的平均查找长度公式
+$$
+ASL_{unsucc}=\frac{1}{哈希函数取值个数r}\sum_{i=0}^{r-1}C_i
+$$</p>
+<ol>
+<li>
+<p>线性探测再散列：
+$$
+ASL_{succ}≈\frac{1+\frac{1}{1-α}}{2}\\
+ASL_{unsucc}=\frac{1+\frac{1}{(1-α)^2}}{2}
+$$</p>
+</li>
+<li>
+<p>伪随机探测再散列、二次探测再散列、再哈希：
+$$
+ASL_{succ}≈-\frac{\ln(1-α)}{α}\\
+ASL_{unsucc}=\frac{1}{1-α}
+$$</p>
+</li>
+<li>
+<p>链址法：
+$$
+ASL_{succ}≈1+\frac{α}{2}\\
+ASL_{unsucc}=α+e^{-α}
+$$</p>
+</li>
+</ol></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">

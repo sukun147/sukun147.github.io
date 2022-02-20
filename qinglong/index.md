@@ -7,7 +7,7 @@
 
 ## 前期准备
 
-首先你要有一台服务器（国内鸡和国外鸡都行），一个域名和 SSL证书（可选）。我这里的服务器系统为 Ubuntu-20.03
+首先你要有一台服务器（国内鸡需要有代理），一个域名和 SSL证书（可选）。我这里的服务器系统为 Ubuntu-20.03
 
 ssh 登录上去，安装 docker，此处采用官方脚本一键安装并设置开机自启。
 
@@ -48,9 +48,13 @@ ufw allow 5700
 
 在浏览器地址栏键入`ip:5700`即可访问，由于是第一次访问，需要进行初始化：
 
-![青龙面板初始化](https://cdn.back2me.cn/2021/11/08/cca9a3f83fcf4.png)
+![image-20220218160423526](https://s2.loli.net/2022/02/18/hzGobqmvVrQP8Wc.png)
 
-后面是通知设置，可以采用钉钉、server酱等方式，然后是账号密码设置，本处不赘述。
+通知设置，可以采用钉钉、server酱等方式
+
+![image-20220218160517709](https://s2.loli.net/2022/02/18/pmfWAN81VU4atbk.png)
+
+然后是账号密码设置，本处不赘述。
 
 ### 反向代理
 
@@ -87,9 +91,9 @@ nginx -s reload
 
 ### 配置环境变量
 
-在浏览器地址栏键入`m.jd.com`访问京东手机版网页，使用手机验证码登录，按下`F12`在Cookies中找到`pt_key、pt_pin`，复制下来，在面板中点击环境变量，点击添加变量，将刚刚复制的内容填入对应位置：
+在浏览器地址栏键入`m.jd.com`访问京东手机版网页，使用手机验证码登录，按下`F12`在Cookies中找到`pt_key、pt_pin`，复制下来，在面板中点击环境变量，点击添加变量，将刚刚复制的内容填入对应位置（一行一个 cookie）：
 
-![JD_COOKIE填写](https://cdn.back2me.cn/2021/11/08/e58ac42cdc9e7.png)
+![image-20220218162323115](https://s2.loli.net/2022/02/18/KTD2sV1edASbl8o.png)
 
 ### 设置拉取脚本任务
 
@@ -100,7 +104,7 @@ nginx -s reload
 意为每日 0时0分 执行命令栏中的指令（项目地址：https://github.com/Yun-City/City）：
 
 ```bash
-ql repo https://ghproxy.com/https://github.com/Yun-City/City.git "jd_|jx_|gua_|jddj_|getJDCookie" "activity|backUp" "^jd[^_]|USER|function|utils|sendnotify|ZooFaker_Necklace|jd_Cookie|JDJRValidator_|sign_graphics_validate|ql|magic|cleancart_activity"
+ql repo https://github.com/Yun-City/City.git "jd_|jx_|gua_|jddj_|getJDCookie" "activity|backUp" "^jd[^_]|USER|function|utils|sendnotify|ZooFaker_Necklace|jd_Cookie|JDJRValidator_|sign_graphics_validate|ql|magic|cleancart_activity"
 ```
 
 添加完成后运行一次该任务即可拉取脚本，然后就可以静静等待其运行了。
@@ -168,4 +172,21 @@ docker exec -it qinglong bash -c "$(curl -fsSL https://ghproxy.com/https://raw.g
 - npm install -g tslib
 - npm install -g @types/node
 - npm install -g requests
+
+当然你也可以在面板的依赖管理处添加
+
+![image-20220218162530574](https://s2.loli.net/2022/02/18/NPRT59v2HfmcwFJ.png)
+
+### HTTP2问题
+
+你可能会遇到这样的报错：
+
+HTTP/2 stream 0 was not closed cleanly: PROTOCOL_ERROR (err 1)
+
+只需要在容器中执行以下命令即可解决：
+
+```bash
+git config --global http.version HTTP/1.1
+```
+
 

@@ -22,7 +22,7 @@
 <meta name="application-name" content="Sukun&#39;">
 <meta name="apple-mobile-web-app-title" content="Sukun&#39;"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.sukun.xyz/qinglong/" /><link rel="prev" href="https://www.sukun.xyz/data_structure-8/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><meta name="baidu-site-verification" content="code-HclBWphrqW" /><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.sukun.xyz/qinglong/" /><link rel="prev" href="https://www.sukun.xyz/data_structure-8/" /><link rel="next" href="https://www.sukun.xyz/data_structure-9/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><meta name="baidu-site-verification" content="code-HclBWphrqW" /><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.sukun.xyz\/qinglong\/"
-        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "青龙面板","wordcount":  1482 ,
+        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "青龙面板","wordcount":  1559 ,
         "url": "https:\/\/www.sukun.xyz\/qinglong\/","datePublished": "2022-02-18T12:36:32+08:00","dateModified": "2022-02-18T12:36:32+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "sukun","logo": "https:\/\/www.sukun.xyz\/images\/avatar.png"},"author": {
@@ -164,8 +164,8 @@
     <div class="toc-content" id="toc-content-auto"></div>
 </div><article class="page single"><h1 class="single-title animated flipInX">青龙面板教程</h1><div class="post-meta">
         <div class="post-meta-line"><span class="post-author"><a href="https://www.sukun.xyz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Sukun</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF/"><i class="far fa-folder fa-fw"></i>青龙面板</a></span></div>
-        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-02-18">2022-02-18</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-02-18">2022-02-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1482 字
-            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/qinglong/" class="leancloud_visitors" data-flag-title="青龙面板教程">
+        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-02-18">2022-02-18</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-02-18">2022-02-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1559 字
+            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/qinglong/" class="leancloud_visitors" data-flag-title="青龙面板教程">
                 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
             </span>&nbsp;
             <a href="#comments" id="post-meta-vcount" title="查看评论">
@@ -193,13 +193,14 @@
       <ul>
         <li><a href="#ql指令">ql指令</a></li>
         <li><a href="#依赖">依赖</a></li>
+        <li><a href="#http2问题">HTTP2问题</a></li>
       </ul>
     </li>
   </ul>
 </nav></div>
     </div><div class="content" id="content"><h1 id="青龙面板教程">青龙面板教程</h1>
 <h2 id="前期准备">前期准备</h2>
-<p>首先你要有一台服务器（国内鸡和国外鸡都行），一个域名和 SSL证书（可选）。我这里的服务器系统为 Ubuntu-20.03</p>
+<p>首先你要有一台服务器（国内鸡需要有代理），一个域名和 SSL证书（可选）。我这里的服务器系统为 Ubuntu-20.03</p>
 <p>ssh 登录上去，安装 docker，此处采用官方脚本一键安装并设置开机自启。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -260,12 +261,21 @@ sudo systemctl <span class="nb">enable</span> docker
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://cdn.back2me.cn/2021/11/08/cca9a3f83fcf4.png"
-        data-srcset="https://cdn.back2me.cn/2021/11/08/cca9a3f83fcf4.png, https://cdn.back2me.cn/2021/11/08/cca9a3f83fcf4.png 1.5x, https://cdn.back2me.cn/2021/11/08/cca9a3f83fcf4.png 2x"
+        data-src="https://s2.loli.net/2022/02/18/hzGobqmvVrQP8Wc.png"
+        data-srcset="https://s2.loli.net/2022/02/18/hzGobqmvVrQP8Wc.png, https://s2.loli.net/2022/02/18/hzGobqmvVrQP8Wc.png 1.5x, https://s2.loli.net/2022/02/18/hzGobqmvVrQP8Wc.png 2x"
         data-sizes="auto"
-        alt="https://cdn.back2me.cn/2021/11/08/cca9a3f83fcf4.png"
-        title="青龙面板初始化" /></p>
-<p>后面是通知设置，可以采用钉钉、server酱等方式，然后是账号密码设置，本处不赘述。</p>
+        alt="https://s2.loli.net/2022/02/18/hzGobqmvVrQP8Wc.png"
+        title="image-20220218160423526" /></p>
+<p>通知设置，可以采用钉钉、server酱等方式</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/02/18/pmfWAN81VU4atbk.png"
+        data-srcset="https://s2.loli.net/2022/02/18/pmfWAN81VU4atbk.png, https://s2.loli.net/2022/02/18/pmfWAN81VU4atbk.png 1.5x, https://s2.loli.net/2022/02/18/pmfWAN81VU4atbk.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/02/18/pmfWAN81VU4atbk.png"
+        title="image-20220218160517709" /></p>
+<p>然后是账号密码设置，本处不赘述。</p>
 <h3 id="反向代理">反向代理</h3>
 <p>接着就可以正常使用了，但你肯定不会满足于用<code>ip:5700</code>的方式访问的，于是我还需要用到Nginx反向代理：</p>
 <p>本处默认你已经部署好了 SSL证书，因此只讲解修改Nginx配置文件（可以用<code>nginx -t</code>指令找到配置文件位置）：</p>
@@ -318,15 +328,15 @@ sudo systemctl <span class="nb">enable</span> docker
 </div>
 </div><p>这样一来你就可以在浏览器中键入域名来访问青龙面板了！</p>
 <h3 id="配置环境变量">配置环境变量</h3>
-<p>在浏览器地址栏键入<code>m.jd.com</code>访问京东手机版网页，使用手机验证码登录，按下<code>F12</code>在Cookies中找到<code>pt_key、pt_pin</code>，复制下来，在面板中点击环境变量，点击添加变量，将刚刚复制的内容填入对应位置：</p>
+<p>在浏览器地址栏键入<code>m.jd.com</code>访问京东手机版网页，使用手机验证码登录，按下<code>F12</code>在Cookies中找到<code>pt_key、pt_pin</code>，复制下来，在面板中点击环境变量，点击添加变量，将刚刚复制的内容填入对应位置（一行一个 cookie）：</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://cdn.back2me.cn/2021/11/08/e58ac42cdc9e7.png"
-        data-srcset="https://cdn.back2me.cn/2021/11/08/e58ac42cdc9e7.png, https://cdn.back2me.cn/2021/11/08/e58ac42cdc9e7.png 1.5x, https://cdn.back2me.cn/2021/11/08/e58ac42cdc9e7.png 2x"
+        data-src="https://s2.loli.net/2022/02/18/KTD2sV1edASbl8o.png"
+        data-srcset="https://s2.loli.net/2022/02/18/KTD2sV1edASbl8o.png, https://s2.loli.net/2022/02/18/KTD2sV1edASbl8o.png 1.5x, https://s2.loli.net/2022/02/18/KTD2sV1edASbl8o.png 2x"
         data-sizes="auto"
-        alt="https://cdn.back2me.cn/2021/11/08/e58ac42cdc9e7.png"
-        title="JD_COOKIE填写" /></p>
+        alt="https://s2.loli.net/2022/02/18/KTD2sV1edASbl8o.png"
+        title="image-20220218162323115" /></p>
 <h3 id="设置拉取脚本任务">设置拉取脚本任务</h3>
 <p>在面板中的定时任务，点击添加任务：</p>
 <p><img
@@ -343,7 +353,7 @@ sudo systemctl <span class="nb">enable</span> docker
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ql repo https://ghproxy.com/https://github.com/Yun-City/City.git <span class="s2">&#34;jd_|jx_|gua_|jddj_|getJDCookie&#34;</span> <span class="s2">&#34;activity|backUp&#34;</span> <span class="s2">&#34;^jd[^_]|USER|function|utils|sendnotify|ZooFaker_Necklace|jd_Cookie|JDJRValidator_|sign_graphics_validate|ql|magic|cleancart_activity&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ql repo https://github.com/Yun-City/City.git <span class="s2">&#34;jd_|jx_|gua_|jddj_|getJDCookie&#34;</span> <span class="s2">&#34;activity|backUp&#34;</span> <span class="s2">&#34;^jd[^_]|USER|function|utils|sendnotify|ZooFaker_Necklace|jd_Cookie|JDJRValidator_|sign_graphics_validate|ql|magic|cleancart_activity&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>添加完成后运行一次该任务即可拉取脚本，然后就可以静静等待其运行了。</p>
@@ -441,7 +451,29 @@ task &lt;file_path&gt; desi &lt;env_name&gt; &lt;account_number&gt;
 <li>npm install -g tslib</li>
 <li>npm install -g @types/node</li>
 <li>npm install -g requests</li>
-</ul></div><div class="post-footer" id="post-footer">
+</ul>
+<p>当然你也可以在面板的依赖管理处添加</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/02/18/NPRT59v2HfmcwFJ.png"
+        data-srcset="https://s2.loli.net/2022/02/18/NPRT59v2HfmcwFJ.png, https://s2.loli.net/2022/02/18/NPRT59v2HfmcwFJ.png 1.5x, https://s2.loli.net/2022/02/18/NPRT59v2HfmcwFJ.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/02/18/NPRT59v2HfmcwFJ.png"
+        title="image-20220218162530574" /></p>
+<h3 id="http2问题">HTTP2问题</h3>
+<p>你可能会遇到这样的报错：</p>
+<p>HTTP/2 stream 0 was not closed cleanly: PROTOCOL_ERROR (err 1)</p>
+<p>只需要在容器中执行以下命令即可解决：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">git config --global http.version HTTP/1.1
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -466,7 +498,8 @@ task &lt;file_path&gt; desi &lt;env_name&gt; &lt;account_number&gt;
         </section>
     </div>
 
-    <div class="post-nav"><a href="/data_structure-8/" class="prev" rel="prev" title="数据结构学习(八)"><i class="fas fa-angle-left fa-fw"></i>数据结构学习(八)</a></div>
+    <div class="post-nav"><a href="/data_structure-8/" class="prev" rel="prev" title="数据结构学习(八)"><i class="fas fa-angle-left fa-fw"></i>数据结构学习(八)</a>
+            <a href="/data_structure-9/" class="next" rel="next" title="数据结构学习(九)">数据结构学习(九)<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="waline"></div>
     <script src='https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
