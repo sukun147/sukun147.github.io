@@ -4,7 +4,14 @@
         <link>https://www.sukun.xyz/tags/windows/</link>
         <description>windows - 标签 - Sukun&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1477264431@qq.com (Sukun)</managingEditor>
-            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 09 Jan 2022 17:17:04 &#43;0800</lastBuildDate><atom:link href="https://www.sukun.xyz/tags/windows/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 22 Feb 2022 15:08:19 &#43;0800</lastBuildDate><atom:link href="https://www.sukun.xyz/tags/windows/" rel="self" type="application/rss+xml" /><item>
+    <title>本地定时脚本</title>
+    <link>https://www.sukun.xyz/%E6%9C%AC%E5%9C%B0%E5%AE%9A%E6%97%B6%E8%84%9A%E6%9C%AC/</link>
+    <pubDate>Tue, 22 Feb 2022 15:08:19 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.sukun.xyz/%E6%9C%AC%E5%9C%B0%E5%AE%9A%E6%97%B6%E8%84%9A%E6%9C%AC/</guid>
+    <description><![CDATA[如何在本地Windows系统上定时执行python脚本。]]></description>
+</item><item>
     <title>环境变量字符数解决方案</title>
     <link>https://www.sukun.xyz/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%AD%97%E7%AC%A6%E6%95%B0%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
     <pubDate>Sun, 09 Jan 2022 17:17:04 &#43;0800</pubDate>
