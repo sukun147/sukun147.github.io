@@ -84,6 +84,8 @@ if __name__ == '__main__':
 - 添加参数：python脚本路径
 - 起始于：Python编译器路径
 
+当然，你也可以用`pyinstaller`将 python 文件打包为 exe 可执行文件，这样一来只需要将可执行文件路径添加到程序或脚本栏即可。
+
 完成后可在 任务计划程序库 中查看。
 
 ![任务计划程序库](https://s2.loli.net/2022/02/22/lIj9sSHC1uJZDRd.png)
