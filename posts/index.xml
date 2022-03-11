@@ -4,7 +4,14 @@
         <link>https://www.sukun.xyz/posts/</link>
         <description>所有文章 | Sukun&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1477264431@qq.com (Sukun)</managingEditor>
-            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 22 Feb 2022 15:08:19 &#43;0800</lastBuildDate><atom:link href="https://www.sukun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 11 Mar 2022 16:18:42 &#43;0800</lastBuildDate><atom:link href="https://www.sukun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>C语言难题集(一)</title>
+    <link>https://www.sukun.xyz/c%E8%AF%AD%E8%A8%80%E9%9A%BE%E9%A2%98%E9%9B%86%E4%B8%80/</link>
+    <pubDate>Fri, 11 Mar 2022 16:18:42 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.sukun.xyz/c%E8%AF%AD%E8%A8%80%E9%9A%BE%E9%A2%98%E9%9B%86%E4%B8%80/</guid>
+    <description><![CDATA[导语 对于数组越界，你可想过其危险性的原因？ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 #include &lt;stdio.h&gt; int main() { int i = 0; int arr[10] = {0}; for ( i = 0; i &lt;= 12; i++) { arr[i] = 0; //请问在VS20]]></description>
+</item><item>
     <title>本地定时脚本</title>
     <link>https://www.sukun.xyz/%E6%9C%AC%E5%9C%B0%E5%AE%9A%E6%97%B6%E8%84%9A%E6%9C%AC/</link>
     <pubDate>Tue, 22 Feb 2022 15:08:19 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>https://www.sukun.xyz/data_structure-3/</guid>
     <description><![CDATA[数据结构——用C语言描述。本节讲述线性结构中的限定性线性表——栈和队列。]]></description>
-</item><item>
-    <title>数据结构学习(二)</title>
-    <link>https://www.sukun.xyz/data_structure-2/</link>
-    <pubDate>Thu, 20 Jan 2022 20:23:14 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.sukun.xyz/data_structure-2/</guid>
-    <description><![CDATA[数据结构——用C语言描述。本节讲述线性结构中的线性表。]]></description>
 </item></channel>
 </rss>
