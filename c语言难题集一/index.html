@@ -8,7 +8,7 @@
         <title>C语言难题集(一) - Sukun&#39;s blog</title><meta name="keywords" content="sukun,hugo,博客">
 
 <meta name="Description" content="Sukun的博客，记录学习历程！"><meta property="og:title" content="C语言难题集(一)" />
-<meta property="og:description" content="导语 对于数组越界，你可想过其危险性的原因？ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 #include &lt;stdio.h&gt; int main() { int i = 0; int arr[10] = {0}; for ( i = 0; i &lt;= 12; i&#43;&#43;) { arr[i] = 0; //请问在VS20" />
+<meta property="og:description" content="问题一 1 2 3 4 5 6 7 8 9 10 11 12 13 14 #include &lt;stdio.h&gt; int main() { int i = 0; int arr[10] = {0}; for ( i = 0; i &lt;= 12; i&#43;&#43;) { arr[i] = 0; //请问在VS2019编译器下打印多少次hello？ printf(&#34;hello\n&#34;);" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.sukun.xyz/c%E8%AF%AD%E8%A8%80%E9%9A%BE%E9%A2%98%E9%9B%86%E4%B8%80/" /><meta property="og:image" content="https://www.sukun.xyz/images/avatar.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-11T16:18:42+08:00" />
@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="https://www.sukun.xyz/images/avatar.png"/>
 
 <meta name="twitter:title" content="C语言难题集(一)"/>
-<meta name="twitter:description" content="导语 对于数组越界，你可想过其危险性的原因？ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 #include &lt;stdio.h&gt; int main() { int i = 0; int arr[10] = {0}; for ( i = 0; i &lt;= 12; i&#43;&#43;) { arr[i] = 0; //请问在VS20"/>
+<meta name="twitter:description" content="问题一 1 2 3 4 5 6 7 8 9 10 11 12 13 14 #include &lt;stdio.h&gt; int main() { int i = 0; int arr[10] = {0}; for ( i = 0; i &lt;= 12; i&#43;&#43;) { arr[i] = 0; //请问在VS2019编译器下打印多少次hello？ printf(&#34;hello\n&#34;);"/>
 <meta name="application-name" content="Sukun&#39;">
 <meta name="apple-mobile-web-app-title" content="Sukun&#39;"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.sukun.xyz\/c%E8%AF%AD%E8%A8%80%E9%9A%BE%E9%A2%98%E9%9B%86%E4%B8%80\/"
-        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "C, 学习","wordcount":  372 ,
+        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "C, 学习","wordcount":  532 ,
         "url": "https:\/\/www.sukun.xyz\/c%E8%AF%AD%E8%A8%80%E9%9A%BE%E9%A2%98%E9%9B%86%E4%B8%80\/","datePublished": "2022-03-11T16:18:42+08:00","dateModified": "2022-03-11T16:18:42+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "sukun","logo": "https:\/\/www.sukun.xyz\/images\/avatar.png"},"author": {
@@ -164,8 +164,8 @@
     <div class="toc-content" id="toc-content-auto"></div>
 </div><article class="page single"><h1 class="single-title animated flipInX">C语言难题集(一)</h1><div class="post-meta">
         <div class="post-meta-line"><span class="post-author"><a href="https://www.sukun.xyz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Sukun</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>笔记</a></span></div>
-        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 372 字
-            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;<span id="/c%E8%AF%AD%E8%A8%80%E9%9A%BE%E9%A2%98%E9%9B%86%E4%B8%80/" class="leancloud_visitors" data-flag-title="C语言难题集(一)">
+        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 532 字
+            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id="/c%E8%AF%AD%E8%A8%80%E9%9A%BE%E9%A2%98%E9%9B%86%E4%B8%80/" class="leancloud_visitors" data-flag-title="C语言难题集(一)">
                 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
             </span>&nbsp;
             <a href="#comments" id="post-meta-vcount" title="查看评论">
@@ -178,15 +178,17 @@
             <span>目录</span>
             <span><i class="details-icon fas fa-angle-right"></i></span>
         </div>
-        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
-    </div><div class="content" id="content"><div class="details admonition question open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-question-circle fa-fw"></i>导语<i class="details-icon fas fa-angle-right fa-fw"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">对于数组越界，你可想过其危险性的原因？</div>
-        </div>
-    </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#问题一">问题一</a></li>
+        <li><a href="#问题二">问题二</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+    </div><div class="content" id="content"><h3 id="问题一">问题一</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -281,7 +283,63 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>同样的道理，在打印s1时，由于未赋值，而 VS 会给其赋<code>0xcccc cccc</code>，也就是<code>烫</code>，又因为没有<code>\0</code>作为结尾，因此其会一直按栈区顺序寻找，直到遇到<code>\0</code>为止。</p>
-</div><div class="post-footer" id="post-footer">
+<h3 id="问题二">问题二</h3>
+<p>给定一个数组，其中有唯二奇数个数的数，其余数均为偶数个数，请找出这两个数。要求时间复杂度$O(n)$，空间复杂度$O(1)$。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="o">*</span><span class="nf">solution</span><span class="p">(</span><span class="kt">int</span> <span class="n">nums</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">nums_size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">eor</span><span class="p">,</span> <span class="n">cur</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">eor</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">eor</span> <span class="o">^=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">rightOne</span> <span class="o">=</span> <span class="n">eor</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">eor</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">//提取出最右侧的1
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">onlyOne</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">cur</span> <span class="o">&amp;</span> <span class="n">rightOne</span><span class="p">))</span>
+            <span class="n">onlyOne</span> <span class="o">^=</span> <span class="n">cur</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">onlyOne</span><span class="p">;</span>
+    <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">onlyOne</span> <span class="o">^</span> <span class="n">eor</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cm">/*
+</span><span class="cm">输入：
+</span><span class="cm">[1,2,2,3,3,3,4,4,4,4],10
+</span><span class="cm">输出：
+</span><span class="cm">[1,3]
+</span><span class="cm">*/</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">

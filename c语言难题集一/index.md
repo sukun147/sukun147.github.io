@@ -1,11 +1,7 @@
 # C语言难题集(一)
 
 
-{{< admonition question 导语>}}
-
-对于数组越界，你可想过其危险性的原因？
-
-{{< /admonition >}}
+### 问题一
 
 ```c
 #include <stdio.h>
@@ -60,4 +56,36 @@ hello world
 ```
 
 同样的道理，在打印s1时，由于未赋值，而 VS 会给其赋`0xcccc cccc`，也就是`烫`，又因为没有`\0`作为结尾，因此其会一直按栈区顺序寻找，直到遇到`\0`为止。
+
+### 问题二
+
+给定一个数组，其中有唯二奇数个数的数，其余数均为偶数个数，请找出这两个数。要求时间复杂度$O(n)$，空间复杂度$O(1)$。
+
+```c
+int *solution(int nums[], int nums_size)
+{
+    int i, eor, cur, result[2];
+    eor = 0;
+    for (i = 0; i < nums_size; i++)
+        eor ^= nums[i];
+    int rightOne = eor & (~eor + 1); //提取出最右侧的1
+    int onlyOne = 0;
+    for (i = 0; i < nums_size; i++)
+    {
+        cur = nums[i];
+        if (!(cur & rightOne))
+            onlyOne ^= cur;
+    }
+    result[0] = onlyOne;
+    result[1] = onlyOne ^ eor;
+    return result;
+}
+/*
+输入：
+[1,2,2,3,3,3,4,4,4,4],10
+输出：
+[1,3]
+*/
+```
+
 
