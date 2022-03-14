@@ -163,7 +163,7 @@ $$
 
 {{< admonition >}}
 
-ASL为$O(n\log_2n)$
+ASL为$O(\log_2n)$
 
 {{< /admonition >}}
 
