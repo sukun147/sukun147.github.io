@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>算法 - 标签 - Sukun&#39;s blog</title>
+        <link>https://www.sukun.xyz/tags/%E7%AE%97%E6%B3%95/</link>
+        <description>算法 - 标签 - Sukun&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1477264431@qq.com (Sukun)</managingEditor>
+            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 15 Mar 2022 17:47:24 &#43;0800</lastBuildDate><atom:link href="https://www.sukun.xyz/tags/%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
+    <title>递归时间复杂度求解</title>
+    <link>https://www.sukun.xyz/%E9%80%92%E5%BD%92%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%B1%82%E8%A7%A3/</link>
+    <pubDate>Tue, 15 Mar 2022 17:47:24 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.sukun.xyz/%E9%80%92%E5%BD%92%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%B1%82%E8%A7%A3/</guid>
+    <description><![CDATA[递归时间复杂度求解 master公式使用 $$ T(N)=a*T(\frac{N}{b})+O(N^d)\\ \log(b,a)&gt;d\qquad时间复杂度O(N^{\log(b,a)})\\ \log(b]]></description>
+</item></channel>
+</rss>
