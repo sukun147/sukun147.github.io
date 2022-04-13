@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Docker客户端与服务器机制 - Sukun&#39;s blog</title><meta name="keywords" content="sukun,hugo,博客">
+
+<meta name="Description" content="本文介绍Docker客户端与服务器机制及相关知识点，如Unix域套接字、守护进程、Docker Daemon、dind、docker api，并实践演示了如何远程连接Docker服务端"><meta property="og:title" content="Docker客户端与服务器机制" />
+<meta property="og:description" content="本文介绍Docker客户端与服务器机制及相关知识点，如Unix域套接字、守护进程、Docker Daemon、dind、docker api，并实践演示了如何远程连接Docker服务端" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.sukun.xyz/docker%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%BA%E5%88%B6/" /><meta property="og:image" content="https://www.sukun.xyz/images/avatar.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-04T09:42:59+08:00" />
+<meta property="article:modified_time" content="2022-04-04T09:42:59+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.sukun.xyz/images/avatar.png"/>
+
+<meta name="twitter:title" content="Docker客户端与服务器机制"/>
+<meta name="twitter:description" content="本文介绍Docker客户端与服务器机制及相关知识点，如Unix域套接字、守护进程、Docker Daemon、dind、docker api，并实践演示了如何远程连接Docker服务端"/>
+<meta name="application-name" content="Sukun&#39;">
+<meta name="apple-mobile-web-app-title" content="Sukun&#39;"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.sukun.xyz/docker%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%BA%E5%88%B6/" /><link rel="prev" href="https://www.sukun.xyz/%E9%80%92%E5%BD%92%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%B1%82%E8%A7%A3/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><meta name="baidu-site-verification" content="code-HclBWphrqW" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Docker客户端与服务器机制",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.sukun.xyz\/docker%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%BA%E5%88%B6\/"
+        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "docker","wordcount":  5491 ,
+        "url": "https:\/\/www.sukun.xyz\/docker%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%BA%E5%88%B6\/","datePublished": "2022-04-04T09:42:59+08:00","dateModified": "2022-04-04T09:42:59+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "sukun","logo": "https:\/\/www.sukun.xyz\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Sukun"
+            },"description": "本文介绍Docker客户端与服务器机制及相关知识点，如Unix域套接字、守护进程、Docker Daemon、dind、docker api，并实践演示了如何远程连接Docker服务端"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <a href="https://github.com/14772" class="github-corner" target="_blank" title="Follow me on GitHub"
+            aria-label="Follow me on GitHub"><svg width="3.5rem" height="3.5rem" viewBox="0 0 250 250"
+                style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);"
+                aria-hidden="true">
+                <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+                <path
+                    d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+                    fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+                <path
+                    d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+                    fill="currentColor" class="octo-body"></path>
+            </svg></a>
+        <div class="header-title">
+            <a href="/" title="Sukun&#39;s blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>Sukun</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner">
+                <div class="dropdown">
+                    <a href="javascript:void(0);"  class="menu-item menu-more dropbtn"
+                        title="归档" ><i class='fas fa-fw fa-archive'></i> 归档 
+                    </a>
+                    <div class="menu-more-content dropdown-content"><a href="/categories/" title="类别" >	<i class='fa fa-list'></i> 类别 </a><a href="/tags/" title="标签" ><i class='fa fa-tags'></i> 标签 </a><a href="/posts/" title="所有文章" >	<i class='fa fa-folder-open'></i> 所有文章 </a></div>
+                </div>
+                
+                <div class="dropdown">
+                    <a href="/"  class="menu-item menu-more dropbtn"
+                        title="回到首页" ><i class='fas fa-fw fa-atom'></i> 站点 
+                    </a>
+                    <div class="menu-more-content dropdown-content"><a href="/bbs/%E5%85%AC%E5%91%8A%E7%95%99%E8%A8%80/" title="公告板&amp;留言板" ><i class='fa fa-comments'></i> 公告留言 </a><a href="/logs/" title="站点日志" ><i class='fas fa-fw fa-cog fa-spin'></i> 站点日志 </a><a href="/about/" title="关于" >	<i class='fa fa-info-circle'></i> 关于 </a></div>
+                </div>
+                
+                <div class="dropdown">
+                    <a href="javascript:void(0);"  class="menu-item menu-more dropbtn"
+                        title="文档" ><i class='fas fa-fw fa-book'></i> 文档 
+                    </a>
+                    <div class="menu-more-content dropdown-content"><a href="https://hugoloveit.com/zh-cn/" title="LoveIt主题文档" > LoveIt主题文档 </a><a href="https://gohugo.io/getting-started/" title="Hugo官方文档" > Hugo官方文档 </a></div>
+                </div>
+                <a class="menu-item"
+                    href="/friends/"  title="欢迎大家来加友链呀" ><i class='fa fa-link fa-fw'></i> 友链墙 
+                </a>
+                <div class="dropdown">
+                    <a href="javascript:void(0);"  class="menu-item menu-more dropbtn"
+                        title="" ><i class='fas fa-fw fa-fan fa-spin'></i> 小游戏 
+                    </a>
+                    <div class="menu-more-content dropdown-content"><a href="/games/mikutap/" title="来和初音打碟！" ><i class='fa fa-headphones'></i> mikutap </a><a href="/games/catch-the-cat/" title="一起来抓猫！" ><i class='fas fa-fw fa-cat'></i> catch the cat </a></div>
+                </div>
+                <a class="menu-item"
+                    href="/search/"  title="搜索请耐心等待几秒钟" ><i class='fas fa-fw fa-search'></i> 搜索 
+                </a><a class="menu-item"
+                    href="https://github.com/14772"  title="GitHub"  rel="noopener noreffer"
+                    target="_blank" ><i class='fab fa-fw fa-github'></i>  
+                </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Sukun&#39;s blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>Sukun</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile">
+        <div class="dropdown">
+            <a href="javascript:void(0);"  class="menu-item menu-more dropbtn"
+                title="归档" ><i class='fas fa-fw fa-archive'></i> 归档 
+            </a>
+            <div class="menu-more-content dropdown-content"><a href="/categories/" title="类别" >	<i class='fa fa-list'></i> 类别 </a><a href="/tags/" title="标签" ><i class='fa fa-tags'></i> 标签 </a><a href="/posts/" title="所有文章" >	<i class='fa fa-folder-open'></i> 所有文章 </a></div>
+        </div>
+        
+        <div class="dropdown">
+            <a href="/"  class="menu-item menu-more dropbtn"
+                title="回到首页" ><i class='fas fa-fw fa-atom'></i> 站点 
+            </a>
+            <div class="menu-more-content dropdown-content"><a href="/bbs/%E5%85%AC%E5%91%8A%E7%95%99%E8%A8%80/" title="公告板&amp;留言板" ><i class='fa fa-comments'></i> 公告留言 </a><a href="/logs/" title="站点日志" ><i class='fas fa-fw fa-cog fa-spin'></i> 站点日志 </a><a href="/about/" title="关于" >	<i class='fa fa-info-circle'></i> 关于 </a></div>
+        </div>
+        
+        <div class="dropdown">
+            <a href="javascript:void(0);"  class="menu-item menu-more dropbtn"
+                title="文档" ><i class='fas fa-fw fa-book'></i> 文档 
+            </a>
+            <div class="menu-more-content dropdown-content"><a href="https://hugoloveit.com/zh-cn/" title="LoveIt主题文档" > LoveIt主题文档 </a><a href="https://gohugo.io/getting-started/" title="Hugo官方文档" > Hugo官方文档 </a></div>
+        </div>
+        <a class="menu-item"
+            href="/friends/"  title="欢迎大家来加友链呀" ><i class='fa fa-link fa-fw'></i> 友链墙 
+        </a>
+        <div class="dropdown">
+            <a href="javascript:void(0);"  class="menu-item menu-more dropbtn"
+                title="" ><i class='fas fa-fw fa-fan fa-spin'></i> 小游戏 
+            </a>
+            <div class="menu-more-content dropdown-content"><a href="/games/mikutap/" title="来和初音打碟！" ><i class='fa fa-headphones'></i> mikutap </a><a href="/games/catch-the-cat/" title="一起来抓猫！" ><i class='fas fa-fw fa-cat'></i> catch the cat </a></div>
+        </div>
+        <a class="menu-item"
+            href="/search/"  title="搜索请耐心等待几秒钟" ><i class='fas fa-fw fa-search'></i> 搜索 
+        </a><a class="menu-item"
+            href="https://github.com/14772"  title="GitHub"  rel="noopener noreffer"
+            target="_blank" ><i class='fab fa-fw fa-github'></i>  
+        </a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container">
+                    <div class="toc" id="toc-auto">
+    <h2 class="toc-title">目录</h2>
+    <div class="toc-content" id="toc-content-auto"></div>
+</div><article class="page single"><h1 class="single-title animated flipInX">Docker客户端与服务器机制</h1><div class="post-meta">
+        <div class="post-meta-line"><span class="post-author"><a href="https://www.sukun.xyz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Sukun</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/devops/"><i class="far fa-folder fa-fw"></i>DevOps</a></span></div>
+        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-04-04">2022-04-04</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-04-04">2022-04-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5491 字
+            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;<span id="/docker%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%BA%E5%88%B6/" class="leancloud_visitors" data-flag-title="Docker客户端与服务器机制">
+                <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+            </span>&nbsp;
+            <a href="#comments" id="post-meta-vcount" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>&nbsp;<span id="/docker%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%BA%E5%88%B6/"
+                    class="waline-comment-count"></span>&nbsp;条评论
+            </a></div>
+
+    </div><div class="details toc" id="toc-static" kept="">
+        <div class="details-summary toc-title">
+            <span>目录</span>
+            <span><i class="details-icon fas fa-angle-right"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简单介绍">简单介绍</a></li>
+    <li><a href="#linux-daemon守护进程">Linux Daemon（守护进程）</a></li>
+    <li><a href="#docker-daemon">Docker Daemon</a>
+      <ul>
+        <li><a href="#工作机制"><strong>工作机制</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#unix域套接字unix-domain-socket">Unix域套接字（Unix Domain Socket）</a></li>
+    <li><a href="#docker-in-dockerdind">docker in docker（dind）</a>
+      <ul>
+        <li><a href="#方法">方法</a>
+          <ul>
+            <li><a href="#通过宿主机的dockersock">通过宿主机的docker.sock</a></li>
+            <li><a href="#通过dockerdind镜像">通过<code>docker:dind</code>镜像</a></li>
+          </ul>
+        </li>
+        <li><a href="#示例1">示例1</a></li>
+        <li><a href="#示例2">示例2</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker-api">Docker API</a>
+      <ul>
+        <li><a href="#api">API</a>
+          <ul>
+            <li><a href="#什么是api">什么是API</a></li>
+            <li><a href="#什么是rest">什么是REST</a>
+              <ul>
+                <li><a href="#什么是表现层">什么是表现层？</a></li>
+                <li><a href="#什么是状态转化">什么是状态转化？</a></li>
+                <li><a href="#简单对比">简单对比</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#docker-api-1">Docker API</a>
+          <ul>
+            <li><a href="#docker-api使用前准备">Docker API使用前准备</a></li>
+            <li><a href="#使用docker-api">使用Docker API</a>
+              <ul>
+                <li><a href="#curl方式">curl方式</a></li>
+                <li><a href="#python程序脚本方式">python程序脚本方式</a>
+                  <ul>
+                    <li><a href="#示例">示例</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#远程连接docker服务端">远程连接docker服务端</a>
+      <ul>
+        <li><a href="#使用-openssl-创建-ca服务器和客户端密钥">使用 OpenSSL 创建 CA、服务器和客户端密钥</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+    </div><div class="content" id="content"><h1 id="docker客户端与服务器机制">Docker客户端与服务器机制</h1>
+<h2 id="简单介绍">简单介绍</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/04/05/TvN5P4uqQFh9yeg.png"
+        data-srcset="https://s2.loli.net/2022/04/05/TvN5P4uqQFh9yeg.png, https://s2.loli.net/2022/04/05/TvN5P4uqQFh9yeg.png 1.5x, https://s2.loli.net/2022/04/05/TvN5P4uqQFh9yeg.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/04/05/TvN5P4uqQFh9yeg.png"
+        title="docker on ubuntu" /></p>
+<p>当我们使用<code>docker version</code>命令查询docker 版本信息时，我们发现有两块内容，事实上这是由 docker 的客户端与服务器机制决定的。</p>
+<p>Docker 使用了常见的<strong>CS</strong>架构，也就是 client-server 模式，Docker Client 负责处理用户输入的各种命令，比如<code>docker build</code>、<code>docker run</code>，真正工作的其实是 Docker 服务端，也就是 Docker Engine 或者说是 Docker Daemon。</p>
+<p>值得注意的是，docker 客户端和 Docker Daemon 可以运行在同一台机器上。</p>
+<p>当我们写完 dockerfile 交给 docker “编译”，使用<code>docker build</code>，那么 client 在接收到请求后转发给 docker daemon，接着 docker daemon根据 dockerfile 创建出“可执行程序” image。</p>
+<p>接下来使用命令<code>docker run</code>，docker daemon 接收到该命令后找到具体的 image，然后加载到内存开始执行，image 执行起来就是所谓的 container。</p>
+<p>用户通过 docker client 发送命令<code>docker pull</code>，docker daemon 接收到命令后向 docker registry 发送 image 下载请求，下载后存放在本地，这样我们就可以使用别人的 image 了。</p>
+<div class="details admonition success open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-check-circle fa-fw"></i>举个栗子<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">docker for Windows</div>
+        </div>
+    </div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://www.runoob.com/wp-content/uploads/2016/04/576507-docker1.png"
+        data-srcset="https://www.runoob.com/wp-content/uploads/2016/04/576507-docker1.png, https://www.runoob.com/wp-content/uploads/2016/04/576507-docker1.png 1.5x, https://www.runoob.com/wp-content/uploads/2016/04/576507-docker1.png 2x"
+        data-sizes="auto"
+        alt="https://www.runoob.com/wp-content/uploads/2016/04/576507-docker1.png"
+        title="img" /></p>
+<h2 id="linux-daemon守护进程">Linux Daemon（守护进程）</h2>
+<p>Linux Daemon（守护进程）是运行在后台的一种特殊进程。它独立于控制终端并且周期性地执行某种任务或等待处理某些发生的事件。它不需要用户输入就能运行而且提供某种服务，不是对整个系统就是对某个用户程序提供服务。Linux 系统的大多数服务器就是通过守护进程实现的。常见的守护进程包括系统日志进程 syslogd、 web 服务器 httpd、邮件服务器 sendmail 和数据库服务器 mysqld 等。</p>
+<p>守护进程一般在系统启动时开始运行，除非强行终止，否则直到系统关机都保持运行。守护进程经常以超级用户（root）权限运行，因为它们要使用特殊的端口（1-1024）或访问某些特殊的资源。</p>
+<p>一个守护进程的父进程是 init 进程，因为它真正的父进程在 fork 出子进程后就先于子进程 exit 退出了，所以它是一个由 init 继承的孤儿进程。守护进程是非交互式程序，没有控制终端，所以任何输出，无论是向标准输出设备 stdout 还是标准出错设备 stderr 的输出都需要特殊处理。</p>
+<p>守护进程的名称通常以 d 结尾，比如 sshd、xinetd、crond 等。</p>
+<h2 id="docker-daemon">Docker Daemon</h2>
+<p>Docker Daemon 即 Docker 的守护进程。</p>
+<p>Docker Client 通过命令行与 Docker Damon 通信，Daemon 的主要功能包括镜像管理、镜像构建、REST API、身份验证、安全、核心网络以及编排。</p>
+<h3 id="工作机制"><strong>工作机制</strong></h3>
+<p>Docker Daemon 可以认为是通过 Docker Server 模块接受 Docker Client 的请求，并在 Engine 中处理请求，然后根据请求类型，创建出指定的 Job 并运行，运行过程的作用有以下几种可能：向 Docker Registry 获取镜像，通过 graphdriver 执行容器镜像的本地化操作，通过 networkdriver 执行容器网络环境的配置，通过 execdriver 执行容器内部运行的执行工作等。</p>
+<h2 id="unix域套接字unix-domain-socket">Unix域套接字（Unix Domain Socket）</h2>
+<p>Docker 守护进程会生成一个 <code>/var/run/docker.sock</code>文件来进行本地进程通信，因此只能在本地使用 Docker 客户端或者使用 Docker API 进行操作。
+sock 文件是 UNIX 域套接字，它可以通过文件系统（而非网络地址）进行寻址和访问。</p>
+<p><strong>socket按域分类</strong></p>
+<table>
+<thead>
+<tr>
+<th>域</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AF_INET</td>
+<td>ipv4因特网域</td>
+</tr>
+<tr>
+<td>AF_INET6</td>
+<td>ipv6因特网域</td>
+</tr>
+<tr>
+<td>AF_UNIX</td>
+<td>Unix域（本地套接字）</td>
+</tr>
+<tr>
+<td>AF_UPSPEC</td>
+<td>未指定</td>
+</tr>
+</tbody>
+</table>
+<p>Unix 域套接字用于在<strong>同一台机器上运行的进程之间</strong>的通信。虽然因特网域套接字可用于同一目的，但 Unix 域套接字的<strong>效率更高</strong>。UNIX 域套接字<strong>仅复制数据</strong>；它们并不执行协议处理，不需要添加或删除网络报头，无需计算检验和，不要产生顺序号，无需发送确认报文。</p>
+<p>Unix 域套接字提供流和数据报两种接口。UNIX域数据报服务是可靠的，既不会丢失消息也不会传递出错。Unix 域套接字是套接字和管道之间的混合物。</p>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw"></i>管道<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>pipe 和 socket 都是比较常用的 IPC 方式（Inter-Process Communication）</p>
+<p>管道是一种两个进程间进行单向通信的机制。因为管道传递数据的单向性，管道又称为<strong>半双工管道</strong>。</p>
+<p>每一个 socket 都有两个数据缓冲区，读缓冲区，写缓冲区。用户往 socket 写数据其实就是往 socket 的写缓冲区拷贝数据，然后内核再把写缓冲区的数据拷贝到接收方 socket 的读缓冲区。两个缓冲区。</p>
+<p>而对于 pipe，写的时候是在管道一端<code>pipefd[1]</code>塞数据，读的时候从另一端<code>pipefd[0]</code>读，两端是在共用一个缓冲区。pipe也仅仅是数据拷贝，不需要处理协议。pipe 中写操作是阻塞的，那么当缓冲区满了之后发送方的 write 操作将会被阻塞，而不会发生缓冲区溢出丢包这种情况。</p>
+</div>
+        </div>
+    </div>
+<h2 id="docker-in-dockerdind">docker in docker（dind）</h2>
+<p>有时需要在容器内执行 docker 命令，比如：在 jenkins 容器内运行 docker 命令执行构建镜像，但直接在 docker 容器内嵌套安装 docker 未免太过臃肿。</p>
+<p>更好的办法是：容器内仅部署 docker 命令行工具（作为客户端），实际执行交由宿主机内的 docker-engine（服务器）。</p>
+<h3 id="方法">方法</h3>
+<p>在docker容器内启动一个docker daemon，对外提供服务。</p>
+<p>每个运行中的容器，都是一个进程，这个进程都托管在docker daemon中。</p>
+<p>优点在于镜像和容器都在一个隔离的环境，保持宿主机的环境。</p>
+<h4 id="通过宿主机的dockersock">通过宿主机的docker.sock</h4>
+<p>只要以数据卷的形式将 Docker 客户端和上述 Unix 域套接字挂载到容器内部，就能实现 &ldquo;Docker in Docker&rdquo;，在容器内使用 Docker 命令了。</p>
+<p>通过类似<code>docker run -v /var/run/docker.sock:/var/run/docker.sock</code>的命令将宿主机 docker.sock 文件挂载到容器， 并且直接</p>
+<p>挂载宿主机的<code>/usr/bin/docker</code>， 这样容器内就不需安装 Docker 程序。</p>
+<p>当容器内使用 docker 命令时，实际上调用的是宿主机的 Docker Daemon 和 docker 命令。</p>
+<p>也就是说，容器内实际并未运行 docker server，但是能够通过宿主机执行 docker 任务，从而实现简单的 dind。</p>
+<p>需要特别说明的是，真正执行 docker 命令的是跑在宿主机上的 docker-engine（服务器），因此这并不是真正的 &ldquo;Docker in Docker&rdquo;，或许可以称之为“Docker outside Docker”。</p>
+<h4 id="通过dockerdind镜像">通过<code>docker:dind</code>镜像</h4>
+<p>先启动一个<code>docker:dind</code>容器A，再启动一个 docker 容器 B，容器 B 指定 host 为 A 容器内的 Docker Daemon。</p>
+<h3 id="示例1">示例1</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile">version: <span class="s1">&#39;3.3&#39;</span><span class="err">
+</span><span class="err"></span>services:<span class="err">
+</span><span class="err"></span>  jenkins-master:<span class="err">
+</span><span class="err"></span>    image: jenkinsci/blueocean:latest<span class="err">
+</span><span class="err"></span>    container_name: jenkins-master<span class="err">
+</span><span class="err"></span>    environment:<span class="err">
+</span><span class="err"></span>      - <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai  <span class="c1"># 时区</span><span class="err">
+</span><span class="err"></span>    ports:<span class="err">
+</span><span class="err"></span>      - <span class="s2">&#34;8080:8080&#34;</span><span class="err">
+</span><span class="err"></span>      - <span class="s2">&#34;50000:50000&#34;</span><span class="err">
+</span><span class="err"></span>    volumes:<span class="err">
+</span><span class="err"></span>      - ./jenkins_home:/var/jenkins_home  <span class="c1"># 将容器中的数据映射到宿主机</span><span class="err">
+</span><span class="err"></span>      - /usr/bin/docker:/usr/bin/docker  <span class="c1"># 为容器内部提供 docker 命令行工具（这个随意）</span><span class="err">
+</span><span class="err"></span>      - /var/run/docker.sock:/var/run/docker.sock  <span class="c1"># 容器内部通过 unix socket 使用宿主机 docker engine</span><span class="err">
+</span><span class="err"></span>    user: root  <span class="c1"># 容器以有权限读写 docker.socket 的用户启动</span><span class="err">
+</span><span class="err"></span>    restart: always<span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="示例2">示例2</h3>
+<p>本处示例来自https://www.cnblogs.com/anliven/p/13551614.html#_label2</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">docker network create jenkins
+
+docker volume create jenkins-docker-certs
+
+docker volume create jenkins-data
+
+docker run --name jenkins-docker -d --privileged --network jenkins --network-alias docker --env <span class="nv">DOCKER_TLS_CERTDIR</span><span class="o">=</span>/certs --volume jenkins-docker-certs:/certs/client --volume jenkins-data:/var/jenkins_home docker:dind
+
+docker run --name jenkins-blueocean -d --network jenkins --env <span class="nv">DOCKER_HOST</span><span class="o">=</span>tcp://docker:2376 --env <span class="nv">DOCKER_CERT_PATH</span><span class="o">=</span>/certs/client --env <span class="nv">DOCKER_TLS_VERIFY</span><span class="o">=</span><span class="m">1</span> --volume jenkins-data:/var/jenkins_home --volume jenkins-docker-certs:/certs/client:ro --publish 8080:8080 --publish 50000:50000 jenkinsci/blueocean
+
+docker <span class="nb">exec</span> jenkins-blueocean cat var/jenkins_home/secrets/initialAdminPassword <span class="c1"># 获取初始密码</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="docker-api">Docker API</h2>
+<h3 id="api">API</h3>
+<h4 id="什么是api">什么是API</h4>
+<blockquote>
+<p>维基百科：</p>
+<p><strong>应用程序编程接口</strong> （application programming interface，缩写 API） 是计算机之间或计算机程序之间的连接。它是一种软件接口，为其他软件提供服务。描述如何构建或使用此类连接或接口的文档或标准称为 API 规范。符合此标准的计算机系统称为实现或公开API。术语 API 可以指规范或实现。</p>
+<p>与将计算机连接到人的用户界面相比，应用程序编程接口将计算机或软件片段相互连接。它不打算由将它合并到软件中的计算机程序员以外的人（最终用户）直接使用。API通常由不同的部分组成，这些部分充当程序员可用的工具或服务。使用这些部分之一的程序或程序员被称为API的该部分。组成 API 的调用也称为子例程、方法、请求或终结点。API 规范定义了这些调用，这意味着它解释了如何使用或实现它们。</p>
+<p>API的一个目的是隐藏系统如何工作的内部细节，只公开程序员会发现有用的部分，并保持它们的一致性，即使内部细节以后发生变化。API可以是针对特定系统对定制的，也可以是允许许多系统之间互操作性的共享标准。</p>
+</blockquote>
+<p>打个比方，程序员 A 开发了一个程序，里面有个功能是图像识别，然后程序员 B 现在也需要这个功能，但是他不想再走一遍图像识别的路，又不可能直接用别人的程序。这时 A 想到了一个办法，我把这个功能单独从整个程序中抽出来，然后给出了一个入口，别人只要按照约定好的方法来调用，就可以实现这个功能。这就是一个简单的 API 的例子。</p>
+<h4 id="什么是rest">什么是REST</h4>
+<p><strong>REST</strong>（Representational State Transfer），意为表现层状态转化。</p>
+<p>REST 是面向资源的，每个资源都有一个唯一的资源定位符（URI）。每个URI代表一种资源（resource），所以URI中不能有动词，只能有名词，而且所用的名词往往与数据库的表名对应。一般来说，数据库中的表都是同种记录的&quot;集合&quot;（collection），所以URI中的名词也应该使用复数。</p>
+<h5 id="什么是表现层">什么是表现层？</h5>
+<p>指资源的表现层。资源用 URI 标识了，我们可以理解为这个资源已经在网络上“表现”了。表现层就是把&quot;资源&quot;具体呈现出来的形式。</p>
+<h5 id="什么是状态转化">什么是状态转化？</h5>
+<table>
+<thead>
+<tr>
+<th>请求方式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>从服务器取出资源（一项或多项）</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>在服务器新建一个资源</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>在服务器更新资源（更新完整资源）</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>在服务器更新资源， PATCH更新个别属性</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>从服务器删除资源</td>
+</tr>
+</tbody>
+</table>
+<p>通过上述方法可以对网络上的资源进行状态转化操作。</p>
+<p>所以，REST 就是表现层的状态转化，简单粗暴的可以理解为：方法 + URI资源。</p>
+<h5 id="简单对比">简单对比</h5>
+<table>
+<thead>
+<tr>
+<th>查询</th>
+<th>传统</th>
+<th>REST</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>查询所有</td>
+<td>http://localhost:8080/employee/list</td>
+<td>http://localhost:8080/employees</td>
+</tr>
+</tbody>
+</table>
+<p>即 GET /employees</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="err">&#34;</span><span class="o">/</span><span class="n">employees</span><span class="err">”</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="docker-api-1">Docker API</h3>
+<p>Docker API 也遵循 RESETFUL 风格。</p>
+<p>docker官方主要有三大对外api</p>
+<ul>
+<li>
+<p>Docker Registry API</p>
+<p>镜像仓库的 API，通过操作这套 API，你可以自由的自动化、程序化的管理你的镜像仓库</p>
+</li>
+<li>
+<p>Docker Hub API</p>
+<p>用户管理操作的 API，docker hub是使用校验和公共 namespaces 的方式来存储账户信息、认证账户、进行账户授权。API 同时也允许操作相关的用户仓库和 library 仓库。</p>
+</li>
+<li>
+<p>Docker Remote API</p>
+<p>控制主机 Docker 服务端的 API，等价于 docker 命令行客户端。 能远程操作docker容器，更重要的是你可以通过程序自动化运维docker进程。</p>
+</li>
+</ul>
+<h4 id="docker-api使用前准备">Docker API使用前准备</h4>
+<p>首先要开启 Docker RESET API</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">vim /usr/lib/systemd/system/docker.service
+</code></pre></td></tr></table>
+</div>
+</div><p>在<code>ExecStart=/usr/bin/dockerd</code>后面直接添加<code>-H tcp://0.0.0.0:8088  -H unix:///var/run/docker.sock</code>（为任意可用端口）</p>
+<p>然后重启即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo systemctl daemon-reload
+sudo systemctl restart docker
+</code></pre></td></tr></table>
+</div>
+</div><p>接着我们可以用<code>curl 127.0.0.1:8088/info | python3 -mjson.tool </code>来测试成果，得到的是docker的状态，此处不作演示。</p>
+<h4 id="使用docker-api">使用Docker API</h4>
+<p>我们可以在 Docker 官网上查询各版本的 API 使用手册：<a href="https://docs.docker.com/engine/api/v1.41/" target="_blank" rel="noopener noreffer">Docker Engine API v1.41 Reference</a></p>
+<h5 id="curl方式">curl方式</h5>
+<p>使用<code>curl -X GET http://127.0.0.1:8088/images/json | python3 -mjson.tool</code>查看所有镜像</p>
+<p>使用<code>curl -X GET http://127.0.0.1:8088/containers/json | python3 -mjson.tool</code>查看所有容器</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/04/05/DSFTNo8btyaJHWQ.png"
+        data-srcset="https://s2.loli.net/2022/04/05/DSFTNo8btyaJHWQ.png, https://s2.loli.net/2022/04/05/DSFTNo8btyaJHWQ.png 1.5x, https://s2.loli.net/2022/04/05/DSFTNo8btyaJHWQ.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/04/05/DSFTNo8btyaJHWQ.png"
+        title="image-20220405162023948" /></p>
+<h5 id="python程序脚本方式">python程序脚本方式</h5>
+<p>docker给 python 提供了一个非常强大的库 docker，采用 pip 即可安装。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">pip3 install docker
+</code></pre></td></tr></table>
+</div>
+</div><h6 id="示例">示例</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">docker</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">docker</span><span class="o">.</span><span class="n">from_env</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;alpine&#39;</span><span class="p">,</span> <span class="s1">&#39;echo hello world&#39;</span><span class="p">))</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/04/05/TGCnyduZMi3Isbr.png"
+        data-srcset="https://s2.loli.net/2022/04/05/TGCnyduZMi3Isbr.png, https://s2.loli.net/2022/04/05/TGCnyduZMi3Isbr.png 1.5x, https://s2.loli.net/2022/04/05/TGCnyduZMi3Isbr.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/04/05/TGCnyduZMi3Isbr.png"
+        title="image-20220405184605423" /></p>
+<p>这段代码能新建一个容器，仅是一个最简单的测试。</p>
+<p>现在我们尝试更多的 API。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">docker</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">docker</span><span class="o">.</span><span class="n">DockerClient</span><span class="p">(</span><span class="s2">&#34;unix://var/run/docker.sock&#34;</span><span class="p">)</span>
+    <span class="c1"># 拉取镜像</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s2">&#34;hello-world&#34;</span><span class="p">)</span>
+    <span class="c1"># 运行镜像</span>
+    <span class="c1"># detach=False时，返回运行过程中的日志;detach=True时，返回Container对象</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&#34;hello-world&#34;</span><span class="p">,</span> <span class="n">detach</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="c1"># 查询镜像</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="c1"># 查询容器</span>
+    <span class="k">for</span> <span class="n">container</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">list</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&#34; image:&#34;</span> <span class="o">+</span> <span class="n">container</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&#34;RepoTags&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/04/05/HMS6Nju9VsB3Z5x.png"
+        data-srcset="https://s2.loli.net/2022/04/05/HMS6Nju9VsB3Z5x.png, https://s2.loli.net/2022/04/05/HMS6Nju9VsB3Z5x.png 1.5x, https://s2.loli.net/2022/04/05/HMS6Nju9VsB3Z5x.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/04/05/HMS6Nju9VsB3Z5x.png"
+        title="image-20220405180803411" /></p>
+<h2 id="远程连接docker服务端">远程连接docker服务端</h2>
+<p>前面我们已经介绍了 Unix 域套接字来进行进程间通信以及本地连接 docker，而现在我要进行远程连接 docker。对此，我们可以采用 TCP 连接，显然这对于远程连接是不安全的，我们可以采用 TLS 连接即 TCP + SSL （HTTPS）来实现安全通信。</p>
+<p>服务器只允许来自服务器 CA 签名的证书进行身份验证的客户端的连接。客户端仅连接到具有由该 CA 签名的证书的服务器。</p>
+<h3 id="使用-openssl-创建-ca服务器和客户端密钥">使用 OpenSSL 创建 CA、服务器和客户端密钥</h3>
+<ol>
+<li>
+<p>首先，在 docker 服务器上，生成 CA 私钥和公钥：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">openssl genrsa -aes256 -out ca-key.pem <span class="m">4096</span>
+openssl req -new -x509 -days <span class="m">365</span> -key ca-key.pem -sha256 -out ca.pem
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>创建服务器密钥和证书签名请求 （CSR），请确保公用名（common name）与您用于连接到 Docker 的主机名匹配：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">openssl genrsa -out server-key.pem <span class="m">4096</span>
+openssl req -subj <span class="s2">&#34;/CN=</span><span class="nv">$HOST</span><span class="s2">&#34;</span> -sha256 -new -key server-key.pem -out server.csr
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>使用 CA 对公钥进行签名：</p>
+<p>TLS 连接可以通过 IP 地址和 DNS 名称进行，因此在创建证书时需要指定 IP 地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">echo</span> <span class="nv">subjectAltName</span> <span class="o">=</span> DNS:<span class="nv">$HOST</span>,IP:128.199.202.16,IP:127.0.0.1 &gt;&gt; extfile.cnf
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>将 Docker 守护程序密钥的扩展用法属性设置为仅用于服务器身份验证：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">echo</span> <span class="nv">extendedKeyUsage</span> <span class="o">=</span> serverAuth &gt;&gt; extfile.cnf
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>现在，生成签名证书：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">openssl x509 -req -days <span class="m">365</span> -sha256 -in server.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem -extfile extfile.cnf
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>生成后，您可以安全地删除两个证书签名请求和扩展配置文件：<code>cert.pem``server-cert.pem</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rm -v client.csr server.csr extfile.cnf extfile-client.cnf
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>如果默认值为 022，则密钥对您和您的组来说是<em>全局可读</em>和可写的。<code>umask</code></p>
+<p>若要保护密钥免受意外损坏，请删除其写入权限。要使它们只能由您读取，请按如下方式更改文件模式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">chmod -v <span class="m">0400</span> ca-key.pem key.pem server-key.pem
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>证书可以全域可读，但您可能希望删除写入访问权限以防止意外损坏：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">chmod -v <span class="m">0444</span> ca.pem server-cert.pem cert.pem
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>现在，您可以使 Docker 守护程序仅接受来自提供 CA 信任的证书的客户端的连接：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">dockerd <span class="se">\
+</span><span class="se"></span>    --tlsverify <span class="se">\
+</span><span class="se"></span>    --tlscacert<span class="o">=</span>ca.pem <span class="se">\
+</span><span class="se"></span>    --tlscert<span class="o">=</span>server-cert.pem <span class="se">\
+</span><span class="se"></span>    --tlskey<span class="o">=</span>server-key.pem <span class="se">\
+</span><span class="se"></span>    -H<span class="o">=</span>0.0.0.0:2376
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>要连接到 Docker 并验证其证书，请提供您的客户端密钥、证书和受信任的 CA：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">docker --tlsverify <span class="se">\
+</span><span class="se"></span>    --tlscacert<span class="o">=</span>ca.pem <span class="se">\
+</span><span class="se"></span>    --tlscert<span class="o">=</span>cert.pem <span class="se">\
+</span><span class="se"></span>    --tlskey<span class="o">=</span>key.pem <span class="se">\
+</span><span class="se"></span>    -H<span class="o">=</span><span class="nv">$HOST</span>:2376 version
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw"></i>在客户端计算机上运行它<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>在客户端计算机上运行它，此步骤应在 Docker 客户端计算机上运行。因此，您需要将 CA 证书、服务器证书和客户端证书复制到该计算机。</p>
+<p><strong>注意</strong>：将以下示例中的所有 实例替换为 Docker 守护程序主机的 DNS 名称。<code>$HOST</code></p>
+</div>
+        </div>
+    </div>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">基于 TLS 的 Docker 应在 TCP 端口 2376 上运行。</div>
+        </div>
+    </div>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">如上面的示例所示，使用证书身份验证时，不需要运行客户端或组。这意味着任何拥有密钥的人都可以向您的 Docker 守护程序提供任何指令，从而为他们提供对托管守护程序的计算机的根访问权限。像保护 root 密码一样保护这些密钥！<code>docker``sudo``docker</code></div>
+        </div>
+    </div>
+<p>如果要在默认情况下保护 Docker 客户端连接，则可以将文件移动到主目录中的目录&mdash;并设置 and 变量（而不是在每次调用时传递）。<code>.docker``DOCKER_HOST``DOCKER_TLS_VERIFY``-H=tcp://$HOST:2376``--tlsverify</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mkdir -pv ~/.docker
+cp -v <span class="o">{</span>ca,cert,key<span class="o">}</span>.pem ~/.docker
+<span class="nb">export</span> <span class="nv">DOCKER_HOST</span><span class="o">=</span>tcp://<span class="nv">$HOST</span>:2376 <span class="nv">DOCKER_TLS_VERIFY</span><span class="o">=</span><span class="m">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>默认情况下，Docker 现在安全地连接：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">docker ps
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-04</span>
+            </div>
+            <div class="post-info-license"><span><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" one-link-mark="yes" class="link-instanted">CC BY-NC 4.0</a></span></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/docker%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%BA%E5%88%B6/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.sukun.xyz/docker%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%BA%E5%88%B6/" data-title="Docker客户端与服务器机制" data-via="sukun67717973" data-hashtags="docker"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.sukun.xyz/docker%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%BA%E5%88%B6/" data-hashtag="docker"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.sukun.xyz/docker%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%BA%E5%88%B6/" data-title="Docker客户端与服务器机制"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://www.sukun.xyz/docker%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%BA%E5%88%B6/" data-title="Docker客户端与服务器机制"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/baidu.svg"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/docker/">docker</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E9%80%92%E5%BD%92%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%B1%82%E8%A7%A3/" class="prev" rel="prev" title="递归时间复杂度求解"><i class="fas fa-angle-left fa-fw"></i>递归时间复杂度求解</a></div>
+</div>
+<div id="comments"><div id="waline"></div>
+    <script src='https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
+
+    <script>
+        new Waline({
+            el: '#waline',
+            meta: ["nick","mail","link"],
+            requiredMeta: ["nick","mail"],
+            login: "force",
+            placeholder: "为防恶意灌水攻击，评论前需注册并登录，望见谅~",
+            serverURL: "https://blog-api-jade.vercel.app",
+            avatarCDN: "https://sdn.geekzu.org/avatar/",
+            pageSize:  20 ,
+            avatar: "retro",
+            lang: "zh-CN",
+            visitor:  true ,
+            highlight:  true ,
+            uploadImage:  false ,
+            emoji: [
+            'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq',
+            'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili',
+            'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/tieba',
+        ],
+                		    	});
+    </script></div></article></div>
+            </main>
+            <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-line">
+            <span id="run-time"></span>
+        </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="https://www.sukun.xyz" target="_blank">Sukun</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" one-link-mark="yes" class="link-instanted">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js"></script><script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+    window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date());
+    gtag('config', 'UA-207270792-1', { 'anonymize_ip': true });
+</script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=UA-207270792-1" async></script><script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?36906624de93fc40ef084568363cdc35";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script></body>
+</html>
