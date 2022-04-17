@@ -298,11 +298,51 @@ if __name__ == '__main__':
 
 ## 远程连接docker服务端
 
-前面我们已经介绍了 Unix 域套接字来进行进程间通信以及本地连接 docker，而现在我要进行远程连接 docker。对此，我们可以采用 TCP 连接，显然这对于远程连接是不安全的，我们可以采用 TLS 连接即 TCP + SSL （HTTPS）来实现安全通信。
+前面我们已经介绍了 Unix 域套接字来进行进程间通信以及本地连接 docker，而现在我要进行远程连接 docker。对此，我们可以采用 TCP 连接。
+
+### TCP连接
+
+`/etc/systemd/system/docker.service.d/docker.conf`
+
+```shell
+vim /etc/systemd/system/docker.service.d/docker.conf
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd
+```
+
+`/etc/docker/daemon.json`
+
+```json
+vim /etc/docker/daemon.json
+{
+  "hosts":[
+    "unix:///var/run/docker.sock",
+    "tcp://0.0.0.0:2375"
+  ]
+}
+```
+
+重启docker
+
+```shell
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+现在我们用客户端测试
+
+```shell
+docker -H 104.225.234.14:2375 info
+```
+
+显然这对于远程连接是不安全的，我们可以采用 TLS 连接即 TCP + SSL （HTTPS）来实现安全通信。
+
+### TLS（HTTPS）连接
 
 服务器只允许来自服务器 CA 签名的证书进行身份验证的客户端的连接。客户端仅连接到具有由该 CA 签名的证书的服务器。
 
-### 使用 OpenSSL 创建 CA、服务器和客户端密钥
+#### 使用 OpenSSL 创建 CA、服务器和客户端密钥
 
 1. 首先，在 docker 服务器上，生成 CA 私钥和公钥：
 
@@ -315,7 +355,7 @@ if __name__ == '__main__':
 
    ```shell
    openssl genrsa -out server-key.pem 4096
-   openssl req -subj "/CN=$HOST" -sha256 -new -key server-key.pem -out server.csr
+   openssl req -subj "/CN=localhost" -sha256 -new -key server-key.pem -out server.csr
    ```
 
 3. 使用 CA 对公钥进行签名：
@@ -323,7 +363,7 @@ if __name__ == '__main__':
    TLS 连接可以通过 IP 地址和 DNS 名称进行，因此在创建证书时需要指定 IP 地址
 
    ```shell
-   echo subjectAltName = DNS:$HOST,IP:128.199.202.16,IP:127.0.0.1 >> extfile.cnf
+   echo subjectAltName = DNS:localhost,DNS:bandwagon,IP:104.225.234.14,IP:127.0.0.1 >> extfile.cnf
    ```
 
 4. 将 Docker 守护程序密钥的扩展用法属性设置为仅用于服务器身份验证：
@@ -338,7 +378,27 @@ if __name__ == '__main__':
    openssl x509 -req -days 365 -sha256 -in server.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem -extfile extfile.cnf
    ```
 
-6. 生成后，您可以安全地删除两个证书签名请求和扩展配置文件：`cert.pem``server-cert.pem`
+6. 对于客户端身份验证，请创建客户端密钥和证书签名请求：
+
+   ```shell
+   openssl genrsa -out key.pem 4096
+   openssl req -subj '/CN=client' -new -key key.pem -out client.csr
+   ```
+
+7. 要使密钥适合客户端身份验证，请创建一个新的扩展配置文件：
+
+   ```shell
+   echo extendedKeyUsage = clientAuth > extfile-client.cnf
+   ```
+
+8. 现在，生成签名证书：
+
+   ```shell
+   openssl x509 -req -days 365 -sha256 -in client.csr -CA ca.pem -CAkey ca-key.pem \
+     -CAcreateserial -out cert.pem -extfile extfile-client.cnf
+   ```
+
+6. 生成后，您可以安全地删除两个证书签名请求和扩展配置文件：`cert.pem server-cert.pem`
 
    ```shell
    rm -v client.csr server.csr extfile.cnf extfile-client.cnf
@@ -369,21 +429,19 @@ if __name__ == '__main__':
        -H=0.0.0.0:2376
    ```
 
-10. 要连接到 Docker 并验证其证书，请提供您的客户端密钥、证书和受信任的 CA：
+10. 要连接到 Docker 并验证其证书，请提供您的客户端密钥、证书和受信任的 CA，注意修改 Host：
 
     ```shell
     docker --tlsverify \
         --tlscacert=ca.pem \
         --tlscert=cert.pem \
         --tlskey=key.pem \
-        -H=$HOST:2376 version
+        -H=Bandwagon:2376 version
     ```
 
 {{< admonition info 在客户端计算机上运行它>}}
 
 在客户端计算机上运行它，此步骤应在 Docker 客户端计算机上运行。因此，您需要将 CA 证书、服务器证书和客户端证书复制到该计算机。
-
-**注意**：将以下示例中的所有 实例替换为 Docker 守护程序主机的 DNS 名称。`$HOST`
 
 {{< /admonition>}}
 
@@ -395,16 +453,16 @@ if __name__ == '__main__':
 
 {{< admonition warning>}}
 
-如上面的示例所示，使用证书身份验证时，不需要运行客户端或组。这意味着任何拥有密钥的人都可以向您的 Docker 守护程序提供任何指令，从而为他们提供对托管守护程序的计算机的根访问权限。像保护 root 密码一样保护这些密钥！`docker``sudo``docker`
+如上面的示例所示，使用证书身份验证时，不需要运行客户端或组。这意味着任何拥有密钥的人都可以向您的 Docker 守护程序提供任何指令，从而为他们提供对托管守护程序的计算机的根访问权限。像保护 root 密码一样保护这些密钥！`docker sudo docker`
 
 {{< /admonition>}}
 
-如果要在默认情况下保护 Docker 客户端连接，则可以将文件移动到主目录中的目录---并设置 and 变量（而不是在每次调用时传递）。`.docker``DOCKER_HOST``DOCKER_TLS_VERIFY``-H=tcp://$HOST:2376``--tlsverify`
+如果要在默认情况下保护 Docker 客户端连接，则可以将文件移动到主目录中的目录---并设置 and 变量（而不是在每次调用时传递）`.docker DOCKER_HOST DOCKER_TLS_VERIFY -H=tcp://$HOST:2376 --tlsverify`
 
 ```shell
 mkdir -pv ~/.docker
 cp -v {ca,cert,key}.pem ~/.docker
-export DOCKER_HOST=tcp://$HOST:2376 DOCKER_TLS_VERIFY=1
+export DOCKER_HOST=tcp://localhost:2376 DOCKER_TLS_VERIFY=1
 ```
 
 默认情况下，Docker 现在安全地连接：
@@ -413,4 +471,15 @@ export DOCKER_HOST=tcp://$HOST:2376 DOCKER_TLS_VERIFY=1
 docker ps
 ```
 
+当你全部执行上述命令后，此时的文件结构如下：
+
+```shell
+├── ca-key.pem
+├── ca.pem 			# 客户端&服务端
+├── ca.srl
+├── cert.pem 		# 客户端
+├── key.pem			# 客户端
+├── server-cert.pem # 服务端
+└── server-key.pem  # 服务端
+```
 
