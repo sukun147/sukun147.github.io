@@ -4,7 +4,35 @@
         <link>https://www.sukun.xyz/posts/</link>
         <description>所有文章 | Sukun&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1477264431@qq.com (Sukun)</managingEditor>
-            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 04 Apr 2022 09:42:59 &#43;0800</lastBuildDate><atom:link href="https://www.sukun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 21 Jun 2022 15:33:37 &#43;0800</lastBuildDate><atom:link href="https://www.sukun.xyz/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>2022学年总结</title>
+    <link>https://www.sukun.xyz/2022%E5%AD%A6%E5%B9%B4%E6%80%BB%E7%BB%93/</link>
+    <pubDate>Tue, 21 Jun 2022 15:33:37 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.sukun.xyz/2022%E5%AD%A6%E5%B9%B4%E6%80%BB%E7%BB%93/</guid>
+    <description><![CDATA[2022一年走完，我的收获]]></description>
+</item><item>
+    <title>MySQL学习(二)</title>
+    <link>https://www.sukun.xyz/mysql-2/</link>
+    <pubDate>Thu, 12 May 2022 20:01:59 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.sukun.xyz/mysql-2/</guid>
+    <description><![CDATA[讲述了数据库的设计，包括多表之间的关系以及三大数据库范式]]></description>
+</item><item>
+    <title>Redis学习(一)</title>
+    <link>https://www.sukun.xyz/redis-1/</link>
+    <pubDate>Sat, 07 May 2022 16:38:32 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.sukun.xyz/redis-1/</guid>
+    <description><![CDATA[讲述了Redis入门知识，包括Redis概述、安装、基础知识（五大数据类型及事务）、配置文件解释、Redis持久化]]></description>
+</item><item>
+    <title>MySQL学习(一)</title>
+    <link>https://www.sukun.xyz/mysql-1/</link>
+    <pubDate>Sat, 30 Apr 2022 20:04:22 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.sukun.xyz/mysql-1/</guid>
+    <description><![CDATA[讲述了什么是sql以及什么是mysql，并介绍了mysql安装方法，进一步讲解mysql使用包括sql通用语法和约束]]></description>
+</item><item>
     <title>Docker客户端与服务器机制</title>
     <link>https://www.sukun.xyz/docker%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%BA%E5%88%B6/</link>
     <pubDate>Mon, 04 Apr 2022 09:42:59 &#43;0800</pubDate>
@@ -18,13 +46,6 @@
     <author>作者</author>
     <guid>https://www.sukun.xyz/%E9%80%92%E5%BD%92%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%B1%82%E8%A7%A3/</guid>
     <description><![CDATA[递归时间复杂度求解 master公式使用 $$ T(N)=a*T(\frac{N}{b})+O(N^d)\\ \log(b,a)&gt;d\qquad时间复杂度O(N^{\log(b,a)})\\ \log(b]]></description>
-</item><item>
-    <title>C语言难题集(一)</title>
-    <link>https://www.sukun.xyz/c%E8%AF%AD%E8%A8%80%E9%9A%BE%E9%A2%98%E9%9B%86%E4%B8%80/</link>
-    <pubDate>Fri, 11 Mar 2022 16:18:42 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.sukun.xyz/c%E8%AF%AD%E8%A8%80%E9%9A%BE%E9%A2%98%E9%9B%86%E4%B8%80/</guid>
-    <description><![CDATA[问题一 1 2 3 4 5 6 7 8 9 10 11 12 13 14 #include &lt;stdio.h&gt; int main() { int i = 0; int arr[10] = {0}; for ( i = 0; i &lt;= 12; i++) { arr[i] = 0; //请问在VS2019编译器下打印多少次hello？ printf(&#34;hello\n&#34;);]]></description>
 </item><item>
     <title>本地定时脚本</title>
     <link>https://www.sukun.xyz/%E6%9C%AC%E5%9C%B0%E5%AE%9A%E6%97%B6%E8%84%9A%E6%9C%AC/</link>
@@ -53,26 +74,5 @@
     <author>作者</author>
     <guid>https://www.sukun.xyz/data_structure-8/</guid>
     <description><![CDATA[数据结构——用C语言描述。本节讲述数据结构技术中的查找。]]></description>
-</item><item>
-    <title>数据结构学习(七)</title>
-    <link>https://www.sukun.xyz/data_structure-7/</link>
-    <pubDate>Fri, 11 Feb 2022 12:29:03 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.sukun.xyz/data_structure-7/</guid>
-    <description><![CDATA[数据结构——用C语言描述。本节讲述非线性结构中的图。]]></description>
-</item><item>
-    <title>数据结构学习(六)</title>
-    <link>https://www.sukun.xyz/data_structure-6/</link>
-    <pubDate>Wed, 02 Feb 2022 19:57:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.sukun.xyz/data_structure-6/</guid>
-    <description><![CDATA[数据结构——用C语言描述。本节讲述非线性结构中的树。]]></description>
-</item><item>
-    <title>数据结构学习(五)</title>
-    <link>https://www.sukun.xyz/data_structure-5/</link>
-    <pubDate>Sat, 29 Jan 2022 11:05:37 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.sukun.xyz/data_structure-5/</guid>
-    <description><![CDATA[数据结构——用C语言描述。本节讲述线性结构中的数组与广义表]]></description>
 </item></channel>
 </rss>

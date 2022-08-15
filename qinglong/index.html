@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.sukun.xyz\/qinglong\/"
-        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "青龙面板, docker","wordcount":  1538 ,
+        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "青龙面板, docker","wordcount":  4892 ,
         "url": "https:\/\/www.sukun.xyz\/qinglong\/","datePublished": "2022-02-18T12:36:32+08:00","dateModified": "2022-02-18T12:36:32+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "sukun","logo": "https:\/\/www.sukun.xyz\/images\/avatar.png"},"author": {
@@ -164,8 +164,8 @@
     <div class="toc-content" id="toc-content-auto"></div>
 </div><article class="page single"><h1 class="single-title animated flipInX">青龙面板教程</h1><div class="post-meta">
         <div class="post-meta-line"><span class="post-author"><a href="https://www.sukun.xyz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Sukun</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF/"><i class="far fa-folder fa-fw"></i>青龙面板</a></span></div>
-        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-02-18">2022-02-18</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-02-18">2022-02-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1538 字
-            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/qinglong/" class="leancloud_visitors" data-flag-title="青龙面板教程">
+        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-02-18">2022-02-18</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-02-18">2022-02-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4892 字
+            <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;<span id="/qinglong/" class="leancloud_visitors" data-flag-title="青龙面板教程">
                 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
             </span>&nbsp;
             <a href="#comments" id="post-meta-vcount" title="查看评论">
@@ -181,12 +181,24 @@
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#前期准备">前期准备</a></li>
-    <li><a href="#部署">部署</a>
+    <li><a href="#青龙面板部署">青龙面板部署</a>
       <ul>
         <li><a href="#docker启动容器">docker启动容器</a></li>
         <li><a href="#反向代理">反向代理</a></li>
         <li><a href="#配置环境变量">配置环境变量</a></li>
         <li><a href="#设置拉取脚本任务">设置拉取脚本任务</a></li>
+      </ul>
+    </li>
+    <li><a href="#ninja部署">Ninja部署</a></li>
+    <li><a href="#青龙面板实现每日签到">青龙面板实现每日签到</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#安装依赖">安装依赖</a></li>
+            <li><a href="#qlscriptsconfigjson-配置文件"><code>/ql/scripts/config.json</code> 配置文件</a></li>
+            <li><a href="#配置定时任务">配置定时任务</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#常见问题解决">常见问题解决</a>
@@ -214,7 +226,7 @@ sudo sh get-docker.sh
 sudo systemctl <span class="nb">enable</span> docker
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="部署">部署</h2>
+</div><h2 id="青龙面板部署">青龙面板部署</h2>
 <h3 id="docker启动容器">docker启动容器</h3>
 <p>启动容器（项目地址：https://github.com/whyour/qinglong）：</p>
 <div class="highlight"><div class="chroma">
@@ -347,6 +359,775 @@ sudo systemctl <span class="nb">enable</span> docker
 </code></pre></td></tr></table>
 </div>
 </div><p>添加完成后运行一次该任务即可拉取脚本，然后就可以静静等待其运行了。</p>
+<h2 id="ninja部署">Ninja部署</h2>
+<ol>
+<li>
+<p>修改容器映射</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff">docker run -dit \
+  -v $PWD/ql:/ql/data \
+<span class="gi">+  -v $PWD/ql/ninja:/ql/ninja \
+</span><span class="gi"></span>  -p 5700:5700 \
+<span class="gi">+  -p 5701:5701 \
+</span><span class="gi"></span>  --name qinglong \
+  --hostname qinglong \
+  --restart unless-stopped \
+  whyour/qinglong:latest
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>进入容器内执行以下命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">git clone https://github.com/MoonBegonia/ninja.git /ql/ninja
+<span class="nb">cd</span> /ql/ninja/backend
+pnpm install
+pm2 start
+cp sendNotify.js /ql/scripts/sendNotify.js
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><code>extra.sh</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /ql/ninja/backend
+git checkout .
+git pull
+pnpm install
+pm2 start
+cp sendNotify.js /ql/scripts/sendNotify.js
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="青龙面板实现每日签到">青龙面板实现每日签到</h2>
+<h4 id="安装依赖">安装依赖</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">docker <span class="nb">exec</span> -it qinglong bash
+apk add --no-cache gcc g++ python3 python3-dev py-pip mysql-dev linux-headers libffi-dev openssl-dev
+pip3 install dailycheckin --upgrade
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="qlscriptsconfigjson-配置文件"><code>/ql/scripts/config.json</code> 配置文件</h4>
+<p>详解参考https://sitoi.gitee.io/dailycheckin/settings/</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span><span class="lnt">253
+</span><span class="lnt">254
+</span><span class="lnt">255
+</span><span class="lnt">256
+</span><span class="lnt">257
+</span><span class="lnt">258
+</span><span class="lnt">259
+</span><span class="lnt">260
+</span><span class="lnt">261
+</span><span class="lnt">262
+</span><span class="lnt">263
+</span><span class="lnt">264
+</span><span class="lnt">265
+</span><span class="lnt">266
+</span><span class="lnt">267
+</span><span class="lnt">268
+</span><span class="lnt">269
+</span><span class="lnt">270
+</span><span class="lnt">271
+</span><span class="lnt">272
+</span><span class="lnt">273
+</span><span class="lnt">274
+</span><span class="lnt">275
+</span><span class="lnt">276
+</span><span class="lnt">277
+</span><span class="lnt">278
+</span><span class="lnt">279
+</span><span class="lnt">280
+</span><span class="lnt">281
+</span><span class="lnt">282
+</span><span class="lnt">283
+</span><span class="lnt">284
+</span><span class="lnt">285
+</span><span class="lnt">286
+</span><span class="lnt">287
+</span><span class="lnt">288
+</span><span class="lnt">289
+</span><span class="lnt">290
+</span><span class="lnt">291
+</span><span class="lnt">292
+</span><span class="lnt">293
+</span><span class="lnt">294
+</span><span class="lnt">295
+</span><span class="lnt">296
+</span><span class="lnt">297
+</span><span class="lnt">298
+</span><span class="lnt">299
+</span><span class="lnt">300
+</span><span class="lnt">301
+</span><span class="lnt">302
+</span><span class="lnt">303
+</span><span class="lnt">304
+</span><span class="lnt">305
+</span><span class="lnt">306
+</span><span class="lnt">307
+</span><span class="lnt">308
+</span><span class="lnt">309
+</span><span class="lnt">310
+</span><span class="lnt">311
+</span><span class="lnt">312
+</span><span class="lnt">313
+</span><span class="lnt">314
+</span><span class="lnt">315
+</span><span class="lnt">316
+</span><span class="lnt">317
+</span><span class="lnt">318
+</span><span class="lnt">319
+</span><span class="lnt">320
+</span><span class="lnt">321
+</span><span class="lnt">322
+</span><span class="lnt">323
+</span><span class="lnt">324
+</span><span class="lnt">325
+</span><span class="lnt">326
+</span><span class="lnt">327
+</span><span class="lnt">328
+</span><span class="lnt">329
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;DINGTALK_SECRET&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;DINGTALK_ACCESS_TOKEN&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;FSKEY&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;SCKEY&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;SENDKEY&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;BARK_URL&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;QMSG_KEY&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;QMSG_TYPE&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;TG_BOT_TOKEN&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;TG_USER_ID&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;TG_API_HOST&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;TG_PROXY&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;COOLPUSHSKEY&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;COOLPUSHQQ&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&#34;COOLPUSHWX&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&#34;COOLPUSHEMAIL&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&#34;QYWX_KEY&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;QYWX_CORPID&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;QYWX_AGENTID&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;QYWX_CORPSECRET&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;QYWX_TOUSER&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;QYWX_MEDIA_ID&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;PUSHPLUS_TOKEN&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;PUSHPLUS_TOPIC&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;MERGE_PUSH&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;IQIYI&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;__dfp=xxxxxx; QP0013=xxxxxx; QP0022=xxxxxx; QYABEX=xxxxxx; P00001=xxxxxx; P00002=xxxxxx; P00003=xxxxxx; P00007=xxxxxx; QC163=xxxxxx; QC175=xxxxxx; QC179=xxxxxx; QC170=xxxxxx; P00010=xxxxxx; P00PRU=xxxxxx; P01010=xxxxxx; QC173=xxxxxx; QC180=xxxxxx; P00004=xxxxxx; QP0030=xxxxxx; QC006=xxxxxx; QC007=xxxxxx; QC008=xxxxxx; QC010=xxxxxx; nu=xxxxxx; __uuid=xxxxxx; QC005=xxxxxx;&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;VQQ&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;auth_refresh&#34;</span><span class="p">:</span> <span class="s2">&#34;https://access.video.qq.com/user/auth_refresh?vappid=xxxxxx&amp;vsecret=xxxxxx&amp;type=qq&amp;g_tk=&amp;g_vstk=xxxxxx&amp;g_actk=xxxxxx&amp;callback=xxxxxx&amp;_=xxxxxx&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;pgv_pvid=xxxxxx; pac_uid=xxxxxx; RK=xxxxxx; ptcz=xxxxxx; tvfe_boss_uuid=xxxxxx; video_guid=xxxxxx; video_platform=xxxxxx; pgv_info=xxxxxx; main_login=xxxxxx; vqq_access_token=xxxxxx; vqq_appid=xxxxxx; vqq_openid=xxxxxx; vqq_vuserid=xxxxxx; vqq_refresh_token=xxxxxx; login_time_init=xxxxxx; uid=xxxxxx; vqq_vusession=xxxxxx; vqq_next_refresh_time=xxxxxx; vqq_login_time_init=xxxxxx; login_time_last=xxxxxx;&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;auth_refresh&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 refresh url，请参考上面，以实际获取为准&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;YOUDAO&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;JSESSIONID=xxxxxx; __yadk_uid=xxxxxx; OUTFOX_SEARCH_USER_ID_NCOO=xxxxxx; YNOTE_SESS=xxxxxx; YNOTE_PERS=xxxxxx; YNOTE_LOGIN=xxxxxx; YNOTE_CSTK=xxxxxx; _ga=xxxxxx; _gid=xxxxxx; _gat=xxxxxx; PUBLIC_SHARE_18a9dde3de846b6a69e24431764270c4=xxxxxx;&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;KGQQ&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;muid=xxxxxx; uid=xxxxxx; userlevel=xxxxxx; openid=xxxxxx; openkey=xxxxxx; opentype=xxxxxx; qrsig=xxxxxx; pgv_pvid=xxxxxx;&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;MUSIC163&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;Sitoi&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;18888xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 密码&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 手机号&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;ONEPLUSBBS&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;acw_tc=xxxxxx; qKc3_0e8d_saltkey=xxxxxx; qKc3_0e8d_lastvisit=xxxxxx; bbs_avatar=xxxxxx; qKc3_0e8d_sendmail=xxxxxx; opcid=xxxxxx; opcct=xxxxxx; oppt=xxxxxx; opsid=xxxxxx; opsct=xxxxxx; opbct=xxxxxx; UM_distinctid=xxxxxx; CNZZDATA1277373783=xxxxxx; www_clear=xxxxxx; ONEPLUSID=xxxxxx; qKc3_0e8d_sid=xxxxxx; bbs_uid=xxxxxx; bbs_uname=xxxxxx; bbs_grouptitle=xxxxxx; opuserid=xxxxxx; bbs_sign=xxxxxx; bbs_formhash=xxxxxx; qKc3_0e8d_ulastactivity=xxxxxx; opsertime=xxxxxx; qKc3_0e8d_lastact=xxxxxx; qKc3_0e8d_checkpm=xxxxxx; qKc3_0e8d_noticeTitle=xxxxxx; optime_browser=xxxxxx; opnt=xxxxxx; opstep=xxxxxx; opstep_event=xxxxxx; fp=xxxxxx;&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;BAIDU&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;data_url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://cdn.jsdelivr.net/gh/Sitoi/Sitoi.github.io/baidu_urls.txt&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;submit_url&#34;</span><span class="p">:</span> <span class="s2">&#34;http://data.zz.baidu.com/urls?site=https://sitoi.cn&amp;token=xxxxxx&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;times&#34;</span><span class="p">:</span> <span class="mi">10</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;data_url&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 data_url 链接地址，以实际获取为准&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;submit_url&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 submit_url 链接地址，以实际获取为准&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;times&#34;</span><span class="p">:</span> <span class="mi">10</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;FMAPP&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;blackbox&#34;</span><span class="p">:</span> <span class="s2">&#34;eyJlcnJxxxxxx&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;sensorsdata2015jssdkcross=xxxxxx&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;device_id&#34;</span><span class="p">:</span> <span class="s2">&#34;xxxxxx-xxxx-xxxx-xxxx-xxxxxx&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;fmversion&#34;</span><span class="p">:</span> <span class="s2">&#34;xxxxxx&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;os&#34;</span><span class="p">:</span> <span class="s2">&#34;xxxxxx&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;xxxxxx.xxxxxx-xxxxxx-xxxxxx.xxxxxx-xxxxxx&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;useragent&#34;</span><span class="p">:</span> <span class="s2">&#34;xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;blackbox&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 blackbox 填写，请参考上面，blackbox 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;device_id&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 device_id 填写，请参考上面，以实际获取为准&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;fmversion&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 fmVersion 填写，请参考上面，以实际获取为准&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;os&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 os 填写，请参考上面，以实际获取为准&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 token 填写，请参考上面，以实际获取为准&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;useragent&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 User-Agent 填写，请参考上面，以实际获取为准&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;TIEBA&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;BIDUPSID=xxxxxx; PSTM=xxxxxx; BAIDUID=xxxxxx; BAIDUID_BFESS=xxxxxx; delPer=xxxxxx; PSINO=xxxxxx; H_PS_PSSID=xxxxxx; BA_HECTOR=xxxxxx; BDORZ=xxxxxx; TIEBA_USERTYPE=xxxxxx; st_key_id=xxxxxx; BDUSS=xxxxxx; BDUSS_BFESS=xxxxxx; STOKEN=xxxxxx; TIEBAUID=xxxxxx; ab_sr=xxxxxx; st_data=xxxxxx; st_sign=xxxxxx;&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;BILIBILI&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;_uuid=xxxxxx; rpdid=xxxxxx; LIVE_BUVID=xxxxxx; PVID=xxxxxx; blackside_state=xxxxxx; CURRENT_FNVAL=xxxxxx; buvid3=xxxxxx; fingerprint3=xxxxxx; fingerprint=xxxxxx; buivd_fp=xxxxxx; buvid_fp_plain=xxxxxx; DedeUserID=xxxxxx; DedeUserID__ckMd5=xxxxxx; SESSDATA=xxxxxx; bili_jct=xxxxxx; bsource=xxxxxx; finger=xxxxxx; fingerprint_s=xxxxxx;&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;coin_num&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nt">&#34;coin_type&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&#34;silver2coin&#34;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;coin_num&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nt">&#34;coin_type&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&#34;silver2coin&#34;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;V2EX&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;_ga=xxxxxx; __cfduid=xxxxxx; PB3_SESSION=xxxxxx; A2=xxxxxx; V2EXSETTINGS=xxxxxx; V2EX_REFERRER=xxxxxx; V2EX_LANG=xxxxxx; _gid=xxxxxx; V2EX_TAB=xxxxxx;&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;proxy&#34;</span><span class="p">:</span> <span class="s2">&#34;使用代理的信息，无密码例子: http://127.0.0.1:1080 有密码例子: http://username:password@127.0.0.1:1080&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;proxy&#34;</span><span class="p">:</span> <span class="s2">&#34;使用代理的信息，无密码例子: http://127.0.0.1:1080 有密码例子: http://username:password@127.0.0.1:1080&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;WWW2NZZ&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;YPx9_2132_saltkey=xxxxxx; YPx9_2132_lastvisit=xxxxxx; YPx9_2132_sendmail=xxxxxx; YPx9_2132_con_request_uri=xxxxxx; YPx9_2132_sid=xxxxxx; YPx9_2132_client_created=xxxxxx; YPx9_2132_client_token=xxxxxx; YPx9_2132_ulastactivity=xxxxxx; YPx9_2132_auth=xxxxxx; YPx9_2132_connect_login=xxxxxx; YPx9_2132_connect_is_bind=xxxxxx; YPx9_2132_connect_uin=xxxxxx; YPx9_2132_stats_qc_login=xxxxxx; YPx9_2132_checkpm=xxxxxx; YPx9_2132_noticeTitle=xxxxxx; YPx9_2132_nofavfid=xxxxxx; YPx9_2132_lastact=xxxxxx;&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;SMZDM&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;__jsluid_s=xxxxxx; __ckguid=xxxxxx; device_id=xxxxxx; homepage_sug=xxxxxx; r_sort_type=xxxxxx; _zdmA.vid=xxxxxx; sajssdk_2015_cross_new_user=xxxxxx; sensorsdata2015jssdkcross=xxxxxx; footer_floating_layer=xxxxxx; ad_date=xxxxxx; ad_json_feed=xxxxxx; zdm_qd=xxxxxx; sess=xxxxxx; user=xxxxxx; _zdmA.uid=xxxxxx; smzdm_id=xxxxxx; userId=xxxxxx; bannerCounter=xxxxxx; _zdmA.time=xxxxxx;&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;MIMOTION&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;max_step&#34;</span><span class="p">:</span> <span class="s2">&#34;20000&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;min_step&#34;</span><span class="p">:</span> <span class="s2">&#34;10000&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;Sitoi&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;18888xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;max_step&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 最大步数填写，请参考上面&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;min_step&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 最小步数填写，请参考上面&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 密码填写，请参考上面&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 手机号填写，请参考上面&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;ACFUN&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;Sitoi&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;18888xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 密码填写，请参考上面&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 手机号填写，请参考上面&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;CLOUD189&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;Sitoi&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;18888xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 密码填写，请参考上面&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 手机号填写，请参考上面&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;POJIE&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;htVD_2132_client_token=xxxxxx; htVD_2132_connect_is_bind=xxxxxx; htVD_2132_connect_uin=xxxxxx; htVD_2132_nofavfid=xxxxxx; htVD_2132_smile=xxxxxx; Hm_lvt_46d556462595ed05e05f009cdafff31a=xxxxxx; htVD_2132_saltkey=xxxxxx; htVD_2132_lastvisit=xxxxxx; htVD_2132_client_created=xxxxxx; htVD_2132_auth=xxxxxx; htVD_2132_connect_login=xxxxxx; htVD_2132_home_diymode=xxxxxx; htVD_2132_visitedfid=xxxxxx; htVD_2132_viewid=xxxxxx; KF4=xxxxxx; htVD_2132_st_p=xxxxxx; htVD_2132_lastcheckfeed=xxxxxx; htVD_2132_sid=xxxxxx; htVD_2132_ulastactivity=xxxxxx; htVD_2132_noticeTitle=xxxxxx;&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;MGTV&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="s2">&#34;uuid=xxxxxx&amp;uid=xxxxxx&amp;ticket=xxxxxx&amp;token=xxxxxx&amp;device=iPhone&amp;did=xxxxxx&amp;deviceId=xxxxxx&amp;appVersion=6.8.2&amp;osType=ios&amp;platform=iphone&amp;abroad=0&amp;aid=xxxxxx&amp;nonce=xxxxxx&amp;timestamp=xxxxxx&amp;appid=xxxxxx&amp;type=1&amp;sign=xxxxxx&amp;callback=xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;params&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 请求参数填写，请参考上面&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;PICACOMIC&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;email&#34;</span><span class="p">:</span> <span class="s2">&#34;Sitoi&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;email&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 账号填写，请参考上面&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 密码填写，请参考上面&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;MEIZU&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;draw_count&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;aliyungf_tc=xxxxxx; logined_uid=xxxxxx; acw_tc=xxxxxx; LT=xxxxxx; MZBBS_2132_saltkey=xxxxxx; MZBBS_2132_lastvisit=xxxxxx; MZBBSUC_2132_auth=xxxxxx; MZBBSUC_2132_loginmember=xxxxxx; MZBBSUC_2132_ticket=xxxxxx; MZBBS_2132_sid=xxxxxx; MZBBS_2132_ulastactivity=xxxxxx; MZBBS_2132_auth=xxxxxx; MZBBS_2132_loginmember=xxxxxx; MZBBS_2132_lastcheckfeed=xxxxxx; MZBBS_2132_checkfollow=xxxxxx; MZBBS_2132_lastact=xxxxxx;&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;draw_count&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 抽奖次数设置&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;ZHIYOO&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;ikdQ_9242_saltkey=xxxxxx; ikdQ_9242_lastvisit=xxxxxx; ikdQ_9242_onlineusernum=xxxxxx; ikdQ_9242_sendmail=1; ikdQ_9242_seccode=xxxxxx; ikdQ_9242_ulastactivity=xxxxxx; ikdQ_9242_auth=xxxxxx; ikdQ_9242_connect_is_bind=xxxxxx; ikdQ_9242_nofavfid=xxxxxx; ikdQ_9242_checkpm=xxxxxx; ikdQ_9242_noticeTitle=1; ikdQ_9242_sid=xxxxxx; ikdQ_9242_lip=xxxxxx; ikdQ_9242_lastact=xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;WEIBO&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://api.weibo.cn/2/users/show?wm=xxxxxx&amp;launchid=xxxxxx&amp;b=xxxxxx&amp;from=xxxxxx&amp;c=xxxxxx&amp;networktype=xxxxxx&amp;v_p=xxxxxx&amp;skin=xxxxxx&amp;v_f=xxxxxx&amp;lang=xxxxxx&amp;sflag=xxxxxx&amp;ua=xxxxxx&amp;ft=xxxxxx&amp;aid=xxxxxx&amp;has_extend=xxxxxx&amp;uid=xxxxxx&amp;gsid=xxxxxx&amp;sourcetype=&amp;get_teenager=xxxxxx&amp;s=xxxxxx&amp;has_profile=xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 show_url 填写，请参考上面，show_url 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;DUOKAN&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;user_id=xxxxxx; token=xxxxxx; user_gender=xxxxxx; device_id=xxxxxx; app_id=xxxxxx; build=xxxxxx; short_version=xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;CSDN&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;uuid_tt_dd=xxxxxx; _ga=xxxxxx; UserName=xxxxxx; UserInfo=xxxxxx; UserToken=xxxxxx; UserNick=xxxxxx; AU=768; UN=xxxxxx; BT=xxxxxx; p_uid=xxxxxx; Hm_up_6bcd52f51e9b3dce32bec4a3997715ac=xxxxxx; Hm_ct_6bcd52f51e9b3dce32bec4a3997715ac=xxxxxx; Hm_lvt_6bcd52f51e9b3dce32bec4a3997715ac=xxxxxx dc_sid=xxxxxx; c_segment=xxxxxx; dc_session_id=xxxxxx; csrfToken=xxxxxx; c_first_ref=xxxxxx; c_first_page=xxxxxx; c_page_id=xxxxxx; announcement-new=xxxxxx; log_Id_click=xxxxxx; c_pref=xxxxxx; c_ref=xxxxxx; dc_tos=xxxxxx; log_Id_pv=xxxxxx; log_Id_view=xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;WZYD&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;data&#34;</span><span class="p">:</span> <span class="s2">&#34;areaId=xxxxxx&amp;roleId=xxxxxx&amp;gameId=xxxxxx&amp;serverId=xxxxxx&amp;gameOpenid=xxxxxx&amp;userId=xxxxxx&amp;appVersion=xxxxxx&amp;cClientVersionName=xxxxxx&amp;platid=xxxxxx&amp;source=xxxxxx&amp;algorithm=xxxxxx&amp;version=xxxxxx&amp;timestamp=xxxxxx&amp;appid=xxxxxx&amp;openid=xxxxxx&amp;sig=xxxxxx&amp;encode=2&amp;msdkEncodeParam=xxxxxx&amp;cSystem=xxxxxx&amp;h5Get=xxxxxx&amp;msdkToken=&amp;appOpenid=xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;data&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 data 填写，请参考上面，data 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;WOMAIL&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://nyan.mail.wo.cn/cn/sign/index/index?mobile=xxxxxx&amp;userName=&amp;openId=xxxxxx&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;pause21days&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;Sitoi&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;18888xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 url 填写，请参考上面，url 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;pause21days&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 密码填写，请参考上面&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 手机号填写，请参考上面&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;HEYTAP&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;sa_distinct_id=xxxxxx;Personalized=xxxxxx;s_channel=xxxxxx;source_type=xxxxxx;app_param=xxxxxx;ENCODE_TOKENSID=xxxxxx;scene_id=xxxxxx;apkPkg=xxxxxx;exp_id=;app_utm=xxxxxx;TOKENSID=xxxxxx;strategy_id=xxxxxx;referer=;experiment_id=xxxxxx;section_id=;s_version=xxxxxx;app_innerutm=xxxxxx;retrieve_id=;log_id=;&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;useragent&#34;</span><span class="p">:</span> <span class="s2">&#34;xxxxxx&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;draw&#34;</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;useragent&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 User-Agent 填写，请参考上面，以实际获取为准&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;draw&#34;</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;UNICOM&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;mobile&#34;</span><span class="p">:</span> <span class="s2">&#34;18888xxxxxx&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;xxxxxx&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;app_id&#34;</span><span class="p">:</span> <span class="s2">&#34;xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;mobile&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 手机号&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 密码&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;app_id&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 appId&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;EVERPHOTO&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;mobile&#34;</span><span class="p">:</span> <span class="s2">&#34;+8618888xxxxxx&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;xxxxxx&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;mobile&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 手机号&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 密码&#34;</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&#34;SSPANEL&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;email&#34;</span><span class="p">:</span> <span class="s2">&#34;邮箱&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;密码&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://sitoi.cn&#34;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;email&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 邮箱&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 密码&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://sitoi.cn&#34;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="配置定时任务">配置定时任务</h4>
+<p>运行全部脚本：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/04/18/b1p6cGCVoNQ4zXY.png"
+        data-srcset="https://s2.loli.net/2022/04/18/b1p6cGCVoNQ4zXY.png, https://s2.loli.net/2022/04/18/b1p6cGCVoNQ4zXY.png 1.5x, https://s2.loli.net/2022/04/18/b1p6cGCVoNQ4zXY.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/04/18/b1p6cGCVoNQ4zXY.png"
+        title="image-20220418143016914" /></p>
+<p>定时更新签到脚本：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/04/18/ujzXHKWGfJ1xN4Z.png"
+        data-srcset="https://s2.loli.net/2022/04/18/ujzXHKWGfJ1xN4Z.png, https://s2.loli.net/2022/04/18/ujzXHKWGfJ1xN4Z.png 1.5x, https://s2.loli.net/2022/04/18/ujzXHKWGfJ1xN4Z.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/04/18/ujzXHKWGfJ1xN4Z.png"
+        title="image-20220418143118817" /></p>
 <h2 id="常见问题解决">常见问题解决</h2>
 <h3 id="ql指令">ql指令</h3>
 <div class="highlight"><div class="chroma">
@@ -381,23 +1162,23 @@ sudo systemctl <span class="nb">enable</span> docker
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 更新并重启青龙</span>
-ql update                                                    
+ql update
 <span class="c1"># 运行自定义脚本extra.sh</span>
-ql extra                                                     
+ql extra
 <span class="c1"># 添加单个脚本文件</span>
-ql raw &lt;file_url&gt;                                             
+ql raw &lt;file_url&gt;
 <span class="c1"># 添加单个仓库的指定脚本</span>
-ql repo &lt;repo_url&gt; &lt;whitelist&gt; &lt;blacklist&gt; &lt;dependence&gt; &lt;branch&gt;   
+ql repo &lt;repo_url&gt; &lt;whitelist&gt; &lt;blacklist&gt; &lt;dependence&gt; &lt;branch&gt;
 <span class="c1"># 删除旧日志</span>
-ql rmlog &lt;days&gt;                                              
+ql rmlog &lt;days&gt;
 <span class="c1"># 启动tg-bot</span>
-ql bot                                                       
+ql bot
 <span class="c1"># 检测青龙环境并修复</span>
-ql check                                                     
+ql check
 <span class="c1"># 重置登录错误次数</span>
-ql resetlet                                                  
+ql resetlet
 <span class="c1"># 禁用两步登录</span>
-ql resettfa                                                  
+ql resettfa
 
 <span class="c1"># 依次执行，如果设置了随机延迟，将随机延迟一定秒数</span>
 task &lt;file_path&gt;                                             
@@ -428,7 +1209,7 @@ task &lt;file_path&gt; desi &lt;env_name&gt; &lt;account_number&gt;
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker <span class="nb">exec</span> -it qinglong bash -c <span class="s2">&#34;</span><span class="k">$(</span>curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/Yun-City/City/main/Shell/QLOneKeyDependency.sh <span class="p">|</span> sh<span class="k">)</span><span class="s2">&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker <span class="nb">exec</span> -it qinglong bash -c <span class="s2">&#34;</span><span class="k">$(</span>curl -fsSL https://raw.githubusercontent.com/Yun-City/City/main/Shell/QLOneKeyDependency.sh <span class="p">|</span> sh<span class="k">)</span><span class="s2">&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>手动安装：</p>

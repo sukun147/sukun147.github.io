@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>redis - 标签 - Sukun&#39;s blog</title>
+        <link>https://www.sukun.xyz/tags/redis/</link>
+        <description>redis - 标签 - Sukun&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1477264431@qq.com (Sukun)</managingEditor>
+            <webMaster>1477264431@qq.com (Sukun)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 07 May 2022 16:38:32 &#43;0800</lastBuildDate><atom:link href="https://www.sukun.xyz/tags/redis/" rel="self" type="application/rss+xml" /><item>
+    <title>Redis学习(一)</title>
+    <link>https://www.sukun.xyz/redis-1/</link>
+    <pubDate>Sat, 07 May 2022 16:38:32 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.sukun.xyz/redis-1/</guid>
+    <description><![CDATA[讲述了Redis入门知识，包括Redis概述、安装、基础知识（五大数据类型及事务）、配置文件解释、Redis持久化]]></description>
+</item></channel>
+</rss>
