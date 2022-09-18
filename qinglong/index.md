@@ -25,7 +25,7 @@ sudo systemctl enable docker
 
 ```bash
 docker run -dit \
-  -v $PWD/ql:/ql/data
+  -v $PWD/ql:/ql/data \
   -p 5700:5700 \
   --name qinglong \
   --hostname qinglong \
@@ -90,70 +90,49 @@ nginx -s reload
 
 ![image-20220218162323115](https://s2.loli.net/2022/02/18/KTD2sV1edASbl8o.png)
 
-### 设置拉取脚本任务
+### 设置脚本订阅
 
-在面板中的定时任务，点击添加任务：
+在订阅管理处添加订阅即可
 
-![拉取脚本](https://s2.loli.net/2022/02/18/xFyOtdaQAb8mNXr.png)
-
-意为每日 0时0分 执行命令栏中的指令（项目地址：https://github.com/Yun-City/City）：
+![image-20220918091622807](https://image.sukun.xyz/img/image-20220918091622807.png)
 
 ```bash
-ql repo https://github.com/Yun-City/City.git "jd_|jx_|gua_|jddj_|getJDCookie" "activity|backUp" "^jd[^_]|USER|function|utils|sendnotify|ZooFaker_Necklace|jd_Cookie|JDJRValidator_|sign_graphics_validate|ql|magic|cleancart_activity"
+ql repo https://ghproxy.com/https://github.com/KingRan/KR.git "jd_|jx_|jdCookie" "activity|backUp" "^jd[^_]|USER|utils|function|sign|sendNotify|ql|JDJR"
 ```
 
-添加完成后运行一次该任务即可拉取脚本，然后就可以静静等待其运行了。
-
-## Ninja部署
-
-1. 修改容器映射
-
-   ```diff
-   docker run -dit \
-     -v $PWD/ql:/ql/data \
-   +  -v $PWD/ql/ninja:/ql/ninja \
-     -p 5700:5700 \
-   +  -p 5701:5701 \
-     --name qinglong \
-     --hostname qinglong \
-     --restart unless-stopped \
-     whyour/qinglong:latest
-   ```
-
-2. 进入容器内执行以下命令
-
-   ```shell
-   git clone https://github.com/MoonBegonia/ninja.git /ql/ninja
-   cd /ql/ninja/backend
-   pnpm install
-   pm2 start
-   cp sendNotify.js /ql/scripts/sendNotify.js
-   ```
-
-3. `extra.sh`
-
-   ```sh
-   cd /ql/ninja/backend
-   git checkout .
-   git pull
-   pnpm install
-   pm2 start
-   cp sendNotify.js /ql/scripts/sendNotify.js
-   ```
+注意，本处使用了`https://ghproxy.com`代理，国外鸡可直接删除代理。
 
 ## 青龙面板实现每日签到
 
 #### 安装依赖
 
-```shell
+首先进入容器
+
+```bash
 docker exec -it qinglong bash
-apk add --no-cache gcc g++ python3 python3-dev py-pip mysql-dev linux-headers libffi-dev openssl-dev
+```
+
+```shell
+apk add --no-cache gcc g++ python python-dev py-pip mysql-dev linux-headers libffi-dev openssl-dev
+```
+
+如果上述命令安装依赖失败，请使用下方命令
+
+```bash
+apk add --no-cache --virtual .build-deps gcc musl-dev python2-dev python3-dev libffi libffi-dev openssl openssl-dev
+pip3 install pip setuptools --upgrade
+pip3 install cryptography~=3.2.1
+```
+
+现在安装`dailycheckin`
+
+```bash
 pip3 install dailycheckin --upgrade
 ```
 
 #### `/ql/scripts/config.json` 配置文件
 
-详解参考https://sitoi.gitee.io/dailycheckin/settings/
+详解参考[配置 - DailyCheckIn (sitoi.github.io)](https://sitoi.github.io/dailycheckin/settings/)
 
 ```json
 {
@@ -214,16 +193,6 @@ pip3 install dailycheckin --upgrade
     },
     {
       "cookie": "多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\" 请加反斜杠转义）"
-    }
-  ],
-  "MUSIC163": [
-    {
-      "password": "Sitoi",
-      "phone": "18888xxxxxx"
-    },
-    {
-      "password": "多账号 密码",
-      "phone": "多账号 手机号"
     }
   ],
   "ONEPLUSBBS": [
@@ -346,14 +315,6 @@ pip3 install dailycheckin --upgrade
     {
       "password": "多账号 密码填写，请参考上面",
       "phone": "多账号 手机号填写，请参考上面"
-    }
-  ],
-  "POJIE": [
-    {
-      "cookie": "htVD_2132_client_token=xxxxxx; htVD_2132_connect_is_bind=xxxxxx; htVD_2132_connect_uin=xxxxxx; htVD_2132_nofavfid=xxxxxx; htVD_2132_smile=xxxxxx; Hm_lvt_46d556462595ed05e05f009cdafff31a=xxxxxx; htVD_2132_saltkey=xxxxxx; htVD_2132_lastvisit=xxxxxx; htVD_2132_client_created=xxxxxx; htVD_2132_auth=xxxxxx; htVD_2132_connect_login=xxxxxx; htVD_2132_home_diymode=xxxxxx; htVD_2132_visitedfid=xxxxxx; htVD_2132_viewid=xxxxxx; KF4=xxxxxx; htVD_2132_st_p=xxxxxx; htVD_2132_lastcheckfeed=xxxxxx; htVD_2132_sid=xxxxxx; htVD_2132_ulastactivity=xxxxxx; htVD_2132_noticeTitle=xxxxxx;"
-    },
-    {
-      "cookie": "多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\" 请加反斜杠转义）"
     }
   ],
   "MGTV": [
@@ -503,23 +464,23 @@ pip3 install dailycheckin --upgrade
 
 ```bash
 # 更新并重启青龙
-ql update
+ql update                                                    
 # 运行自定义脚本extra.sh
-ql extra
+ql extra                                                     
 # 添加单个脚本文件
-ql raw <file_url>
+ql raw <file_url>                                             
 # 添加单个仓库的指定脚本
-ql repo <repo_url> <whitelist> <blacklist> <dependence> <branch>
+ql repo <repo_url> <whitelist> <blacklist> <dependence> <branch> <extensions>
 # 删除旧日志
-ql rmlog <days>
+ql rmlog <days>                                              
 # 启动tg-bot
-ql bot
+ql bot                                                       
 # 检测青龙环境并修复
-ql check
+ql check                                                     
 # 重置登录错误次数
-ql resetlet
+ql resetlet                                                  
 # 禁用两步登录
-ql resettfa
+ql resettfa                                                  
 
 # 依次执行，如果设置了随机延迟，将随机延迟一定秒数
 task <file_path>                                             
@@ -528,7 +489,7 @@ task <file_path> now
 # 并发执行，无论是否设置了随机延迟，均立即运行，前台不产生日，直接记录在日志文件中，且可指定账号执行
 task <file_path> conc <env_name> <account_number>(可选的) 
 # 指定账号执行，无论是否设置了随机延迟，均立即运行 
-task <file_path> desi <env_name> <account_number>             
+task <file_path> desi <env_name> <account_number>         
 ```
 
 - file_url: 脚本地址
@@ -541,29 +502,6 @@ task <file_path> desi <env_name> <account_number>
 - file_path: 任务执行时的文件路径
 - env_name: 任务执行时需要并发或者指定时的环境变量名称
 - account_number: 任务执行时指定某个环境变量需要执行的账号序号
-
-### 依赖
-
-一键安装依赖：
-
-```bash
-docker exec -it qinglong bash -c "$(curl -fsSL https://raw.githubusercontent.com/Yun-City/City/main/Shell/QLOneKeyDependency.sh | sh)"
-```
-
-手动安装：
-
-- npm install -g png-js
-- npm install -g date-fns
-- npm install -g axios
-- npm install -g crypto-js
-- npm install -g ts-md5
-- npm install -g tslib
-- npm install -g @types/node
-- npm install -g requests
-
-当然你也可以在面板的依赖管理处添加
-
-![image-20220218162530574](https://s2.loli.net/2022/02/18/NPRT59v2HfmcwFJ.png)
 
 ### HTTP2问题
 

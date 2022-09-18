@@ -6,7 +6,6 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>青龙面板教程 - Sukun&#39;s blog</title><meta name="keywords" content="sukun,hugo,博客">
-
 <meta name="Description" content="docker部署青龙面板教程及常见问题解决"><meta property="og:title" content="青龙面板教程" />
 <meta property="og:description" content="docker部署青龙面板教程及常见问题解决" />
 <meta property="og:type" content="article" />
@@ -31,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.sukun.xyz\/qinglong\/"
-        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "青龙面板, docker","wordcount":  4892 ,
+        },"image": ["https:\/\/www.sukun.xyz\/images\/avatar.png"],"genre": "posts","keywords": "青龙面板, docker","wordcount":  4536 ,
         "url": "https:\/\/www.sukun.xyz\/qinglong\/","datePublished": "2022-02-18T12:36:32+08:00","dateModified": "2022-02-18T12:36:32+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "sukun","logo": "https:\/\/www.sukun.xyz\/images\/avatar.png"},"author": {
@@ -164,7 +163,7 @@
     <div class="toc-content" id="toc-content-auto"></div>
 </div><article class="page single"><h1 class="single-title animated flipInX">青龙面板教程</h1><div class="post-meta">
         <div class="post-meta-line"><span class="post-author"><a href="https://www.sukun.xyz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Sukun</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF/"><i class="far fa-folder fa-fw"></i>青龙面板</a></span></div>
-        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-02-18">2022-02-18</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-02-18">2022-02-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4892 字
+        <div class="post-meta-line"><i class="far fa-calendar fa-fw"></i>&nbsp;<time datetime="2022-02-18">2022-02-18</time>&nbsp;<i class="far fa-calendar-plus fa-fw"></i>&nbsp;<time datetime="2022-02-18">2022-02-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4536 字
             <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;<span id="/qinglong/" class="leancloud_visitors" data-flag-title="青龙面板教程">
                 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
             </span>&nbsp;
@@ -186,10 +185,9 @@
         <li><a href="#docker启动容器">docker启动容器</a></li>
         <li><a href="#反向代理">反向代理</a></li>
         <li><a href="#配置环境变量">配置环境变量</a></li>
-        <li><a href="#设置拉取脚本任务">设置拉取脚本任务</a></li>
+        <li><a href="#设置脚本订阅">设置脚本订阅</a></li>
       </ul>
     </li>
-    <li><a href="#ninja部署">Ninja部署</a></li>
     <li><a href="#青龙面板实现每日签到">青龙面板实现每日签到</a>
       <ul>
         <li>
@@ -204,7 +202,6 @@
     <li><a href="#常见问题解决">常见问题解决</a>
       <ul>
         <li><a href="#ql指令">ql指令</a></li>
-        <li><a href="#依赖">依赖</a></li>
         <li><a href="#http2问题">HTTP2问题</a></li>
       </ul>
     </li>
@@ -241,8 +238,8 @@ sudo systemctl <span class="nb">enable</span> docker
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker run -dit <span class="se">\
-</span><span class="se"></span>  -v <span class="nv">$PWD</span>/ql:/ql/data
-  -p 5700:5700 <span class="se">\
+</span><span class="se"></span>  -v <span class="nv">$PWD</span>/ql:/ql/data <span class="se">\
+</span><span class="se"></span>  -p 5700:5700 <span class="se">\
 </span><span class="se"></span>  --name qinglong <span class="se">\
 </span><span class="se"></span>  --hostname qinglong <span class="se">\
 </span><span class="se"></span>  --restart unless-stopped <span class="se">\
@@ -339,98 +336,45 @@ sudo systemctl <span class="nb">enable</span> docker
         data-sizes="auto"
         alt="https://s2.loli.net/2022/02/18/KTD2sV1edASbl8o.png"
         title="image-20220218162323115" /></p>
-<h3 id="设置拉取脚本任务">设置拉取脚本任务</h3>
-<p>在面板中的定时任务，点击添加任务：</p>
+<h3 id="设置脚本订阅">设置脚本订阅</h3>
+<p>在订阅管理处添加订阅即可</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://s2.loli.net/2022/02/18/xFyOtdaQAb8mNXr.png"
-        data-srcset="https://s2.loli.net/2022/02/18/xFyOtdaQAb8mNXr.png, https://s2.loli.net/2022/02/18/xFyOtdaQAb8mNXr.png 1.5x, https://s2.loli.net/2022/02/18/xFyOtdaQAb8mNXr.png 2x"
+        data-src="https://image.sukun.xyz/img/image-20220918091622807.png"
+        data-srcset="https://image.sukun.xyz/img/image-20220918091622807.png, https://image.sukun.xyz/img/image-20220918091622807.png 1.5x, https://image.sukun.xyz/img/image-20220918091622807.png 2x"
         data-sizes="auto"
-        alt="https://s2.loli.net/2022/02/18/xFyOtdaQAb8mNXr.png"
-        title="拉取脚本" /></p>
-<p>意为每日 0时0分 执行命令栏中的指令（项目地址：https://github.com/Yun-City/City）：</p>
+        alt="https://image.sukun.xyz/img/image-20220918091622807.png"
+        title="image-20220918091622807" /></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ql repo https://github.com/Yun-City/City.git <span class="s2">&#34;jd_|jx_|gua_|jddj_|getJDCookie&#34;</span> <span class="s2">&#34;activity|backUp&#34;</span> <span class="s2">&#34;^jd[^_]|USER|function|utils|sendnotify|ZooFaker_Necklace|jd_Cookie|JDJRValidator_|sign_graphics_validate|ql|magic|cleancart_activity&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ql repo https://ghproxy.com/https://github.com/KingRan/KR.git <span class="s2">&#34;jd_|jx_|jdCookie&#34;</span> <span class="s2">&#34;activity|backUp&#34;</span> <span class="s2">&#34;^jd[^_]|USER|utils|function|sign|sendNotify|ql|JDJR&#34;</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>添加完成后运行一次该任务即可拉取脚本，然后就可以静静等待其运行了。</p>
-<h2 id="ninja部署">Ninja部署</h2>
-<ol>
-<li>
-<p>修改容器映射</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff">docker run -dit \
-  -v $PWD/ql:/ql/data \
-<span class="gi">+  -v $PWD/ql/ninja:/ql/ninja \
-</span><span class="gi"></span>  -p 5700:5700 \
-<span class="gi">+  -p 5701:5701 \
-</span><span class="gi"></span>  --name qinglong \
-  --hostname qinglong \
-  --restart unless-stopped \
-  whyour/qinglong:latest
-</code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>进入容器内执行以下命令</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">git clone https://github.com/MoonBegonia/ninja.git /ql/ninja
-<span class="nb">cd</span> /ql/ninja/backend
-pnpm install
-pm2 start
-cp sendNotify.js /ql/scripts/sendNotify.js
-</code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p><code>extra.sh</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /ql/ninja/backend
-git checkout .
-git pull
-pnpm install
-pm2 start
-cp sendNotify.js /ql/scripts/sendNotify.js
-</code></pre></td></tr></table>
-</div>
-</div></li>
-</ol>
+</div><p>注意，本处使用了<code>https://ghproxy.com</code>代理，国外鸡可直接删除代理。</p>
 <h2 id="青龙面板实现每日签到">青龙面板实现每日签到</h2>
 <h4 id="安装依赖">安装依赖</h4>
+<p>首先进入容器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker <span class="nb">exec</span> -it qinglong bash
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">apk add --no-cache gcc g++ python python-dev py-pip mysql-dev linux-headers libffi-dev openssl-dev
+</code></pre></td></tr></table>
+</div>
+</div><p>如果上述命令安装依赖失败，请使用下方命令</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -438,13 +382,22 @@ cp sendNotify.js /ql/scripts/sendNotify.js
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">docker <span class="nb">exec</span> -it qinglong bash
-apk add --no-cache gcc g++ python3 python3-dev py-pip mysql-dev linux-headers libffi-dev openssl-dev
-pip3 install dailycheckin --upgrade
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">apk add --no-cache --virtual .build-deps gcc musl-dev python2-dev python3-dev libffi libffi-dev openssl openssl-dev
+pip3 install pip setuptools --upgrade
+pip3 install cryptography~<span class="o">=</span>3.2.1
+</code></pre></td></tr></table>
+</div>
+</div><p>现在安装<code>dailycheckin</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pip3 install dailycheckin --upgrade
 </code></pre></td></tr></table>
 </div>
 </div><h4 id="qlscriptsconfigjson-配置文件"><code>/ql/scripts/config.json</code> 配置文件</h4>
-<p>详解参考https://sitoi.gitee.io/dailycheckin/settings/</p>
+<p>详解参考<a href="https://sitoi.github.io/dailycheckin/settings/" target="_blank" rel="noopener noreffer">配置 - DailyCheckIn (sitoi.github.io)</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -758,24 +711,6 @@ pip3 install dailycheckin --upgrade
 </span><span class="lnt">309
 </span><span class="lnt">310
 </span><span class="lnt">311
-</span><span class="lnt">312
-</span><span class="lnt">313
-</span><span class="lnt">314
-</span><span class="lnt">315
-</span><span class="lnt">316
-</span><span class="lnt">317
-</span><span class="lnt">318
-</span><span class="lnt">319
-</span><span class="lnt">320
-</span><span class="lnt">321
-</span><span class="lnt">322
-</span><span class="lnt">323
-</span><span class="lnt">324
-</span><span class="lnt">325
-</span><span class="lnt">326
-</span><span class="lnt">327
-</span><span class="lnt">328
-</span><span class="lnt">329
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
@@ -836,16 +771,6 @@ pip3 install dailycheckin --upgrade
     <span class="p">},</span>
     <span class="p">{</span>
       <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="nt">&#34;MUSIC163&#34;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;Sitoi&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;18888xxxxxx&#34;</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 密码&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 手机号&#34;</span>
     <span class="p">}</span>
   <span class="p">],</span>
   <span class="nt">&#34;ONEPLUSBBS&#34;</span><span class="p">:</span> <span class="p">[</span>
@@ -968,14 +893,6 @@ pip3 install dailycheckin --upgrade
     <span class="p">{</span>
       <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 密码填写，请参考上面&#34;</span><span class="p">,</span>
       <span class="nt">&#34;phone&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 手机号填写，请参考上面&#34;</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="nt">&#34;POJIE&#34;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;htVD_2132_client_token=xxxxxx; htVD_2132_connect_is_bind=xxxxxx; htVD_2132_connect_uin=xxxxxx; htVD_2132_nofavfid=xxxxxx; htVD_2132_smile=xxxxxx; Hm_lvt_46d556462595ed05e05f009cdafff31a=xxxxxx; htVD_2132_saltkey=xxxxxx; htVD_2132_lastvisit=xxxxxx; htVD_2132_client_created=xxxxxx; htVD_2132_auth=xxxxxx; htVD_2132_connect_login=xxxxxx; htVD_2132_home_diymode=xxxxxx; htVD_2132_visitedfid=xxxxxx; htVD_2132_viewid=xxxxxx; KF4=xxxxxx; htVD_2132_st_p=xxxxxx; htVD_2132_lastcheckfeed=xxxxxx; htVD_2132_sid=xxxxxx; htVD_2132_ulastactivity=xxxxxx; htVD_2132_noticeTitle=xxxxxx;&#34;</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;cookie&#34;</span><span class="p">:</span> <span class="s2">&#34;多账号 cookie 填写，请参考上面，cookie 以实际获取为准（遇到特殊字符如双引号\&#34; 请加反斜杠转义）&#34;</span>
     <span class="p">}</span>
   <span class="p">],</span>
   <span class="nt">&#34;MGTV&#34;</span><span class="p">:</span> <span class="p">[</span>
@@ -1162,23 +1079,23 @@ pip3 install dailycheckin --upgrade
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 更新并重启青龙</span>
-ql update
+ql update                                                    
 <span class="c1"># 运行自定义脚本extra.sh</span>
-ql extra
+ql extra                                                     
 <span class="c1"># 添加单个脚本文件</span>
-ql raw &lt;file_url&gt;
+ql raw &lt;file_url&gt;                                             
 <span class="c1"># 添加单个仓库的指定脚本</span>
-ql repo &lt;repo_url&gt; &lt;whitelist&gt; &lt;blacklist&gt; &lt;dependence&gt; &lt;branch&gt;
+ql repo &lt;repo_url&gt; &lt;whitelist&gt; &lt;blacklist&gt; &lt;dependence&gt; &lt;branch&gt; &lt;extensions&gt;
 <span class="c1"># 删除旧日志</span>
-ql rmlog &lt;days&gt;
+ql rmlog &lt;days&gt;                                              
 <span class="c1"># 启动tg-bot</span>
-ql bot
+ql bot                                                       
 <span class="c1"># 检测青龙环境并修复</span>
-ql check
+ql check                                                     
 <span class="c1"># 重置登录错误次数</span>
-ql resetlet
+ql resetlet                                                  
 <span class="c1"># 禁用两步登录</span>
-ql resettfa
+ql resettfa                                                  
 
 <span class="c1"># 依次执行，如果设置了随机延迟，将随机延迟一定秒数</span>
 task &lt;file_path&gt;                                             
@@ -1187,7 +1104,7 @@ task &lt;file_path&gt; now
 <span class="c1"># 并发执行，无论是否设置了随机延迟，均立即运行，前台不产生日，直接记录在日志文件中，且可指定账号执行</span>
 task &lt;file_path&gt; conc &lt;env_name&gt; &lt;account_number&gt;<span class="o">(</span>可选的<span class="o">)</span> 
 <span class="c1"># 指定账号执行，无论是否设置了随机延迟，均立即运行 </span>
-task &lt;file_path&gt; desi &lt;env_name&gt; &lt;account_number&gt;             
+task &lt;file_path&gt; desi &lt;env_name&gt; &lt;account_number&gt;         
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -1202,36 +1119,6 @@ task &lt;file_path&gt; desi &lt;env_name&gt; &lt;account_number&gt;
 <li>env_name: 任务执行时需要并发或者指定时的环境变量名称</li>
 <li>account_number: 任务执行时指定某个环境变量需要执行的账号序号</li>
 </ul>
-<h3 id="依赖">依赖</h3>
-<p>一键安装依赖：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker <span class="nb">exec</span> -it qinglong bash -c <span class="s2">&#34;</span><span class="k">$(</span>curl -fsSL https://raw.githubusercontent.com/Yun-City/City/main/Shell/QLOneKeyDependency.sh <span class="p">|</span> sh<span class="k">)</span><span class="s2">&#34;</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>手动安装：</p>
-<ul>
-<li>npm install -g png-js</li>
-<li>npm install -g date-fns</li>
-<li>npm install -g axios</li>
-<li>npm install -g crypto-js</li>
-<li>npm install -g ts-md5</li>
-<li>npm install -g tslib</li>
-<li>npm install -g @types/node</li>
-<li>npm install -g requests</li>
-</ul>
-<p>当然你也可以在面板的依赖管理处添加</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://s2.loli.net/2022/02/18/NPRT59v2HfmcwFJ.png"
-        data-srcset="https://s2.loli.net/2022/02/18/NPRT59v2HfmcwFJ.png, https://s2.loli.net/2022/02/18/NPRT59v2HfmcwFJ.png 1.5x, https://s2.loli.net/2022/02/18/NPRT59v2HfmcwFJ.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2022/02/18/NPRT59v2HfmcwFJ.png"
-        title="image-20220218162530574" /></p>
 <h3 id="http2问题">HTTP2问题</h3>
 <p>你可能会遇到这样的报错：</p>
 <p>HTTP/2 stream 0 was not closed cleanly: PROTOCOL_ERROR (err 1)</p>
