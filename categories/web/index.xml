@@ -39,12 +39,5 @@
     <author>作者</author>
     <guid>https://www.sukun.xyz/hugo-1/</guid>
     <description><![CDATA[本系列教程第一章讲解了几种常见的博客框架选择，最终以 Hugo 框架为基础，教授了如何在 GitHub pages 上部署个人博客，还使用 GitHub actions 以及一个简单的 bat 脚本实现自动化发布。]]></description>
-</item><item>
-    <title>简易建站</title>
-    <link>https://www.sukun.xyz/%E7%AE%80%E6%98%93%E5%BB%BA%E7%AB%99/</link>
-    <pubDate>Sun, 02 Jan 2022 13:22:37 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.sukun.xyz/%E7%AE%80%E6%98%93%E5%BB%BA%E7%AB%99/</guid>
-    <description><![CDATA[本文利用 Nginx 和 docker 进行网站部署，实现一个简单的公网 HTTPS 访问，并添加了基于 docker 容器集群的负载均衡功能。]]></description>
 </item></channel>
 </rss>

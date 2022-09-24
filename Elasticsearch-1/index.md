@@ -2165,7 +2165,7 @@ boolean：`true`和`false`值。
 
 ##### 日期
 
-日期类型，包括`日期`和`date_nanos`。
+日期类型，包括`date`和`date_nanos`。
 
 alias：定义现有字段的别名。
 
@@ -2229,9 +2229,651 @@ shape：任意笛卡尔几何。
 
 percolator：索引在查询 DSL 中编写的查询。
 
+#### 映射参数
+
+以下映射参数是某些或所有字段数据类型通用的：
+
+- `analyzer`
+
+- `coerce`
+
+- `copy_to`
+
+- `doc_values`
+
+- `dynamic`
+
+- `eager_global_ordinals`
+
+- `enabled`
+
+- `fielddata`
+
+- `fields`
+
+- `format`
+
+- `ignore_above`
+
+- `ignore_malformed`
+
+- `index_options`
+
+- `index_phrases`
+
+- `index_prefixes`
+
+- `index`
+
+  `index`选项控制是否对字段值编制索引。它接受`true`或`false`并默认为`true`。未编制索引的字段通常不可查询。
+
+- `meta`
+
+- `normalizer`
+
+- `norms`
+
+- `null_value`
+
+- `position_increment_gap`
+
+- `properties`
+
+- `search_analyzer`
+
+- `similarity`
+
+- `subobjects`
+
+- `store`
+
+- `term_vector`
+
 #### 映射
 
+要为文档编制索引，您不必先创建索引、定义映射类型和定义字段——只需为文档编制索引，索引、类型和字段将自动显示：
 
+自动检测和添加新字段称为*动态映射*。动态映射规则可以自定义，以适合您的目的：
 
-### SQL API
+- 动态字段映射
+
+  控制动态字段检测的规则。
+
+- 动态模板
+
+  用于为动态添加的字段配置映射的自定义规则。
+
+##### 动态映射
+
+当 Elasticsearch 在文档中检测到新字段时，默认情况下会将该字段*动态*添加到类型映射中。`dynamic`参数控制此行为。
+
+您可以通过将参数设置为`true`或`runtime`来显式指示 Elasticsearch 基于传入的文档动态创建字段。启用动态字段映射后，弹性搜索将使用下表中的规则来确定如何映射每个字段的数据类型。
+
+| JSON 数据类型                           | `"dynamic":"true"`             | `"dynamic":"runtime"`          |
+| --------------------------------------- | ------------------------------ | ------------------------------ |
+| `null`                                  | 未添加字段                     | 未添加字段                     |
+| `true`或`false`                         | `boolean`                      | `boolean`                      |
+| `double`                                | `float`                        | `double`                       |
+| `long`                                  | `long`                         | `long`                         |
+| `object`                                | `object`                       | 未添加字段                     |
+| `array`                                 | 取决于数组中的第一个非`null`值 | 取决于数组中的第一个非`null`值 |
+| `string`通过`date`检测                  | `date`                         | `date`                         |
+| `string`通过`numeric`检测               | `float`或`long`                | `double`或`long`               |
+| `string`未通过`date`检测或`numeric`检测 | `text`带有子字段`.keyword`     | `keyword`                      |
+
+##### 显式映射
+
+######  创建具有显式映射的索引
+
+虽然动态映射对于入门非常有用，但在某些时候，您需要指定自己的显式映射。
+
+`PUT /my_index`
+
+请求正文
+
+```json
+{
+  "mappings": {
+    "properties": {
+      "age":    { "type": "integer" },  
+      "email":  { "type": "keyword"  }, 
+      "name":   { "type": "text"  }     
+    }
+  }
+}
+```
+
+响应：200
+
+```json
+{
+  "acknowledged": true,
+  "shards_acknowledged": true,
+  "index": "my_index"
+}
+```
+
+######  将字段添加到现有映射
+
+`PUT /my_index/_mapping`
+
+请求正文
+
+```json
+{
+  "properties": {
+    "employee-id": {
+      "type": "keyword",
+      "index": false
+    }
+  }
+}
+```
+
+响应：200
+
+```json
+{
+    "acknowledged": true
+}
+```
+
+###### 更新字段的映射
+
+除了支持的映射参数外，您无法更改现有字段的映射或字段类型。更改现有字段可能会使已编制索引的数据失效。
+
+如果需要更改其他索引中字段的映射，请使用正确的映射创建一个新索引，然后将数据重新索引到该索引中。
+
+###### 重新索引
+
+将文档从源复制到目标。
+
+源可以是任何现有索引、别名或数据流。目标必须与源不同。例如，不能将数据流重新索引到其自身中。
+
+`POST /_reindex`
+
+请求正文
+
+```json
+{
+  "source": {
+    "index": "test"
+  },
+  "dest": {
+    "index": "my_index"
+  }
+}
+```
+
+响应：200
+
+```json
+{
+    "took": 184,
+    "timed_out": false,
+    "total": 1000,
+    "updated": 0,
+    "created": 1000,
+    "deleted": 0,
+    "batches": 1,
+    "version_conflicts": 0,
+    "noops": 0,
+    "retries": {
+        "bulk": 0,
+        "search": 0
+    },
+    "throttled_millis": 0,
+    "requests_per_second": -1,
+    "throttled_until_millis": 0,
+    "failures": []
+}
+```
+
+### 分词
+
+一个tokenizer（分词器）接收一个字符流，将之分割为独立的 tokens（词元，通常是独立的单词），然后输出 tokens 流。
+
+例如，whitespace tokenizer 遇到空白字符时分割文本。它会将文本 "Quick brown fox!" 分割为 [Quick,brown,fox!] 。
+
+该 tokenizer（分词器）还负责记录各个 term（词条）的顺序或 position 位置（用于 phrase 短语和 word proximity 词近邻查询），以及 term（词条）所代表的原始 word（单词）的 start（起始）和 end（结束）的 character offsets（字符偏移量）（用于高亮显示搜索的内容）。Elasticsearch 提供了很多内置的分词器，可以用来构建 customanalyzers（自定义分词器）。
+
+#### 标准分析器
+
+`standard`分析器是默认分析器，如果未指定任何分析器，则使用该分析器。它提供基于语法的标记化（基于 Unicode 文本分割算法，如 [Unicode 标准附录 #29](https://unicode.org/reports/tr29/) 中所述），并且适用于大多数语言。
+
+`POST /_analyze`
+
+请求正文
+
+```json
+{
+  "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+}
+```
+
+响应：200
+
+```json
+{
+    "tokens": [
+        {
+            "token": "the",
+            "start_offset": 0,
+            "end_offset": 3,
+            "type": "<ALPHANUM>",
+            "position": 0
+        },
+        {
+            "token": "2",
+            "start_offset": 4,
+            "end_offset": 5,
+            "type": "<NUM>",
+            "position": 1
+        },
+        {
+            "token": "quick",
+            "start_offset": 6,
+            "end_offset": 11,
+            "type": "<ALPHANUM>",
+            "position": 2
+        },
+        {
+            "token": "brown",
+            "start_offset": 12,
+            "end_offset": 17,
+            "type": "<ALPHANUM>",
+            "position": 3
+        },
+        {
+            "token": "foxes",
+            "start_offset": 18,
+            "end_offset": 23,
+            "type": "<ALPHANUM>",
+            "position": 4
+        },
+        {
+            "token": "jumped",
+            "start_offset": 24,
+            "end_offset": 30,
+            "type": "<ALPHANUM>",
+            "position": 5
+        },
+        {
+            "token": "over",
+            "start_offset": 31,
+            "end_offset": 35,
+            "type": "<ALPHANUM>",
+            "position": 6
+        },
+        {
+            "token": "the",
+            "start_offset": 36,
+            "end_offset": 39,
+            "type": "<ALPHANUM>",
+            "position": 7
+        },
+        {
+            "token": "lazy",
+            "start_offset": 40,
+            "end_offset": 44,
+            "type": "<ALPHANUM>",
+            "position": 8
+        },
+        {
+            "token": "dog's",
+            "start_offset": 45,
+            "end_offset": 50,
+            "type": "<ALPHANUM>",
+            "position": 9
+        },
+        {
+            "token": "bone",
+            "start_offset": 51,
+            "end_offset": 55,
+            "type": "<ALPHANUM>",
+            "position": 10
+        }
+    ]
+}
+```
+
+`POST /_analyze`
+
+请求正文
+
+```json
+{
+  "text": "中华人民共和国国歌"
+}
+```
+
+响应：200
+
+```json
+{
+    "tokens": [
+        {
+            "token": "中",
+            "start_offset": 0,
+            "end_offset": 1,
+            "type": "<IDEOGRAPHIC>",
+            "position": 0
+        },
+        {
+            "token": "华",
+            "start_offset": 1,
+            "end_offset": 2,
+            "type": "<IDEOGRAPHIC>",
+            "position": 1
+        },
+        {
+            "token": "人",
+            "start_offset": 2,
+            "end_offset": 3,
+            "type": "<IDEOGRAPHIC>",
+            "position": 2
+        },
+        {
+            "token": "民",
+            "start_offset": 3,
+            "end_offset": 4,
+            "type": "<IDEOGRAPHIC>",
+            "position": 3
+        },
+        {
+            "token": "共",
+            "start_offset": 4,
+            "end_offset": 5,
+            "type": "<IDEOGRAPHIC>",
+            "position": 4
+        },
+        {
+            "token": "和",
+            "start_offset": 5,
+            "end_offset": 6,
+            "type": "<IDEOGRAPHIC>",
+            "position": 5
+        },
+        {
+            "token": "国",
+            "start_offset": 6,
+            "end_offset": 7,
+            "type": "<IDEOGRAPHIC>",
+            "position": 6
+        },
+        {
+            "token": "国",
+            "start_offset": 7,
+            "end_offset": 8,
+            "type": "<IDEOGRAPHIC>",
+            "position": 7
+        },
+        {
+            "token": "歌",
+            "start_offset": 8,
+            "end_offset": 9,
+            "type": "<IDEOGRAPHIC>",
+            "position": 8
+        }
+    ]
+}
+```
+
+可见标准分析器并不支持中文分词，因此我们需要额外安装中文分词器。
+
+#### 安装ik分词器
+
+[medcl/elasticsearch-analysis-ik(github.com)](https://github.com/medcl/elasticsearch-analysis-ik)
+
+下载对应版本的插件，将插件解压缩到文件夹`your-es-root/plugins/ik`
+
+```bash
+mkdir es/plugins/ik
+cd es/plugins/ik
+wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v8.4.1/elasticsearch-analysis-ik-8.4.1.zip
+unzip elasticsearch-analysis-ik-8.4.1.zip
+rm -rf *.zip
+```
+
+然后重启容器即可，使用`elasticsearch-plugin list`指令列出所有已安装的插件
+
+两种模式：
+
+1. `ik_max_word`
+
+   会将文本做最细粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,中华人民,中华,华人,人民共和国,人民,人,民,共和国,共和,和,国国,国歌”，会穷尽各种可能的组合，适合 Term Query；
+
+2. `ik_smart`
+
+   会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”，适合 Phrase 查询。
+
+`POST /_analyze`
+
+请求正文
+
+```json
+{
+  "analyzer": "ik_smart",
+  "text": "中华人民共和国国歌"
+}
+```
+
+响应：200
+
+```json
+{
+    "tokens": [
+        {
+            "token": "中华人民共和国",
+            "start_offset": 0,
+            "end_offset": 7,
+            "type": "CN_WORD",
+            "position": 0
+        },
+        {
+            "token": "国歌",
+            "start_offset": 7,
+            "end_offset": 9,
+            "type": "CN_WORD",
+            "position": 1
+        }
+    ]
+}
+```
+
+#### ik分词器自定义扩展词库
+
+`plugins/ik/config/IKAnalyzer.cfg.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>IK Analyzer 扩展配置</comment>
+	<!--用户可以在这里配置自己的扩展字典 -->
+	<entry key="ext_dict">custom/mydict.dic;custom/single_word_low_freq.dic</entry>
+	 <!--用户可以在这里配置自己的扩展停止词字典-->
+	<entry key="ext_stopwords">custom/ext_stopword.dic</entry>
+ 	<!--用户可以在这里配置远程扩展字典 -->
+	<entry key="remote_ext_dict">location</entry>
+ 	<!--用户可以在这里配置远程扩展停止词字典-->
+	<entry key="remote_ext_stopwords">http://xxx.com/xxx.dic</entry>
+</properties>
+```
+
+我们可以在 nginx 里放置一个远程扩展字典，这就需要我们使用 docker 部署 nginx，这里不做演示。
+
+## Elasticsearch-Client
+
+版本：Spring 2.7.3，Elasticsearch 8.4.1
+
+### 整合
+
+新建类`config.ElasticSearchConfig`
+
+```java
+@Configuration
+public class ElasticSearchConfig {
+
+    @Bean
+    public ElasticsearchClient client() {
+        RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200)).build();
+        ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+        return new ElasticsearchClient(transport);
+    }
+}
+```
+
+由于 elasticsearch 现已默认开启身份验证，因此还需修改本处以加上身份验证的代码。
+
+```java
+@Configuration
+public class ElasticSearchConfig {
+
+    @Bean
+    public ElasticsearchClient elasticsearchClient() {
+        final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+        credentialsProvider.setCredentials(
+                AuthScope.ANY,
+                new UsernamePasswordCredentials("elastic", "RUikbaL7AvegIbk4xC4j")
+        );
+        RestClient restClient = RestClient
+                .builder(new HttpHost("localhost", 9200))
+                .setHttpClientConfigCallback(
+                        httpClientBuilder -> httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider)
+                ).build();
+        ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+        return new ElasticsearchClient(transport);
+    }
+}
+```
+
+### 测试
+
+```java
+@RunWith(SpringRunner.class)
+@SpringBootTest
+class GulimallSearchApplicationTests {
+
+    @Autowired
+    private ElasticsearchClient client;
+
+    @Test
+    void testIndex() throws IOException {
+        User user = new User();
+        user.setId(String.valueOf(1L));
+        user.setName("张三");
+        user.setAge(18);
+        IndexResponse response = client.index(i -> i
+                .index("user")
+                .id(user.getId())
+                .document(user));
+        System.out.println(response);
+    }
+
+    @Test
+    void testGet() throws IOException {
+        GetResponse<ObjectNode> response = client.get(g -> g
+                        .index("user")
+                        .id("1"),
+                ObjectNode.class //目标类是一个原始的JSON对象
+        );
+        if (response.found()) {
+            ObjectNode jsonNodes = response.source();
+            String name = jsonNodes.get("name").asText();
+            System.out.println(name);
+        } else {
+            System.out.println("User not found");
+        }
+    }
+
+    @Test
+    void testSearch() throws IOException {
+        String searchText = "张三";
+        SearchResponse<ObjectNode> response = client.search(s -> s
+                        .index("user")
+                        .query(q -> q
+                                .match(t -> t
+                                        .field("name")
+                                        .query(searchText)
+                                )
+                        ),
+                ObjectNode.class
+        );
+        TotalHits total = response.hits().total();
+        boolean isExactResult = total.relation() == TotalHitsRelation.Eq;
+        if (isExactResult) {
+            System.out.println("There are " + total.value() + " results");
+        } else {
+            System.out.println("There are more than " + total.value() + " results");
+        }
+        List<Hit<ObjectNode>> hits = response.hits().hits();
+        for (Hit<ObjectNode> hit : hits) {
+            ObjectNode jsonNodes = hit.source();
+            System.out.println("Found user id " + jsonNodes.get("id") + ", score " + hit.score());
+        }
+    }
+
+    @Test
+    void testAggregations() throws IOException {
+        Query query = MatchQuery.of(m -> m
+                .field("address")
+                .query("mill")
+        )._toQuery();
+        SearchResponse<ObjectNode> response = client.search(search -> search
+                        .index("test")
+                        .query(query)
+                        .aggregations("ageAgg", ageAgg -> ageAgg
+                                .terms(terms -> terms
+                                        .field("age")
+                                        .size(10)
+                                )
+                                .aggregations("balanceAgg", balanceAgg -> balanceAgg
+                                        .avg(avg -> avg
+                                                .field("balance")
+                                        )
+                                )
+                        ),
+                ObjectNode.class
+        );
+        HitsMetadata<ObjectNode> OutHits = response.hits();
+        List<Hit<ObjectNode>> innerHits = OutHits.hits();
+        for (Hit<ObjectNode> hit : innerHits) {
+            ObjectNode source = hit.source();
+            Account account = JSON.parseObject(source.toString(), Account.class);
+            System.out.println(account);
+        }
+        Map<String, Aggregate> aggregations = response.aggregations();
+        LongTermsAggregate ageAgg = aggregations.get("ageAgg").lterms();
+        for (LongTermsBucket bucket : ageAgg.buckets().array()) {
+            System.out.println(
+                    "年龄：" + bucket.key() + "，频数：" + bucket.docCount() + "，平均工资：" + bucket.aggregations().get("balanceAgg").avg().value()
+            );
+        }
+    }
+
+    @Data
+    class User {
+        private String id;
+        private String name;
+        private Integer age;
+    }
+
+    @Data
+    class Account {
+        private int accountNumber;
+        private int balance;
+        private String firstname;
+        private String lastname;
+        private int age;
+        private String gender;
+        private String address;
+        private String employer;
+        private String email;
+        private String city;
+        private String state;
+    }
+}
+```
+
 
